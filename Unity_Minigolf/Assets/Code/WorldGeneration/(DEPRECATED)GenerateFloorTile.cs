@@ -28,8 +28,7 @@ public class GenerateFloorTile : MonoBehaviour
     public Dictionary<int, GameObject> activeFloors = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> activeObstacles = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> activePits = new Dictionary<int, GameObject>();
-
-
+    
     /// Places a floor tile at a given z-Position
     public void PlaceFloorTile(int zPos)
     {
