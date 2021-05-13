@@ -36,7 +36,7 @@ public class WorldGenerator : MonoBehaviour
     void Update()
     {
         // Retrieve floor objects from pool
-        GameObject floor = ObjectPool.sharedInstance.GetPooledObject();
+        GameObject floor = ObjectPool.sharedInstance.GetPooledObject("Floor");
         if (floor != null)
         {
             // Place objects in front of the Player
@@ -50,7 +50,7 @@ public class WorldGenerator : MonoBehaviour
             GameObject[] activeFloors = GameObject.FindGameObjectsWithTag("Floor");
             foreach (var element in activeFloors)
             {
-                if ((element.transform.position.z - playerobj.transform.position.z) < -keepFloorElements)
+                if ((element.transform.position.z - playerobj.transform.position.z) < -2)
                 {
                     // Return an element to the pool
                     element.SetActive(false);
