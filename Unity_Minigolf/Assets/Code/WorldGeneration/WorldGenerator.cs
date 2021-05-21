@@ -29,7 +29,7 @@ public class WorldGenerator : MonoBehaviour
 
     public float obstacleFreq;
 
-    private int _activeFloorPositions;
+    private float _activeFloorPositions;
 
     
     // Update is called once per frame
@@ -42,7 +42,8 @@ public class WorldGenerator : MonoBehaviour
             // Place objects in front of the Player
             floor.transform.position = new Vector3(0, 0, _activeFloorPositions);
             floor.SetActive(true);
-            _activeFloorPositions++;
+            // adjust the future position based on prefab scale
+            _activeFloorPositions += floor.transform.lossyScale.z;
         }
         else
         {
