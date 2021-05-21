@@ -456,11 +456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeb4e38c3d151f439e1080f02080456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLeft: 0
-  moveRight: 0
-  speedUp: 0
-  slowDown: 0
-  jump: 0
-  jumpForce: 0
+  moveLeft: 97
+  moveRight: 100
+  speedUp: 119
+  slowDown: 115
+  jump: 32
+  jumpForce: 5
   defaultSpeed: 2
   verticalVel: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = System.Object;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// A time controlled infinite level generator.
@@ -19,8 +20,10 @@ public class WorldGenerator : MonoBehaviour
     // Time
     public float timeLimit = 60;
     // Fade-In-Time
+    [HideInInspector]
     public float fadeInTime = 5;
     // Fade-Out-Time 
+    [HideInInspector]
     public float fadeOutTime = 5;
 
     [Header("Generation Settings")]
@@ -29,7 +32,9 @@ public class WorldGenerator : MonoBehaviour
 
     public float obstacleFreq;
 
-    private float _activeFloorPositions;
+    private float _activeFloorPositionZ;
+    private float _activeFloorPositionY;
+    private float _activeFloorPositionX;
 
     
     // Update is called once per frame
@@ -37,16 +42,23 @@ public class WorldGenerator : MonoBehaviour
     {
         // Retrieve floor objects from pool
         GameObject floor = ObjectPool.sharedInstance.GetPooledObject("Floor");
-        if (floor != null)
+        if (floor != null && timeLimit > 0)
         {
             // Place objects in front of the Player
-            floor.transform.position = new Vector3(0, 0, _activeFloorPositions);
+            floor.transform.position = new Vector3(_activeFloorPositionX, _activeFloorPositionY, _activeFloorPositionZ);
             floor.SetActive(true);
+            
             // adjust the future position based on prefab scale
-            _activeFloorPositions += floor.transform.lossyScale.z;
+            _activeFloorPositionZ += floor.transform.lossyScale.z;
+            
+            // height variation still feels a little jaggy
+            // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
+            
+            // Not sure x variation should be realized yet
+            // _activeFloorPositionX;
         }
-        else
-        {
+        // Clean check whether to clean up unused floor tiles
+        else {
             // If there are no objects available from the pool, go through all active Floor objects in the scene and check if you can deactivate some of them
             GameObject[] activeFloors = GameObject.FindGameObjectsWithTag("Floor");
             foreach (var element in activeFloors)
@@ -58,6 +70,11 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        timeLimit -= Time.deltaTime;
     }
 
     /// <summary>
