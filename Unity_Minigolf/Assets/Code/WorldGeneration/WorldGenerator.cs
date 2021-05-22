@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = System.Object;
 using Random = UnityEngine.Random;
@@ -36,31 +37,22 @@ public class WorldGenerator : MonoBehaviour
     private float _activeFloorPositionY;
     private float _activeFloorPositionX;
 
+    private GameObject[] activeFloors;
+
     
     // Update is called once per frame
     void Update()
     {
         // Retrieve floor objects from pool
-        GameObject floor = ObjectPool.sharedInstance.GetPooledObject("Floor");
+        GameObject floor = ObjectPool.sharedInstance.GetRandomPoolObject("Floor");
         if (floor != null && timeLimit > 0)
         {
-            // Place objects in front of the Player
-            floor.transform.position = new Vector3(_activeFloorPositionX, _activeFloorPositionY, _activeFloorPositionZ);
-            floor.SetActive(true);
-            
-            // adjust the future position based on prefab scale
-            _activeFloorPositionZ += floor.transform.lossyScale.z;
-            
-            // height variation still feels a little jaggy
-            // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
-            
-            // Not sure x variation should be realized yet
-            // _activeFloorPositionX;
+            placeBlock(floor);
         }
         // Clean check whether to clean up unused floor tiles
         else {
             // If there are no objects available from the pool, go through all active Floor objects in the scene and check if you can deactivate some of them
-            GameObject[] activeFloors = GameObject.FindGameObjectsWithTag("Floor");
+            activeFloors = GameObject.FindGameObjectsWithTag("Floor");
             foreach (var element in activeFloors)
             {
                 if ((element.transform.position.z - playerobj.transform.position.z) < -2)
@@ -80,9 +72,20 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Place floor elements relative to the player position
     /// </summary>
-    public void placeBlocks()
+    public void placeBlock(GameObject block)
     {
-        
+        // Place objects in front of the Player
+        block.transform.position = new Vector3(_activeFloorPositionX, _activeFloorPositionY, _activeFloorPositionZ);
+        block.SetActive(true);
+            
+        // adjust the future position based on prefab scale
+        _activeFloorPositionZ += block.transform.lossyScale.z;
+            
+        // height variation still feels a little jaggy
+        // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
+            
+        // Not sure x variation should be realized yet
+        // _activeFloorPositionX;
     }
 
     /// <summary>
@@ -100,5 +103,10 @@ public class WorldGenerator : MonoBehaviour
     public void endEvent()
     {
         
+    }
+
+    public GameObject[] getActiveFloors()
+    {
+        return activeFloors;
     }
 }
