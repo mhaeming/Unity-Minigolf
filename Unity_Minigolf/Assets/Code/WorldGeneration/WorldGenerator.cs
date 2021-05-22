@@ -31,6 +31,7 @@ public class WorldGenerator : MonoBehaviour
     // How many blocks should be kept behind the Player
     public int keepFloorElements = 2;
 
+    public float pitFreq;
     public float obstacleFreq;
 
     private float _activeFloorPositionZ;
@@ -38,19 +39,40 @@ public class WorldGenerator : MonoBehaviour
     private float _activeFloorPositionX;
 
     private GameObject[] activeFloors;
+    private GameObject[] activePits;
 
     
     // Update is called once per frame
     void Update()
     {
-        // Retrieve floor objects from pool
-        GameObject floor = ObjectPool.sharedInstance.GetRandomPoolObject("Floor");
-        if (floor != null && timeLimit > 0)
+        if (timeLimit > 0)
         {
-            placeBlock(floor);
-        }
-        // Clean check whether to clean up unused floor tiles
-        else {
+            if (Random.value < pitFreq)
+            {
+                GameObject pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
+                if (pit != null)
+                {
+                    placeBlock(pit);
+                }
+            }
+            else
+            {
+                // Retrieve floor objects from pool
+                GameObject floor = ObjectPool.sharedInstance.GetRandomPoolObject("Floor");
+                if (floor)
+                {
+                    placeBlock(floor);
+                    if (Random.value < obstacleFreq)
+                    {
+                        GameObject obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
+                        if (obstacle)
+                        {
+                            placeObstacle(obstacle);
+                        }
+                    }
+                }
+            }
+            
             // If there are no objects available from the pool, go through all active Floor objects in the scene and check if you can deactivate some of them
             activeFloors = GameObject.FindGameObjectsWithTag("Floor");
             foreach (var element in activeFloors)
@@ -61,7 +83,20 @@ public class WorldGenerator : MonoBehaviour
                     element.SetActive(false);
                 }
             }
+            
+            activePits = GameObject.FindGameObjectsWithTag("Pit");
+            foreach (var element in activeFloors)
+            {
+                if ((element.transform.position.z - playerobj.transform.position.z) < -2)
+                {
+                    // Return an element to the pool
+                    element.SetActive(false);
+                }
+            }
+
+
         }
+        
     }
 
     private void FixedUpdate()
@@ -86,6 +121,13 @@ public class WorldGenerator : MonoBehaviour
             
         // Not sure x variation should be realized yet
         // _activeFloorPositionX;
+    }
+
+    public void placeObstacle(GameObject obstacle)
+    {
+        int lane = (int)((2 * Random.value - 1) + _activeFloorPositionX);
+        obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y, _activeFloorPositionZ);
+        obstacle.SetActive(true);
     }
 
     /// <summary>

@@ -365,7 +365,8 @@ MonoBehaviour:
   fadeInTime: 5
   fadeOutTime: 5
   keepFloorElements: 2
-  obstacleFreq: 0
+  pitFreq: 0.2
+  obstacleFreq: 0.2
 --- !u!114 &1541288349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +386,12 @@ MonoBehaviour:
     spawnChance: 0.5
   - objectToPool: {fileID: 6515895894589957388, guid: 7c9d2b225a847194c91a301c32a380c0, type: 3}
     poolSize: 10
+    spawnChance: 1
+  - objectToPool: {fileID: 1333013624532701657, guid: 86564956ab19c914eb544681779e3188, type: 3}
+    poolSize: 5
+    spawnChance: 1
+  - objectToPool: {fileID: 181704735277836349, guid: b54f0dfee5ef7254198e9219b536df58, type: 3}
+    poolSize: 5
     spawnChance: 1
 --- !u!1001 &1680840078
 PrefabInstance:
