@@ -51,6 +51,19 @@ public class ObjectPool : MonoBehaviour
         }
         return null;
     }
+    
+    // Allows additional filter by name
+    public GameObject GetPooledObject(string tag, string name)
+    {
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].CompareTag(tag) && pooledObjects[i].name.Contains(name))
+            {
+                return pooledObjects[i];
+            }
+        }
+        return null;
+    }
 
     public GameObject GetRandomPoolObject(string tag)
     {

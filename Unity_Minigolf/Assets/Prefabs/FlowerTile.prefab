@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6515895894589957390}
   - component: {fileID: 6515895894589957391}
   m_Layer: 0
-  m_Name: FloorTileFlowers
+  m_Name: FlowerTile
   m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
