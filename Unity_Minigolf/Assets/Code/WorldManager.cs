@@ -20,6 +20,7 @@ public class WorldManager : MonoBehaviour
     [HideInInspector]
     public bool timeout = false;
     public float timeLimit = 120;
+    [SerializeField] GameObject _player;
     
     // some potential variables to keep track of for CSV
     [HideInInspector]
@@ -37,10 +38,12 @@ public class WorldManager : MonoBehaviour
     public List<List<string>> csvData = new List<List<string>>();
     private List<string> _csvHeaders = new List<string>();
     
-    void Start()
+    void OnEnable()
     {
         defineCSVHeader();
         DontDestroyOnLoad(gameObject);
+        _player = GameObject.FindWithTag("Player");
+        DontDestroyOnLoad(_player);
         if (Random.value <= primingChance)
         {
             riskPrime = true;
@@ -50,6 +53,11 @@ public class WorldManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(input) && SceneManager.GetActiveScene().name == "Customization")
+        {
+            SceneManager.LoadScene("StartScene");
+        } 
+        
         if (Input.GetKeyDown(input) && SceneManager.GetActiveScene().name == "StartScene")
         {
             if (skipTutorial)
