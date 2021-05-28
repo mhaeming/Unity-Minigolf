@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +38,9 @@ public class WorldGenerator : MonoBehaviour
     private float _activeFloorPositionY;
     private float _activeFloorPositionX;
 
-    private GameObject[] activeFloors;
-    private GameObject[] activePits;
+    private List<GameObject> activeFloors = new List<GameObject>();
+    private List<GameObject> activePits = new List<GameObject>();
+    private List<GameObject> activeObstacles = new List<GameObject>();
 
     
     // Update is called once per frame
@@ -53,6 +54,7 @@ public class WorldGenerator : MonoBehaviour
                 if (pit != null)
                 {
                     placeBlock(pit);
+                    activePits.Add(pit);
                 }
             }
             else
@@ -62,37 +64,23 @@ public class WorldGenerator : MonoBehaviour
                 if (floor)
                 {
                     placeBlock(floor);
+                    activeFloors.Add(floor);
                     if (Random.value < obstacleFreq)
                     {
                         GameObject obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
                         if (obstacle)
                         {
                             placeObstacle(obstacle);
+                            activeObstacles.Add(obstacle);
                         }
                     }
                 }
             }
             
             // If there are no objects available from the pool, go through all active Floor objects in the scene and check if you can deactivate some of them
-            activeFloors = GameObject.FindGameObjectsWithTag("Floor");
-            foreach (var element in activeFloors)
-            {
-                if ((element.transform.position.z - playerobj.transform.position.z) < -2)
-                {
-                    // Return an element to the pool
-                    element.SetActive(false);
-                }
-            }
-            
-            activePits = GameObject.FindGameObjectsWithTag("Pit");
-            foreach (var element in activeFloors)
-            {
-                if ((element.transform.position.z - playerobj.transform.position.z) < -2)
-                {
-                    // Return an element to the pool
-                    element.SetActive(false);
-                }
-            }
+            clearBehind(activeFloors);
+            clearBehind(activePits);
+            clearBehind(activeObstacles);
 
 
         }
@@ -146,9 +134,15 @@ public class WorldGenerator : MonoBehaviour
     {
         
     }
-
-    public GameObject[] getActiveFloors()
+    
+    public void clearBehind(List<GameObject> list)
     {
-        return activeFloors;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if ((list[i].transform.position.z - playerobj.transform.position.z) < -keepFloorElements)
+            {
+                list[i].SetActive(false);
+            }
+        }
     }
 }
