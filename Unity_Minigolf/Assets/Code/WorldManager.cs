@@ -56,6 +56,8 @@ public class WorldManager : MonoBehaviour
         if (Input.GetKeyDown(input) && SceneManager.GetActiveScene().name == "Customization")
         {
             SceneManager.LoadScene("StartScene");
+            _player.transform.position = new Vector3(0f,0f, -9f);
+            _player.GetComponent<PlayerMovement>().enabled = false;
         } 
         
         if (Input.GetKeyDown(input) && SceneManager.GetActiveScene().name == "StartScene")
@@ -75,6 +77,8 @@ public class WorldManager : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
             _experimentManager = GameObject.Find("GameManager");
+            _player.GetComponent<Rigidbody>().useGravity = true;
+            _player.GetComponent<PlayerMovement>().enabled = true;
         }
         
         // use Time.time if this is not wanted
