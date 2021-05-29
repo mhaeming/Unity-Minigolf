@@ -1,32 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldEvents : MonoBehaviour
+namespace Code.WorldGeneration
 {
-    /// <summary>
-    /// Generate a series of base blocks to ease the player into the level
-    /// </summary>
-    public void startEvent()
+    public class WorldEvents : MonoBehaviour
     {
-        
-    }
+        private void Update()
+        {
+            StartEvent();
+        }
+
+
+        /// <summary>
+        /// Generate a series of base blocks to ease the player into the level
+        /// </summary>
+        private void StartEvent()
+        {
+            WorldGenerator.generator.GenerateWorld();
+        }
 
     
-    /// <summary>
-    /// Transition into base blocks with an ending sequence
-    /// </summary>
-    public void endEvent()
-    {
+        /// <summary>
+        /// Transition into base blocks with an ending sequence
+        /// </summary>
+        public void EndEvent()
+        {
         
-    }
+        }
     
     
-    /// <summary>
-    /// Reset the player and stage after hitting an obstacle
-    /// </summary>
-    public void resetEvent()
-    {
+        /// <summary>
+        /// Reset the player and stage after hitting an obstacle
+        /// </summary>
+        public void ResetEvent()
+        {
         
+        }
     }
 }

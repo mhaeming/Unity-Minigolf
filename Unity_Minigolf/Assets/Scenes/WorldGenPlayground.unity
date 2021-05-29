@@ -327,6 +327,8 @@ GameObject:
   - component: {fileID: 1541288347}
   - component: {fileID: 1541288348}
   - component: {fileID: 1541288349}
+  - component: {fileID: 1541288351}
+  - component: {fileID: 1541288350}
   m_Layer: 0
   m_Name: WorldControler
   m_TagString: Untagged
@@ -361,12 +363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerobj: {fileID: 1680840079}
-  timeLimit: 60
-  fadeInTime: 5
-  fadeOutTime: 5
   keepFloorElements: 2
-  pitFreq: 0.05
-  obstacleFreq: 0.05
+  autoCleanUp: 1
 --- !u!114 &1541288349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +391,30 @@ MonoBehaviour:
   - objectToPool: {fileID: 181704735277836349, guid: b54f0dfee5ef7254198e9219b536df58, type: 3}
     poolSize: 5
     spawnChance: 1
+--- !u!114 &1541288350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541288346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6fc017281493f74eafadcd47d620e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1541288351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541288346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bd6dc7bb56a814e8fb80504925577b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1680840078
 PrefabInstance:
   m_ObjectHideFlags: 0
