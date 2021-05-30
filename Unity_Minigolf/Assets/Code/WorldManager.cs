@@ -43,7 +43,7 @@ public class WorldManager : MonoBehaviour
         defineCSVHeader();
         DontDestroyOnLoad(gameObject);
         _player = GameObject.FindWithTag("Player");
-        DontDestroyOnLoad(_player);
+        DontDestroyOnLoad(GameObject.FindWithTag("Shell"));
         if (Random.value <= primingChance)
         {
             riskPrime = true;
@@ -93,7 +93,7 @@ public class WorldManager : MonoBehaviour
             CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/" + GUID.Generate());
         }
     }
-    
+
     void defineCSVHeader()
     {
         // define variables saved in CSV file

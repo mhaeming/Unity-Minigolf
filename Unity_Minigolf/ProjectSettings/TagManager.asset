@@ -9,6 +9,7 @@ TagManager:
   - lethal
   - Pit
   - TrainingFinish
+  - Shell
   layers:
   - Default
   - TransparentFX
