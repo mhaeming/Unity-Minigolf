@@ -4,6 +4,7 @@ namespace Code.WorldGeneration
 {
     public class WorldEvents : MonoBehaviour
     {
+        
         private void Update()
         {
             StartEvent();
@@ -15,6 +16,8 @@ namespace Code.WorldGeneration
         /// </summary>
         private void StartEvent()
         {
+            WorldGenerator.generator.ObstacleFreq = 0.2f;
+            WorldGenerator.generator.PitFreq = 0.1f;
             WorldGenerator.generator.GenerateWorld();
         }
 
@@ -33,7 +36,8 @@ namespace Code.WorldGeneration
         /// </summary>
         public void ResetEvent()
         {
-        
+            WorldGenerator.generator.ClearAll();
+            // StartEvent();
         }
     }
 }

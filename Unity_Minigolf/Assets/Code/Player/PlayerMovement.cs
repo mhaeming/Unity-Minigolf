@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.WorldGeneration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     
     public float jumpForce;
     public float defaultSpeed = 2;
+
+    public GameObject worldManager;
+    
     private float _horizontalVel = 0;
     public float verticalVel;
     private float _upVel = 0;
@@ -121,8 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Obstacle") & SceneManager.GetActiveScene().name != "TrainingScene")
         {
-            GameObject.Find("GameManager").GetComponent<ExperimentManager>().resetplayer = true;
-            GameObject.Find("WorldManager").GetComponent<WorldManager>().resetObstacle += 1;
+            worldManager.GetComponent<WorldEvents>().ResetEvent();
         }
 
         if (other.gameObject.CompareTag("TrainingFinish"))
@@ -131,12 +134,12 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene("Priming");
         }
 
-        if (other.gameObject.CompareTag("Pit"))
-        {
-            _onGround = false;
-            GetComponent<AudioSource>().Play();
-            StartCoroutine(WaitAndReset());
-        }
+        // if (other.gameObject.CompareTag("Pit"))
+        // {
+        //     _onGround = false;
+        //     GetComponent<AudioSource>().Play();
+        //     StartCoroutine(WaitAndReset());
+        // }
     }
 
     IEnumerator WaitAndReset()

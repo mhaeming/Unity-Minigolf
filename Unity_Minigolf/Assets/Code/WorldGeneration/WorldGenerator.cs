@@ -22,19 +22,10 @@ namespace Code.WorldGeneration
         // How many blocks should be kept behind the Player
         public int keepFloorElements = 2;
 
-        public bool autoCleanUp = true;
-    
-    
-        private float _pitFreq;
-        private float _obstacleFreq;
 
         private float _activeFloorPositionZ;
         private float _activeFloorPositionY;
         private float _activeFloorPositionX;
-
-        private List<GameObject> activeFloors = new List<GameObject>();
-        private List<GameObject> activePits = new List<GameObject>();
-        private List<GameObject> activeObstacles = new List<GameObject>();
 
 
         private void Awake()
@@ -53,25 +44,25 @@ namespace Code.WorldGeneration
 
         public void Update()
         {
-            if (autoCleanUp)
+            if (AutoCleanUp)
             {
                 // If there are no objects available from the pool, go through all active Floor objects in the scene and check if you can deactivate some of them
-                ClearBehind(activeFloors);
-                ClearBehind(activePits);
-                ClearBehind(activeObstacles);
+                ClearBehind(ActiveFloors);
+                ClearBehind(ActivePits);
+                ClearBehind(ActiveObstacles);
             }
         }
     
         // Update is called once per frame
         public void GenerateWorld()
         {
-            if (Random.value < _pitFreq)
+            if (Random.value < PitFreq)
             {
                 GameObject pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
                 if (pit)
                 {
                     PlaceBlock(pit);
-                    activePits.Add(pit);
+                    ActivePits.Add(pit);
                 }
             }
             else
@@ -81,14 +72,14 @@ namespace Code.WorldGeneration
                 if (floor)
                 {
                     PlaceBlock(floor);
-                    activeFloors.Add(floor);
-                    if (Random.value < _obstacleFreq)
+                    ActiveFloors.Add(floor);
+                    if (Random.value < ObstacleFreq)
                     {
                         GameObject obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
                         if (obstacle)
                         {
                             PlaceObstacle(obstacle);
-                            activeObstacles.Add(obstacle);
+                            ActiveObstacles.Add(obstacle);
                         }
                     }
                 }
@@ -121,8 +112,8 @@ namespace Code.WorldGeneration
             obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y, _activeFloorPositionZ);
             obstacle.SetActive(true);
         }
-    
-        protected void ClearBehind(List<GameObject> list)
+
+        private void ClearBehind(List<GameObject> list)
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -134,61 +125,39 @@ namespace Code.WorldGeneration
             }
         }
 
-        protected void ClearAll()
+        protected internal void ClearAll()
         {
-            for (int i = 0; i < activeFloors.Count; i++)
+            for (int i = 0; i < ActiveFloors.Count; i++)
             {
-                activeFloors[i].SetActive(false);
-                activeFloors.RemoveAt(i);
+                ActiveFloors[i].SetActive(false);
+                ActiveFloors.RemoveAt(i);
             }
 
-            for (int i = 0; i < activeObstacles.Count; i++)
+            for (int i = 0; i < ActiveObstacles.Count; i++)
             {
-                activeObstacles[i].SetActive(false);
-                activeObstacles.RemoveAt(i);
+                ActiveObstacles[i].SetActive(false);
+                ActiveObstacles.RemoveAt(i);
             }
         
-            for (int i = 0; i < activePits.Count; i++)
+            for (int i = 0; i < ActivePits.Count; i++)
             {
-                activePits[i].SetActive(false);
-                activePits.RemoveAt(i);
+                ActivePits[i].SetActive(false);
+                ActivePits.RemoveAt(i);
             }
         }
-    
-    
 
-        public float GetObstacleFreq()
-        {
-            return _obstacleFreq;
-        }
-    
-        public void SetObstacleFreq(float freq)
-        {
-            _obstacleFreq = freq;
-        }
 
-        public float GetPitFreq()
-        {
-            return _pitFreq;
-        }
 
-        public void SetPitFreq(float freq)
-        {
-            _pitFreq = freq;
-        }
+        public float ObstacleFreq { get; set; }
 
-        public List<GameObject> GetActiveFloors()
-        {
-            return activeFloors;
-        }
-    
-        public List<GameObject> GetActiveObstacles()
-        {
-            return activeObstacles;
-        }
-        public List<GameObject> GetActivePits()
-        {
-            return activePits;
-        }
+        public float PitFreq { get; set; }
+
+        public bool AutoCleanUp { get; set; }
+
+        public List<GameObject> ActiveFloors { get; } = new List<GameObject>();
+
+        public List<GameObject> ActiveObstacles { get; } = new List<GameObject>();
+
+        public List<GameObject> ActivePits { get; } = new List<GameObject>();
     }
 }
