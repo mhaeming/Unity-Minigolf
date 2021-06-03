@@ -22,11 +22,16 @@ namespace Code.WorldGeneration
         // How many blocks should be kept behind the Player
         public int keepFloorElements = 2;
 
-
         private float _activeFloorPositionZ;
         private float _activeFloorPositionY;
         private float _activeFloorPositionX;
 
+        protected int totalPlacedObstacles;
+        protected int totalPlacedPits;
+
+        public delegate void WorldEvent();
+        
+        public WorldEvent activeEvent;
 
         private void Awake()
         {
@@ -63,6 +68,7 @@ namespace Code.WorldGeneration
                 {
                     PlaceBlock(pit);
                     ActivePits.Add(pit);
+                    totalPlacedPits++;
                 }
             }
             else
@@ -80,6 +86,7 @@ namespace Code.WorldGeneration
                         {
                             PlaceObstacle(obstacle);
                             ActiveObstacles.Add(obstacle);
+                            totalPlacedObstacles++;
                         }
                     }
                 }

@@ -364,7 +364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerobj: {fileID: 1680840079}
   keepFloorElements: 2
-  autoCleanUp: 1
 --- !u!114 &1541288349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bd6dc7bb56a814e8fb80504925577b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 10
 --- !u!1001 &1680840078
 PrefabInstance:
   m_ObjectHideFlags: 0

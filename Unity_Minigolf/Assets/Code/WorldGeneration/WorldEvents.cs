@@ -1,13 +1,32 @@
+using System;
 using UnityEngine;
 
 namespace Code.WorldGeneration
 {
     public class WorldEvents : MonoBehaviour
     {
-        
+
+        public double time;
+
+        private void Start()
+        {
+            WorldGenerator.generator.AutoCleanUp = true;
+        }
+
         private void Update()
         {
+            if (!(time > 0)) return;
+            if (time < 5)
+            {
+                StandardPlay();
+            }
             StartEvent();
+
+        }
+
+        private void FixedUpdate()
+        {
+            time -= Time.deltaTime;
         }
 
 
@@ -16,8 +35,13 @@ namespace Code.WorldGeneration
         /// </summary>
         private void StartEvent()
         {
-            WorldGenerator.generator.ObstacleFreq = 0.2f;
-            WorldGenerator.generator.PitFreq = 0.1f;
+            WorldGenerator.generator.GenerateWorld();
+        }
+
+        private void StandardPlay()
+        {
+            WorldGenerator.generator.ObstacleFreq = 0.5f;
+            WorldGenerator.generator.PitFreq = 0.5f;
             WorldGenerator.generator.GenerateWorld();
         }
 

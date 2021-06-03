@@ -1,19 +1,25 @@
+using System;
+using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Code.WorldGeneration
 {
     public class WorldInfo : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+
+        // public int TotalPlacedObstacles => totalPlacedObstacles;
+        // public int TotalPlacedPits => totalPlacedPits;
         
+        public GameObject ClosestObstacle()
+        {
+            throw new NotImplementedException();
         }
 
-        // Update is called once per frame
-        void Update()
+        public GameObject ClosestPit()
         {
-        
+            throw new NotImplementedException();
         }
+         
     }
 }
