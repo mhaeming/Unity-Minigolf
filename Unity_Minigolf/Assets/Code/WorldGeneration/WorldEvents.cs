@@ -5,17 +5,14 @@ namespace Code.WorldGeneration
 {
     public class WorldEvents : MonoBehaviour
     {
-
+        public bool timer = true;
+        [MinAttribute(0.1f)]
         public double time;
-
-        private void Start()
-        {
-            WorldGenerator.generator.AutoCleanUp = true;
-        }
+        
 
         private void Update()
         {
-            if (!(time > 0)) return;
+            if (time < 0) return;
             if (time < 5)
             {
                 StandardPlay();
@@ -26,7 +23,10 @@ namespace Code.WorldGeneration
 
         private void FixedUpdate()
         {
-            time -= Time.deltaTime;
+            if (timer)
+            {
+                time -= Time.deltaTime;
+            }
         }
 
 

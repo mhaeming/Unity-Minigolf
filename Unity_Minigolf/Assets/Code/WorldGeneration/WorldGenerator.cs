@@ -45,6 +45,8 @@ namespace Code.WorldGeneration
                 DontDestroyOnLoad(gameObject);
                 generator = this;
             }
+
+            AutoCleanUp = true;
         }
 
         public void Update()
