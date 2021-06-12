@@ -23,9 +23,9 @@ public class FullSceneManager : MonoBehaviour
     private sceneEnum _nextScene = sceneEnum.Tutorial;
     
     public bool skipTutorial = false;
-    public KeyCode changeSceneKey;
+    public static KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
-    public KeyDownEvent _keyDown = KeyDownEvent.GetPooled(char "x", KeyCode keyCode, EventModifiers modifiers);
+    //public KeyDownEvent keyDown = KeyDownEvent.GetPooled(new char() ,changeSceneKey, new EventModifiers());
 
     public event Action OnSceneChange;
 
@@ -76,11 +76,19 @@ public class FullSceneManager : MonoBehaviour
             sceneManager = this;
         }
     }
-    
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(changeSceneKey))
+        {
+            OnSceneChange?.Invoke();
+        }
+    }
+
 
     public void OnEnable()
     {
-        _keyDown += ChangeScene();
+        //keyDown += ChangeScene();
         OnSceneChange += ChangeScene;
     }
 
