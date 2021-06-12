@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
-public class FullSceneManager : ScriptableSingleton<FullSceneManager>
+public class FullSceneManager : MonoBehaviour
 {
     public enum sceneEnum
     {
@@ -23,8 +24,8 @@ public class FullSceneManager : ScriptableSingleton<FullSceneManager>
     
     public bool skipTutorial = false;
     public KeyCode changeSceneKey;
-    
-    public new static FullSceneManager Instance { get => ScriptableSingleton<FullSceneManager>.instance; }
+    public static FullSceneManager sceneManager;
+    public KeyDownEvent _keyDown = KeyDownEvent.GetPooled(char "x", KeyCode keyCode, EventModifiers modifiers);
 
     public event Action OnSceneChange;
 
@@ -58,13 +59,29 @@ public class FullSceneManager : ScriptableSingleton<FullSceneManager>
     private void ChangeScene()
     {
         //Loads next Scene according to Build index, which needs to stay consistent with Enum int
+        Debug.Log("Load next scene" + _nextScene);
         SceneManager.LoadScene((int) _nextScene);
     }
 
+    public void Awake()
+    {
+        // Destroy any other existing sceneManagers
+        if (sceneManager != null && sceneManager != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+            sceneManager = this;
+        }
+    }
+    
+
     public void OnEnable()
     {
+        _keyDown += ChangeScene();
         OnSceneChange += ChangeScene;
-        DontDestroyOnLoad(this);
     }
 
     public void OnDisable()
