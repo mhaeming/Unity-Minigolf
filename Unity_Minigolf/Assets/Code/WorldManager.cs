@@ -12,11 +12,11 @@ public class WorldManager : MonoBehaviour
 {
    
     public bool riskPrime = false;
-    public KeyCode input;
+    //public KeyCode input;
     [Header("Testing Options")]
-    public bool skipTutorial;
+    //public bool skipTutorial;
     public float primingChance = 0.5f;
-    private GameObject _experimentManager;
+    //private GameObject _experimentManager;
     [HideInInspector]
     public bool timeout = false;
     public float timeLimit = 120;
@@ -47,8 +47,8 @@ public class WorldManager : MonoBehaviour
         }
     }
     
-    // Update is called once per frame
-    void Update()
+    // Functionality is now in FullSceneManager
+    /**void Update()
     {
         if (Input.GetKeyDown(input) && SceneManager.GetActiveScene().name == "StartScene")
         {
@@ -80,7 +80,7 @@ public class WorldManager : MonoBehaviour
             List<string> csv = CSVTools.GenerateCsv(csvData, _csvHeaders);
             CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/" + GUID.Generate());
         }
-    }
+    }**/
     
     void defineCSVHeader()
     {
