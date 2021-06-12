@@ -23,7 +23,7 @@ public class FullSceneManager : MonoBehaviour
     private sceneEnum _nextScene = sceneEnum.Tutorial;
     
     public bool skipTutorial = false;
-    public static KeyCode changeSceneKey;
+    public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
     //public KeyDownEvent keyDown = KeyDownEvent.GetPooled(new char() ,changeSceneKey, new EventModifiers());
 
@@ -34,6 +34,7 @@ public class FullSceneManager : MonoBehaviour
         get => _currentScene;
         set
         {
+            _currentScene = value;
             switch (_currentScene)
             {
                 //case sceneEnum.Customize:
@@ -61,6 +62,9 @@ public class FullSceneManager : MonoBehaviour
         //Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene);
         SceneManager.LoadScene((int) _nextScene);
+        CurrentScene = _nextScene;
+        Debug.Log(CurrentScene);
+
     }
 
     public void Awake()
