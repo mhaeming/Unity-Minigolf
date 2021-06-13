@@ -1,6 +1,3 @@
-using System;
-using System.Net.Mail;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Code.WorldGeneration

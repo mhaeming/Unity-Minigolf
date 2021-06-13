@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,12 +6,11 @@ using Random = UnityEngine.Random;
 
 namespace Code.WorldGeneration
 {
-    [System.Serializable]
+    [Serializable]
     public class ObjectPoolItem
     {
         public GameObject objectToPool;
         public int poolSize;
-        public float spawnChance;
     }
 
 
@@ -28,59 +26,72 @@ namespace Code.WorldGeneration
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             pooledObjects = new List<GameObject>();
-            foreach (ObjectPoolItem item in itemPool) 
+            foreach (var item in itemPool)
             {
-                for (int i = 0; i < item.poolSize; i++)
+                for (var i = 0; i < item.poolSize; i++)
                 {
-                    GameObject tmp = Instantiate(item.objectToPool);
+                    var tmp = Instantiate(item.objectToPool);
                     tmp.SetActive(false);
                     pooledObjects.Add(tmp);
                 }
             }
         }
 
+        /// <summary>
+        /// Get an object from the pool by tag
+        /// </summary>
+        /// <param name="tag">of the pooled object</param>
+        /// <returns>Pooled game object or null if no elements in the pool</returns>
         public GameObject GetPooledObject(string tag)
         {
-            for (int i = 0; i < pooledObjects.Count; i++)
+            foreach (var obj in pooledObjects)
             {
-                if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].CompareTag(tag))
+                if (!obj.activeInHierarchy && obj.CompareTag(tag))
                 {
-                    return pooledObjects[i];
+                    return obj;
                 }
             }
+
             return null;
         }
-    
-        // Allows additional filter by name
+
+        /// <summary>
+        /// Get an object from the pool by tag and also filter by name.
+        /// </summary>
+        /// <param name="tag">of the pooled object</param>
+        /// <param name="name">of the pooled object</param>
+        /// <returns>Pooled GameObject</returns>
         public GameObject GetPooledObject(string tag, string name)
         {
-            for (int i = 0; i < pooledObjects.Count; i++)
+            foreach (var obj in pooledObjects)
             {
-                if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].CompareTag(tag) && pooledObjects[i].name.Contains(name))
+                if (!obj.activeInHierarchy && obj.CompareTag(tag) && obj.name.Contains(name))
                 {
-                    return pooledObjects[i];
+                    return obj;
                 }
             }
+
             return null;
         }
 
+        /// <summary>
+        /// Get a random object from a pool.
+        /// </summary>
+        /// <param name="tag">of the pool</param>
+        /// <returns>Pooled GameObject</returns>
         public GameObject GetRandomPoolObject(string tag)
         {
-            GameObject[] availableObjs = pooledObjects.Where(obj => !obj.activeInHierarchy && obj.CompareTag(tag)).ToArray();
+            var availableObjs =
+                pooledObjects.Where(obj => !obj.activeInHierarchy && obj.CompareTag(tag)).ToArray();
 
-            // TODO: Use probality distribution
             // The current implementation depends on the pool size. More objects in a pool -> higher chance to pick
-        
-            if (availableObjs.Length > 0)
-            {
-                int randomVal = (int)(Random.value * availableObjs.Length);
-                return availableObjs[randomVal];
-            }
 
-            return null;
+            if (availableObjs.Length <= 0) return null;
+            var randomVal = (int) (Random.value * availableObjs.Length);
+            return availableObjs[randomVal];
         }
     }
 }

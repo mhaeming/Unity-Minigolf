@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.CompareTag("Obstacle") & SceneManager.GetActiveScene().name != "TrainingScene")
         {
-            worldManager.GetComponent<WorldEvents>().ResetEvent();
+            WorldEvents.ResetEvent();
         }
 
         if (other.gameObject.CompareTag("TrainingFinish"))

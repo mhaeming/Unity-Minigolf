@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Code.WorldGeneration
@@ -6,9 +5,8 @@ namespace Code.WorldGeneration
     public class WorldEvents : MonoBehaviour
     {
         public bool timer = true;
-        [MinAttribute(0.1f)]
-        public double time;
-        
+        [MinAttribute(0.1f)] public double time;
+
         private void Update()
         {
             if (time < 0) return;
@@ -16,8 +14,8 @@ namespace Code.WorldGeneration
             {
                 StandardPlay();
             }
-            StartEvent();
 
+            StartEvent();
         }
 
         private void FixedUpdate()
@@ -32,32 +30,31 @@ namespace Code.WorldGeneration
         /// <summary>
         /// Generate a series of base blocks to ease the player into the level
         /// </summary>
-        private void StartEvent()
+        private static void StartEvent()
         {
             WorldGenerator.generator.GenerateWorld();
         }
 
-        private void StandardPlay()
+        private static void StandardPlay()
         {
             WorldGenerator.generator.ObstacleFreq = 0.1f;
             WorldGenerator.generator.PitFreq = 0.1f;
             WorldGenerator.generator.GenerateWorld();
         }
 
-    
+
         /// <summary>
         /// Transition into base blocks with an ending sequence
         /// </summary>
         public void EndEvent()
         {
-        
         }
-    
-    
+
+
         /// <summary>
         /// Reset the player and stage after hitting an obstacle
         /// </summary>
-        public void ResetEvent()
+        public static void ResetEvent()
         {
             WorldGenerator.generator.ClearAll();
             // StartEvent();
