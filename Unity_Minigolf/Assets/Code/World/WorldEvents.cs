@@ -14,13 +14,14 @@ namespace Code.WorldGeneration
                 ResetEvent();
             }
             if (time < 0) return;
-            if (time > 9)
-            {
-                StartEvent();
-            } else
-            {
-                StandardPlay();
-            }
+            // if (time > 9)
+            // {
+            //     StartEvent();
+            // } else
+            // {
+            //     StandardPlay();
+            // }
+            StandardPlay();
             
         }
 
@@ -46,7 +47,7 @@ namespace Code.WorldGeneration
         private void StandardPlay()
         {
             WorldGenerator.generator.ObstacleFreq = 0.1f;
-            WorldGenerator.generator.PitFreq = 0.005f;
+            WorldGenerator.generator.PitFreq = 0.01f;
             WorldGenerator.generator.GenerateWorld();
         }
 

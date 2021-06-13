@@ -134,12 +134,12 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene("Priming");
         }
 
-        // if (other.gameObject.CompareTag("Pit"))
-        // {
-        //     _onGround = false;
-        //     GetComponent<AudioSource>().Play();
-        //     StartCoroutine(WaitAndReset());
-        // }
+        if (other.gameObject.CompareTag("Pit"))
+        {
+            _onGround = false;
+            // GetComponent<AudioSource>().Play();
+            StartCoroutine(WaitAndReset());
+        }
     }
 
     IEnumerator WaitAndReset()
@@ -151,8 +151,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            GameObject.Find("GameManager").GetComponent<ExperimentManager>().resetplayer = true;
-            GameObject.Find("WorldManager").GetComponent<WorldManager>().resetFall += 1;
+            WorldEvents.ResetEvent();
+            // GameObject.Find("WorldManager").GetComponent<WorldManager>().resetFall += 1;
         }
     }
 
