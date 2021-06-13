@@ -9,7 +9,6 @@ namespace Code.WorldGeneration
         [MinAttribute(0.1f)]
         public double time;
         
-
         private void Update()
         {
             if (time < 0) return;
@@ -40,8 +39,8 @@ namespace Code.WorldGeneration
 
         private void StandardPlay()
         {
-            WorldGenerator.generator.ObstacleFreq = 0.5f;
-            WorldGenerator.generator.PitFreq = 0.5f;
+            WorldGenerator.generator.ObstacleFreq = 0.1f;
+            WorldGenerator.generator.PitFreq = 0.1f;
             WorldGenerator.generator.GenerateWorld();
         }
 

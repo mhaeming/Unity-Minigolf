@@ -11,7 +11,6 @@ namespace Code.WorldGeneration
     /// </summary>
     public class WorldGenerator : MonoBehaviour
     {
-
         public static WorldGenerator generator;
     
         [Header("Game Objects")]
@@ -25,13 +24,23 @@ namespace Code.WorldGeneration
         private float _activeFloorPositionZ;
         private float _activeFloorPositionY;
         private float _activeFloorPositionX;
-
-        protected int totalPlacedObstacles;
-        protected int totalPlacedPits;
-
-        public delegate void WorldEvent();
         
-        public WorldEvent activeEvent;
+        public delegate void ObjectPlaced(Vector3 pos);
+        public static event ObjectPlaced PitPlaced;
+        public static event ObjectPlaced ObstaclePlaced;
+
+        
+        public float ObstacleFreq { get; set; }
+
+        public float PitFreq { get; set; }
+
+        public bool AutoCleanUp { get; set; }
+
+        public List<GameObject> ActiveFloors { get; } = new List<GameObject>();
+
+        public List<GameObject> ActiveObstacles { get; } = new List<GameObject>();
+
+        public List<GameObject> ActivePits { get; } = new List<GameObject>();
 
         private void Awake()
         {
@@ -66,31 +75,34 @@ namespace Code.WorldGeneration
             if (Random.value < PitFreq)
             {
                 GameObject pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
-                if (pit)
+                if (!pit) return;
+                PlaceBlock(pit);
+                ActivePits.Add(pit);
+
+                // Announce the event that a Pit has been placed
+                if (PitPlaced != null)
                 {
-                    PlaceBlock(pit);
-                    ActivePits.Add(pit);
-                    totalPlacedPits++;
+                    PitPlaced(pit.transform.position);
                 }
             }
             else
             {
                 // Retrieve floor objects from pool
                 GameObject floor = ObjectPool.sharedInstance.GetRandomPoolObject("Floor");
-                if (floor)
+                if (!floor) return;
+                PlaceBlock(floor);
+                ActiveFloors.Add(floor);
+                
+                // Randomly decide whether to place an Obstacle
+                if (Random.value > ObstacleFreq) return;
+                GameObject obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
+                PlaceObstacle(obstacle);
+                ActiveObstacles.Add(obstacle);
+
+                // Announce the event that an Obstacle has been placed
+                if (ObstaclePlaced != null)
                 {
-                    PlaceBlock(floor);
-                    ActiveFloors.Add(floor);
-                    if (Random.value < ObstacleFreq)
-                    {
-                        GameObject obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
-                        if (obstacle)
-                        {
-                            PlaceObstacle(obstacle);
-                            ActiveObstacles.Add(obstacle);
-                            totalPlacedObstacles++;
-                        }
-                    }
+                    ObstaclePlaced(obstacle.transform.position);
                 }
             }
         }
@@ -154,19 +166,5 @@ namespace Code.WorldGeneration
                 ActivePits.RemoveAt(i);
             }
         }
-
-
-
-        public float ObstacleFreq { get; set; }
-
-        public float PitFreq { get; set; }
-
-        public bool AutoCleanUp { get; set; }
-
-        public List<GameObject> ActiveFloors { get; } = new List<GameObject>();
-
-        public List<GameObject> ActiveObstacles { get; } = new List<GameObject>();
-
-        public List<GameObject> ActivePits { get; } = new List<GameObject>();
     }
 }

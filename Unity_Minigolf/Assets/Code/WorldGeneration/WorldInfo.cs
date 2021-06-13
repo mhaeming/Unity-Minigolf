@@ -7,19 +7,46 @@ namespace Code.WorldGeneration
 {
     public class WorldInfo : MonoBehaviour
     {
-
-        // public int TotalPlacedObstacles => totalPlacedObstacles;
-        // public int TotalPlacedPits => totalPlacedPits;
+        public Vector3 ClosestPitAt { get; private set; }
+        public Vector3 ClosestObstacleAt { get; private set; }
+        public int TotalPitsPlaced { get; private set; }
+        public int TotalObstaclesPlaced { get; private set; }
         
-        public GameObject ClosestObstacle()
+
+        private void OnEnable()
         {
-            throw new NotImplementedException();
+            WorldGenerator.ObstaclePlaced += OnObstaclePlaced;
+            WorldGenerator.PitPlaced += OnPitPlaced;
         }
 
-        public GameObject ClosestPit()
+        private void OnDisable()
         {
-            throw new NotImplementedException();
+            WorldGenerator.ObstaclePlaced -= OnObstaclePlaced;
+            WorldGenerator.ObstaclePlaced -= OnPitPlaced;
         }
-         
+
+        private void Start()
+        {
+            ClosestObstacleAt = Vector3.positiveInfinity;
+            ClosestPitAt = Vector3.positiveInfinity;
+        }
+
+        private void OnObstaclePlaced(Vector3 pos)
+        {
+            TotalObstaclesPlaced++;
+            if (pos.z < ClosestObstacleAt.z)
+            {
+                ClosestObstacleAt = pos;
+            }
+        }
+
+        private void OnPitPlaced(Vector3 pos)
+        {
+            TotalPitsPlaced++;
+            if (pos.z < ClosestPitAt.z)
+            {
+                ClosestPitAt = pos;
+            }
+        }
     }
 }
