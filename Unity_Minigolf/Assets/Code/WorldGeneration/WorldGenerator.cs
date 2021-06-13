@@ -39,6 +39,7 @@ namespace Code.WorldGeneration
 
         public List<GameObject> ActivePits { get; } = new List<GameObject>();
 
+        public bool WorldActive { get; set; }
         private void Awake()
         {
             // Destroy any other existing Generators
@@ -53,6 +54,7 @@ namespace Code.WorldGeneration
             }
 
             AutoCleanUp = true;
+            WorldActive = true;
         }
 
         public void Update()
@@ -70,6 +72,8 @@ namespace Code.WorldGeneration
         // Update is called once per frame
         public void GenerateWorld()
         {
+            if (!WorldActive) return;
+            
             if (Random.value < PitFreq)
             {
                 var pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
@@ -139,23 +143,25 @@ namespace Code.WorldGeneration
 
         protected internal void ClearAll()
         {
-            for (var i = 0; i < ActiveFloors.Count; i++)
+            foreach (var obj in ActiveFloors)
             {
-                ActiveFloors[i].SetActive(false);
-                ActiveFloors.RemoveAt(i);
+                obj.SetActive(false);
             }
+            ActiveFloors.Clear();
 
-            for (var i = 0; i < ActiveObstacles.Count; i++)
+            foreach (var obj in ActiveObstacles)
             {
-                ActiveObstacles[i].SetActive(false);
-                ActiveObstacles.RemoveAt(i);
+                obj.SetActive(false);
             }
+            ActiveObstacles.Clear();
 
-            for (var i = 0; i < ActivePits.Count; i++)
+            foreach (var obj in ActivePits)
             {
-                ActivePits[i].SetActive(false);
-                ActivePits.RemoveAt(i);
+                obj.SetActive(false);
             }
+            ActivePits.Clear();
+
+            _activeFloorPositionZ = playerobj.transform.position.z - keepFloorElements;
         }
     }
 }

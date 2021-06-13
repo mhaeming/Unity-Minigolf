@@ -6,16 +6,22 @@ namespace Code.WorldGeneration
     {
         public bool timer = true;
         [MinAttribute(0.1f)] public double time;
-
+        
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ResetEvent();
+            }
             if (time < 0) return;
-            if (time < 5)
+            if (time > 9)
+            {
+                StartEvent();
+            } else
             {
                 StandardPlay();
             }
-
-            StartEvent();
+            
         }
 
         private void FixedUpdate()
@@ -32,13 +38,15 @@ namespace Code.WorldGeneration
         /// </summary>
         private static void StartEvent()
         {
+            WorldGenerator.generator.ObstacleFreq = 0;
+            WorldGenerator.generator.PitFreq = 0;
             WorldGenerator.generator.GenerateWorld();
         }
 
-        private static void StandardPlay()
+        private void StandardPlay()
         {
             WorldGenerator.generator.ObstacleFreq = 0.1f;
-            WorldGenerator.generator.PitFreq = 0.1f;
+            WorldGenerator.generator.PitFreq = 0.005f;
             WorldGenerator.generator.GenerateWorld();
         }
 
@@ -56,8 +64,8 @@ namespace Code.WorldGeneration
         /// </summary>
         public static void ResetEvent()
         {
+            Debug.Log("Reset game!");
             WorldGenerator.generator.ClearAll();
-            // StartEvent();
         }
     }
 }
