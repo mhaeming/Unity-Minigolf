@@ -16,7 +16,7 @@ namespace Code.Player
         public float height = 0.6f;
         public float offset = 0;
 
-        private Vector3 heading;
+        private Vector3 _heading;
 
         private float _rayLength;
         private Material _currentMat;
@@ -36,14 +36,13 @@ namespace Code.Player
 
         void FixedUpdate()
         {
-            heading = player.transform.position - transform.position;
-            Ray camRay = new Ray(transform.position, heading);
-            RaycastHit hit;
-        
+            _heading = player.transform.position - transform.position;
+            Ray camRay = new Ray(transform.position, _heading);
+
             // Cast the from camera towards player object
-            if (Physics.Raycast(camRay, out hit, _rayLength))
+            if (Physics.Raycast(camRay, out var hit, _rayLength))
             {
-                if (hit.collider.tag == "Obstacle")
+                if (hit.collider.CompareTag("Obstacle"))
                 {
                     // Get the object's material
                     _currentMat = hit.collider.GetComponent<MeshRenderer>().material;

@@ -43,14 +43,14 @@ namespace Code.Player
             if (Input.GetKeyDown(moveLeft) & PlayerInfo.info.GetLane() > 1)
             {
                 _horizontalVel = -2;
-                StartCoroutine(stopSlide());
+                StartCoroutine(StopSlide());
             }
 
             // Move Right
             if (Input.GetKeyDown(moveRight) & PlayerInfo.info.GetLane() < 3)
             {
                 _horizontalVel = 2;
-                StartCoroutine(stopSlide());
+                StartCoroutine(StopSlide());
             }
         
             // Speed up
@@ -70,13 +70,13 @@ namespace Code.Player
             {
                 _onGround = false;
                 _upVel = jumpForce;
-                _startJump = gameObject.GetComponent<Transform>().position.z;
+                _startJump = transform.position.z;
                 StartCoroutine(Fall());
             }
 
         }
 
-        IEnumerator stopSlide()
+        IEnumerator StopSlide()
         {
             yield return new WaitForSeconds(.5f);
             _horizontalVel = 0;
@@ -85,14 +85,14 @@ namespace Code.Player
         // player falls as quickly as he jumps up (+ gravity)
         IEnumerator Fall()
         {
-            yield return new WaitUntil(reachedLength);
+            yield return new WaitUntil(ReachedLength);
             _upVel = -jumpForce;
         }
 
         // is true once player has moved 1 unit in air
-        private bool reachedLength()
+        private bool ReachedLength()
         {
-            if (gameObject.GetComponent<Transform>().position.z >= _startJump + 1.3)
+            if (transform.position.z >= _startJump + 1.3)
             {
                 return true;
             }
