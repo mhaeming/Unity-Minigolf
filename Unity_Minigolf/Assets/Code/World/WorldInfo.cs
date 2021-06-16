@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code.WorldGeneration
+namespace Code.World
 {
     public class WorldInfo : MonoBehaviour
     {

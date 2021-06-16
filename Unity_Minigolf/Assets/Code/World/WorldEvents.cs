@@ -1,12 +1,23 @@
+using Code.Player;
 using UnityEngine;
 
-namespace Code.WorldGeneration
+namespace Code.World
 {
     public class WorldEvents : MonoBehaviour
     {
         public bool timer = true;
-        [MinAttribute(0.1f)] public double time;
-        
+        [Min(0.1f)] public double time;
+
+        private void OnEnable()
+        {
+            PlayerBehavior.Reset += ResetEvent;
+        }
+
+        private void OnDisable()
+        {
+            PlayerBehavior.Reset -= ResetEvent;
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -50,15 +61,7 @@ namespace Code.WorldGeneration
             WorldGenerator.generator.PitFreq = 0.01f;
             WorldGenerator.generator.GenerateWorld();
         }
-
-
-        /// <summary>
-        /// Transition into base blocks with an ending sequence
-        /// </summary>
-        public void EndEvent()
-        {
-        }
-
+        
 
         /// <summary>
         /// Reset the player and stage after hitting an obstacle
@@ -67,6 +70,9 @@ namespace Code.WorldGeneration
         {
             Debug.Log("Reset game!");
             WorldGenerator.generator.ClearAll();
+            // TODO: The reset does not yet work as expected
+            WorldGenerator.generator.player.transform.up += Vector3.up;
+            WorldGenerator.generator.GenerateWorld();
         }
     }
 }

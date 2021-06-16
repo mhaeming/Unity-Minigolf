@@ -1,84 +1,85 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Code.Player;
 using UnityEngine;
 
-public class TutorialManager : MonoBehaviour
+namespace Code.Tutorial
 {
-
-    public GameObject[] tutorialTexts;
-    private int tutorialIndex = 0;
-    public float waitTime = 2f;
-
-    private PlayerMovement _playerMovement;
-    private KeyCode _moveLeft = KeyCode.A;
-    private KeyCode _moveRight = KeyCode.D;
-    private KeyCode _speedUp = KeyCode.W;
-    private KeyCode _slowDown = KeyCode.S;
-    private KeyCode _jump = KeyCode.Space;
-
-    void Update()
+    public class TutorialManager : MonoBehaviour
     {
-        //slow
-        if (tutorialIndex == 0)
+
+        public GameObject[] tutorialTexts;
+        private int tutorialIndex = 0;
+        public float waitTime = 2f;
+
+        private PlayerMovement _playerMovement;
+        private KeyCode _moveLeft = KeyCode.A;
+        private KeyCode _moveRight = KeyCode.D;
+        private KeyCode _speedUp = KeyCode.W;
+        private KeyCode _slowDown = KeyCode.S;
+        private KeyCode _jump = KeyCode.Space;
+
+        void Update()
         {
-            tutorialTexts[0].SetActive(true);
-            if (Input.GetKeyDown(_slowDown))
+            //slow
+            if (tutorialIndex == 0)
             {
-                tutorialIndex++;
-                tutorialTexts[0].SetActive(false);
-                tutorialTexts[1].SetActive(true);
+                tutorialTexts[0].SetActive(true);
+                if (Input.GetKeyDown(_slowDown))
+                {
+                    tutorialIndex++;
+                    tutorialTexts[0].SetActive(false);
+                    tutorialTexts[1].SetActive(true);
+                }
             }
-        }
-        //fast
-        else if (tutorialIndex == 1)
-        {
-            if (Input.GetKeyDown(_speedUp))
+            //fast
+            else if (tutorialIndex == 1)
             {
-                tutorialIndex++;
-                tutorialTexts[1].SetActive(false);
-                tutorialTexts[2].SetActive(true);
+                if (Input.GetKeyDown(_speedUp))
+                {
+                    tutorialIndex++;
+                    tutorialTexts[1].SetActive(false);
+                    tutorialTexts[2].SetActive(true);
+                }
             }
-        }
-        //left
-        else if (tutorialIndex == 2)
-        {
-            if (Input.GetKeyDown(_moveLeft))
+            //left
+            else if (tutorialIndex == 2)
             {
-                tutorialIndex++;
-                tutorialTexts[2].SetActive(false);
-                tutorialTexts[3].SetActive(true);
+                if (Input.GetKeyDown(_moveLeft))
+                {
+                    tutorialIndex++;
+                    tutorialTexts[2].SetActive(false);
+                    tutorialTexts[3].SetActive(true);
+                }
             }
-        }
-        //right
-        else if (tutorialIndex == 3)
-        {
-            if (Input.GetKeyDown(_moveRight))
+            //right
+            else if (tutorialIndex == 3)
             {
-                tutorialIndex++;
-                tutorialTexts[3].SetActive(false);
-                tutorialTexts[4].SetActive(true);
+                if (Input.GetKeyDown(_moveRight))
+                {
+                    tutorialIndex++;
+                    tutorialTexts[3].SetActive(false);
+                    tutorialTexts[4].SetActive(true);
+                }
             }
-        }
-        //jump
-        else if (tutorialIndex == 4)
-        {
-            if (Input.GetKeyDown(_jump))
+            //jump
+            else if (tutorialIndex == 4)
             {
-                tutorialIndex++;
-                tutorialTexts[4].SetActive(false);
+                if (Input.GetKeyDown(_jump))
+                {
+                    tutorialIndex++;
+                    tutorialTexts[4].SetActive(false);
+                }
             }
-        }
-        //end of tutorial
-        else if (tutorialIndex == 5)
-        {
-            if (waitTime <= 0)
+            //end of tutorial
+            else if (tutorialIndex == 5)
             {
-                tutorialTexts[5].SetActive(true); 
-            }
-            else
-            {
-                waitTime -= Time.deltaTime;
+                if (waitTime <= 0)
+                {
+                    tutorialTexts[5].SetActive(true); 
+                }
+                else
+                {
+                    waitTime -= Time.deltaTime;
+                }
             }
         }
     }

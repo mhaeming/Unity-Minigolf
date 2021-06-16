@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.WorldGeneration
+namespace Code.World
 {
     /// <summary>
     ///     A time controlled infinite level generator.
@@ -16,7 +16,7 @@ namespace Code.WorldGeneration
 
         [Header("Game Objects")]
         // Player
-        public GameObject playerobj;
+        public GameObject player;
 
         [Header("Generation Settings")]
         // How many blocks should be kept behind the Player
@@ -95,6 +95,7 @@ namespace Code.WorldGeneration
                 // Randomly decide whether to place an Obstacle
                 if (Random.value > ObstacleFreq) return;
                 var obstacle = ObjectPool.sharedInstance.GetPooledObject("Obstacle");
+                if (!obstacle) return;
                 PlaceObstacle(obstacle);
                 ActiveObstacles.Add(obstacle);
 
@@ -134,7 +135,7 @@ namespace Code.WorldGeneration
         private void ClearBehind(IList<GameObject> list)
         {
             for (var i = 0; i < list.Count; i++)
-                if (list[i].transform.position.z - playerobj.transform.position.z < -keepFloorElements)
+                if (list[i].transform.position.z - player.transform.position.z < -keepFloorElements)
                 {
                     list[i].SetActive(false);
                     list.RemoveAt(i);
@@ -161,7 +162,7 @@ namespace Code.WorldGeneration
             }
             ActivePits.Clear();
 
-            _activeFloorPositionZ = playerobj.transform.position.z - keepFloorElements;
+            _activeFloorPositionZ = player.transform.position.z - keepFloorElements;
         }
     }
 }
