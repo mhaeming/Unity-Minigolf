@@ -26,7 +26,7 @@ namespace Code.World
         private float _activeFloorPositionY;
         private float _activeFloorPositionZ;
 
-
+        
         public float ObstacleFreq { get; set; }
 
         public float PitFreq { get; set; }
@@ -144,25 +144,34 @@ namespace Code.World
 
         protected internal void ClearAll()
         {
+            ClearObstacles();
+            ClearPits();
+            
             foreach (var obj in ActiveFloors)
             {
                 obj.SetActive(false);
             }
             ActiveFloors.Clear();
+            
+            _activeFloorPositionZ = player.transform.position.z - keepFloorElements;
+        }
 
+        protected internal void ClearObstacles()
+        {
             foreach (var obj in ActiveObstacles)
             {
                 obj.SetActive(false);
             }
             ActiveObstacles.Clear();
+        }
 
+        protected internal void ClearPits()
+        {
             foreach (var obj in ActivePits)
             {
                 obj.SetActive(false);
             }
             ActivePits.Clear();
-
-            _activeFloorPositionZ = player.transform.position.z - keepFloorElements;
         }
     }
 }
