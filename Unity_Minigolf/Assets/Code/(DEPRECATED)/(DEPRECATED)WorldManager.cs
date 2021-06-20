@@ -77,7 +77,7 @@ namespace Code
                 SceneManager.LoadScene("Timeout");
                 // once Timeout is reached convert collected stats into CSV File 
                 List<string> csv = CSVTools.GenerateCsv(csvData, _csvHeaders);
-                CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/" + GUID.Generate());
+                //CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/" + GUID.Generate());
             }
         }
     

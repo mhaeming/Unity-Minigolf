@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.World
 {
@@ -55,6 +57,14 @@ namespace Code.World
 
             AutoCleanUp = true;
             WorldActive = true;
+        }
+
+        public void OnEnable()
+        {
+            if (player == null)
+            {
+                player = GameObject.FindWithTag("Player");
+            }
         }
 
         public void Update()

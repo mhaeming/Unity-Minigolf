@@ -20,6 +20,14 @@ namespace Code.Player
 
         private float _rayLength;
         private Material _currentMat;
+        
+        public void OnEnable()
+        {
+            if (player == null)
+            {
+                player = GameObject.FindWithTag("Player");
+            }
+        }
     
         // Start is called before the first frame update
         void Start()
