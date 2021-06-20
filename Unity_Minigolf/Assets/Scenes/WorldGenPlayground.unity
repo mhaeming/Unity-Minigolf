@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -380,16 +380,12 @@ MonoBehaviour:
   itemPool:
   - objectToPool: {fileID: 6515895894589957388, guid: 27c558490165a2b40b1a337f4b0ac3bc, type: 3}
     poolSize: 20
-    spawnChance: 0.5
   - objectToPool: {fileID: 6515895894589957388, guid: 7c9d2b225a847194c91a301c32a380c0, type: 3}
     poolSize: 10
-    spawnChance: 1
   - objectToPool: {fileID: 1333013624532701657, guid: 86564956ab19c914eb544681779e3188, type: 3}
     poolSize: 5
-    spawnChance: 1
   - objectToPool: {fileID: 181704735277836349, guid: b54f0dfee5ef7254198e9219b536df58, type: 3}
     poolSize: 5
-    spawnChance: 1
 --- !u!114 &1541288350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bd6dc7bb56a814e8fb80504925577b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
   time: 10
 --- !u!1001 &1680840078
 PrefabInstance:

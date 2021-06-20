@@ -1,176 +1,111 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using Code.WorldGeneration;
+using Code.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-public class PlayerMovement : MonoBehaviour
+namespace Code.Player
 {
-    // Define KeyControls
-    public KeyCode moveLeft;
-    public KeyCode moveRight;
-    public KeyCode speedUp;
-    public KeyCode slowDown;
-    public KeyCode jump;
-    
-    public float jumpForce;
-    public float defaultSpeed = 2;
-
-    public GameObject worldManager;
-    
-    private float _horizontalVel = 0;
-    public float verticalVel;
-    private float _upVel = 0;
-    private Rigidbody _rigidbody;
-    private bool _onGround;
-    private float _startJump;
-
-    // Start is called before the first frame update
-    public void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        verticalVel = defaultSpeed;
-        _rigidbody = GetComponent<Rigidbody>();
-        Physics.gravity = new Vector3(0,-100.0f,0);
-    }
+        // Define KeyControls
+        public KeyCode moveLeft = KeyCode.A;
+        public KeyCode moveRight = KeyCode.D;
+        public KeyCode speedUp = KeyCode.W;
+        public KeyCode slowDown = KeyCode.S;
+        public KeyCode jump = KeyCode.Space;
+    
+        public float jumpForce;
+        public float defaultSpeed = 2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Move the object at start speed
-        _rigidbody.velocity = new Vector3(_horizontalVel, _upVel, verticalVel);
+        private float _horizontalVel = 0;
+        public float verticalVel;
+        private float _upVel = 0;
+        private Rigidbody _rigidbody;
+        private bool _onGround;
+        private float _startJump;
+        
+        // Start is called before the first frame update
+        public void Start()
+        {
+            verticalVel = defaultSpeed;
+            _rigidbody = GetComponent<Rigidbody>();
+            Physics.gravity = new Vector3(0,-100.0f,0);
+        }
 
-        // Move left
-        if (Input.GetKeyDown(moveLeft) & returnWhichLane() > 1)
+        // Update is called once per frame
+        void Update()
         {
-            _horizontalVel = -2;
-            StartCoroutine(stopSlide());
-        }
+            // Move the object at start speed
+            _rigidbody.velocity = new Vector3(_horizontalVel, _upVel, verticalVel);
 
-        // Move Right
-        if (Input.GetKeyDown(moveRight) & returnWhichLane() < 3)
-        {
-            _horizontalVel = 2;
-            StartCoroutine(stopSlide());
-        }
-        
-        // Speed up
-        if (Input.GetKeyDown(speedUp))
-        {
-            verticalVel += .5f;
-        }
-        
-        // Slow down
-        if (Input.GetKeyDown(slowDown) & verticalVel >= defaultSpeed)
-        {
-            verticalVel -= .5f;
-        }
-        
-        // Jump
-        if (Input.GetKeyDown(jump) & _onGround)
-        {
-            _onGround = false;
-            _upVel = jumpForce;
-            _startJump = gameObject.GetComponent<Transform>().position.z;
-            StartCoroutine(Fall());
-        }
-        
-        // reset Player if he has fallen off plane
-        /*if (gameObject.GetComponent<Transform>().position.y <= -2) 
-        {
-            if (SceneManager.GetActiveScene().name == "TrainingScene")
+            // Move left
+            if (Input.GetKeyDown(moveLeft) & PlayerInfo.info.GetLane() > 1)
             {
-                transform.position = new Vector3(transform.position.x,1,transform.position.z - 5);
+                _horizontalVel = -2;
+                StartCoroutine(StopSlide());
             }
-            else
+
+            // Move Right
+            if (Input.GetKeyDown(moveRight) & PlayerInfo.info.GetLane() < 3)
             {
-                GameObject.Find("GameManager").GetComponent<ExperimentManager>().resetplayer = true;
-                GameObject.Find("WorldManager").GetComponent<WorldManager>().resetFall += 1;
+                _horizontalVel = 2;
+                StartCoroutine(StopSlide());
             }
-        }*/
         
-    }
+            // Speed up
+            if (Input.GetKeyDown(speedUp))
+            {
+                verticalVel += .5f;
+            }
+        
+            // Slow down
+            if (Input.GetKeyDown(slowDown) & verticalVel >= defaultSpeed)
+            {
+                verticalVel -= .5f;
+            }
+        
+            // Jump
+            if (Input.GetKeyDown(jump) & _onGround)
+            {
+                _onGround = false;
+                _upVel = jumpForce;
+                _startJump = transform.position.z;
+                StartCoroutine(Fall());
+            }
 
-    IEnumerator stopSlide()
-    {
-        yield return new WaitForSeconds(.5f);
-        _horizontalVel = 0;
-    }
-
-    // player falls as quickly as he jumps up (+ gravity)
-    IEnumerator Fall()
-    {
-        yield return new WaitUntil(reachedLength);
-        _upVel = -jumpForce;
-    }
-
-    // is true once player has moved 1 unit in air
-    private bool reachedLength()
-    {
-        if (gameObject.GetComponent<Transform>().position.z >= _startJump + 1.3)
-        {
-            return true;
-        }
-        return false;
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            _onGround = true;
-            _upVel = 0;
         }
 
-        if (other.gameObject.CompareTag("Obstacle") & SceneManager.GetActiveScene().name != "TrainingScene")
+        IEnumerator StopSlide()
         {
-            worldManager.GetComponent<WorldEvents>().ResetEvent();
+            yield return new WaitForSeconds(.5f);
+            _horizontalVel = 0;
         }
 
-        if (other.gameObject.CompareTag("TrainingFinish"))
+        // player falls as quickly as he jumps up (+ gravity)
+        IEnumerator Fall()
         {
-            Debug.Log("Training stage is finished.");
-            SceneManager.LoadScene("Priming");
+            yield return new WaitUntil(ReachedLength);
+            _upVel = -jumpForce;
         }
 
-        // if (other.gameObject.CompareTag("Pit"))
-        // {
-        //     _onGround = false;
-        //     GetComponent<AudioSource>().Play();
-        //     StartCoroutine(WaitAndReset());
-        // }
-    }
-
-    IEnumerator WaitAndReset()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (SceneManager.GetActiveScene().name == "TrainingScene")
+        // is true once player has moved 1 unit in air
+        private bool ReachedLength()
         {
-            transform.position = new Vector3(transform.position.x,1,transform.position.z - 5);
+            if (transform.position.z >= _startJump + 1.3)
+            {
+                return true;
+            }
+            return false;
         }
-        else
+
+        private void OnCollisionEnter(Collision other)
         {
-            GameObject.Find("GameManager").GetComponent<ExperimentManager>().resetplayer = true;
-            GameObject.Find("WorldManager").GetComponent<WorldManager>().resetFall += 1;
+            if (other.gameObject.CompareTag("Floor"))
+            {
+                _onGround = true;
+                _upVel = 0;
+            }
         }
     }
-
-    // returns in which lane the player is at that moment (left=1, middle=2, right=3)
-    public int returnWhichLane()
-    {
-        if (gameObject.GetComponent<Transform>().position.x > 0.5f )
-        {
-            return 3;
-        }
-        else if (gameObject.GetComponent<Transform>().position.x < -0.5f)
-        {
-            return 1;
-        }
-        else
-        {
-            return 2;
-        }
-    }
-    
 }
