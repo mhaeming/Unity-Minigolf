@@ -1915,6 +1915,10 @@ PrefabInstance:
       value: golfball
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c61f31166b5d5e545a2470a530db00e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c61f31166b5d5e545a2470a530db00e7, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -3194,7 +3198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a182d90c80b4e4b9c534aa8df34729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1757317960}
+  player: {fileID: 0}
   distance: 3
   height: 0.6
   offset: 0

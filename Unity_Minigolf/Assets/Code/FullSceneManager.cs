@@ -19,13 +19,12 @@ public class FullSceneManager : MonoBehaviour
 
     private sceneEnum _currentScene = sceneEnum.Customize;
     private sceneEnum _nextScene = sceneEnum.Start;
-    //private sceneEnum _currentScene = sceneEnum.Start;
-    //private sceneEnum _nextScene = sceneEnum.Tutorial;
     
     public bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
-    //public KeyDownEvent keyDown = KeyDownEvent.GetPooled(new char() ,changeSceneKey, new EventModifiers());
+
+    private GameObject _player;
 
     public event Action OnSceneChange;
 

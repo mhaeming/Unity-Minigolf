@@ -61,10 +61,7 @@ namespace Code.World
 
         public void OnEnable()
         {
-            if (player == null)
-            {
                 player = GameObject.FindWithTag("Player");
-            }
         }
 
         public void Update()

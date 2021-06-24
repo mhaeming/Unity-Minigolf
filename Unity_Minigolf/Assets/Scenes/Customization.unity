@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 713815757}
         m_TargetAssemblyTypeName: CharacterCustomization, Assembly-CSharp
         m_MethodName: ChangeColor
         m_Mode: 1
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046544656443106481, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabbb8a21fdd77545919010596412171, type: 3}
@@ -363,6 +363,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
   m_PrefabInstance: {fileID: 18820370}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &18820374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18820371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f6a89c193241d0889025e8bd77acdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &18820375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18820371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174dc395e1ec497e8928c839caed9f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &22134987
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046544656443106481, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabbb8a21fdd77545919010596412171, type: 3}
@@ -694,7 +718,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373431991}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aeb4e38c3d151f439e1080f02080456, type: 3}
   m_Name: 
@@ -707,6 +731,30 @@ MonoBehaviour:
   jumpForce: 0
   defaultSpeed: 2
   verticalVel: 0
+--- !u!114 &373431993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373431991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f6a89c193241d0889025e8bd77acdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &373431994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373431991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174dc395e1ec497e8928c839caed9f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &373431997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
@@ -952,7 +1000,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 713815757}
         m_TargetAssemblyTypeName: CharacterCustomization, Assembly-CSharp
         m_MethodName: EnableChild
         m_Mode: 1
@@ -1085,7 +1133,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 713815757}
         m_TargetAssemblyTypeName: CharacterCustomization, Assembly-CSharp
         m_MethodName: ChangeShape
         m_Mode: 1
@@ -1392,7 +1440,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 713815757}
         m_TargetAssemblyTypeName: CharacterCustomization, Assembly-CSharp
         m_MethodName: Confirm
         m_Mode: 1
@@ -1451,6 +1499,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 713815756}
+  - component: {fileID: 713815758}
+  - component: {fileID: 713815757}
   m_Layer: 0
   m_Name: customization
   m_TagString: Untagged
@@ -1472,6 +1522,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &713815757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a279041a92dd0d4991902f82f6d3534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charColor:
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 1, g: 0.7253939, b: 0, a: 0}
+  - {r: 0.5754717, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0.7346878, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0.8934412, a: 0}
+  - {r: 1, g: 0, b: 0.8934412, a: 0}
+  players:
+  - {fileID: 373431991}
+  - {fileID: 18820371}
+--- !u!114 &713815758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ae3c00e6a4694799f2014830aabd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &842605579
 GameObject:
   m_ObjectHideFlags: 0
