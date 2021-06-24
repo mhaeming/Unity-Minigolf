@@ -14,15 +14,14 @@ namespace Code.Player
         private void Awake()
         {
             // Destroy any other existing Player Info
-            //if (info != null && info != this)
-            //{
-                //Destroy(gameObject);
-            //}
-            //else
-            //{
-                //DontDestroyOnLoad(gameObject);
-                //info = this;
-            //}
+            // if (info != null && info != this){
+            //
+            //     Destroy(gameObject);
+            // }
+            // else{
+            //     DontDestroyOnLoad(gameObject);
+            //     info = this;
+            // }
         }
 
         private void OnEnable()

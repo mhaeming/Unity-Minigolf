@@ -24,10 +24,12 @@ namespace Code.Player
         private Rigidbody _rigidbody;
         private bool _onGround;
         private float _startJump;
+        private PlayerInfo _info;
         
         // Start is called before the first frame update
         public void Start()
         {
+            _info = GetComponent<PlayerInfo>();
             verticalVel = defaultSpeed;
             _rigidbody = GetComponent<Rigidbody>();
             Physics.gravity = new Vector3(0,-100.0f,0);
@@ -40,14 +42,14 @@ namespace Code.Player
             _rigidbody.velocity = new Vector3(_horizontalVel, _upVel, verticalVel);
 
             // Move left
-            if (Input.GetKeyDown(moveLeft) & PlayerInfo.info.GetLane() > 1)
+            if (Input.GetKeyDown(moveLeft) & _info.GetLane() > 1)
             {
                 _horizontalVel = -2;
                 StartCoroutine(StopSlide());
             }
 
             // Move Right
-            if (Input.GetKeyDown(moveRight) & PlayerInfo.info.GetLane() < 3)
+            if (Input.GetKeyDown(moveRight) & _info.GetLane() < 3)
             {
                 _horizontalVel = 2;
                 StartCoroutine(StopSlide());

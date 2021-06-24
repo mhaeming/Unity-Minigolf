@@ -10,17 +10,17 @@ public class FullSceneManager : MonoBehaviour
 {
     public enum sceneEnum
     {
-        //Customize,
+        Customize,
         Start,
         Tutorial,
         Play,
         End,
     }
 
-    //private sceneEnum _currentScene = sceneEnum.Customize;
-    //private sceneEnum _nextScene = sceneEnum.Start;
-    private sceneEnum _currentScene = sceneEnum.Start;
-    private sceneEnum _nextScene = sceneEnum.Tutorial;
+    private sceneEnum _currentScene = sceneEnum.Customize;
+    private sceneEnum _nextScene = sceneEnum.Start;
+    //private sceneEnum _currentScene = sceneEnum.Start;
+    //private sceneEnum _nextScene = sceneEnum.Tutorial;
     
     public bool skipTutorial = false;
     public KeyCode changeSceneKey;
@@ -37,9 +37,9 @@ public class FullSceneManager : MonoBehaviour
             _currentScene = value;
             switch (_currentScene)
             {
-                //case sceneEnum.Customize:
-                //    _nextScene = sceneEnum.Start;
-                //    break;
+                case sceneEnum.Customize:
+                    _nextScene = sceneEnum.Start;
+                    break;
                 case sceneEnum.Start:
                     if (!skipTutorial) _nextScene = sceneEnum.Tutorial;
                     else

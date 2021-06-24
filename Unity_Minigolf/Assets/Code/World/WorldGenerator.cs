@@ -51,7 +51,7 @@ namespace Code.World
             }
             else
             {
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
                 generator = this;
             }
 
