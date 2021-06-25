@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Code.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -61,7 +62,16 @@ namespace Code.World
 
         public void OnEnable()
         {
-                player = GameObject.FindWithTag("Player");
+            player = GameObject.FindWithTag("Player");
+            player.transform.position = new Vector3(0,2,0);
+        }
+
+        public void OnDisable()
+        {
+            player.GetComponent<PlayerMovement>().enabled = false;
+            player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+            player.GetComponent<Rigidbody>().useGravity = false;
+            Debug.Log("You may rest now.");
         }
 
         public void Update()

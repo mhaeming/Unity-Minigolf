@@ -277,15 +277,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalPosition.x
@@ -327,9 +327,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6290887836181384932, guid: aabbb8a21fdd77545919010596412171, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8046544656443106481, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabbb8a21fdd77545919010596412171, type: 3}
@@ -350,13 +354,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeb4e38c3d151f439e1080f02080456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLeft: 276
-  moveRight: 275
-  speedUp: 273
-  slowDown: 274
+  moveLeft: 97
+  moveRight: 100
+  speedUp: 119
+  slowDown: 115
   jump: 32
-  jumpForce: 0
-  defaultSpeed: 2
+  jumpForce: 3
+  defaultSpeed: 1
   verticalVel: 0
 --- !u!4 &18820373 stripped
 Transform:
@@ -623,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244638229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -678,15 +682,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -700,9 +704,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6290887836181384932, guid: aabbb8a21fdd77545919010596412171, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8046544656443106481, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabbb8a21fdd77545919010596412171, type: 3}
@@ -718,18 +726,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373431991}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aeb4e38c3d151f439e1080f02080456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLeft: 276
-  moveRight: 275
-  speedUp: 273
-  slowDown: 274
+  moveLeft: 97
+  moveRight: 100
+  speedUp: 119
+  slowDown: 115
   jump: 32
-  jumpForce: 0
-  defaultSpeed: 2
+  jumpForce: 3
+  defaultSpeed: 1
   verticalVel: 0
 --- !u!114 &373431993
 MonoBehaviour:
@@ -1499,7 +1507,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 713815756}
-  - component: {fileID: 713815758}
   - component: {fileID: 713815757}
   m_Layer: 0
   m_Name: customization
@@ -1545,18 +1552,6 @@ MonoBehaviour:
   - {fileID: 373431991}
   - {fileID: 18820371}
   confirmed: 0
---- !u!114 &713815758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 789ae3c00e6a4694799f2014830aabd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &842605579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,7 +1657,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030451966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 373431997}
@@ -2078,7 +2073,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545865986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -9}
+  m_LocalPosition: {x: 0, y: 3.5, z: -10.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1699914605}

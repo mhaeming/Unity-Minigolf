@@ -101,14 +101,27 @@ public class CharacterCustomization : MonoBehaviour
 
     public void Confirm()
     {
-        confirmed = true;
-       Debug.Log("Don't you forget about me");
-       foreach (var potentialPlayer in players)
-       {
-           if (!potentialPlayer.activeSelf)
-           {
-               Destroy(potentialPlayer);
-           }
-       }
+        if (!confirmed)
+        {
+            confirmed = true;
+            Debug.Log("Don't you forget about me");
+            foreach (var potentialPlayer in players)
+            {
+                if (!potentialPlayer.activeSelf)
+                {
+                    Destroy(potentialPlayer);
+                }
+            } 
+        }
+        else
+        {
+            Debug.Log("The Player has already been decided on!");
+        }
+
+    }
+
+    private void OnDisable()
+    {
+        Confirm();
     }
 }

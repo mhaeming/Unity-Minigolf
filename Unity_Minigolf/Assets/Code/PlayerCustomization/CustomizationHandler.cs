@@ -10,7 +10,7 @@ public class CustomizationHandler : MonoBehaviour
     private GameObject _player;
     private void OnEnable()
     {
-        _player = GameObject.FindWithTag("Player");
+        _player = GameObject.FindWithTag("Player"); 
         if (_player != null)
         {
             _player.GetComponent<PlayerMovement>().enabled = false;
@@ -21,11 +21,5 @@ public class CustomizationHandler : MonoBehaviour
         {
             Debug.Log("There is no Player in this Scene");
         }
-    }
-
-    private void OnDisable()
-    {
-        _player.GetComponent<PlayerMovement>().enabled = true;
-        _player.GetComponent<Rigidbody>().useGravity = true;
     }
 }

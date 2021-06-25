@@ -24,7 +24,7 @@ public class FullSceneManager : MonoBehaviour
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
 
-    private GameObject _player;
+    //private GameObject _player;
 
     public event Action OnSceneChange;
 
@@ -58,11 +58,13 @@ public class FullSceneManager : MonoBehaviour
 
     private void ChangeScene()
     {
+        
         //Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);
         CurrentScene = _nextScene;
         Debug.Log(CurrentScene);
+        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
 
     }
 

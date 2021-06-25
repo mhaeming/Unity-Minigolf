@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using System;
+using Code.Player;
 using UnityEngine;
 
 namespace Code.Tutorial
@@ -16,6 +17,16 @@ namespace Code.Tutorial
         private KeyCode _speedUp = KeyCode.W;
         private KeyCode _slowDown = KeyCode.S;
         private KeyCode _jump = KeyCode.Space;
+
+        private GameObject _player;
+
+        private void OnEnable()
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+            _player.GetComponent<PlayerMovement>().enabled = true;
+            _player.GetComponent<Rigidbody>().useGravity = true;
+            //_player.transform.position = new Vector3(0,1,1);
+        }
 
         void Update()
         {
