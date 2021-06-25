@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Timeout.unity
     guid: 6f3336b31ee3d5443989d0651609ac44
   - enabled: 0
-    path: Assets/Scenes/Priming.unity
+    path: Assets/Scenes/(DEPRECATED)/Priming.unity
     guid: 865bac5bbbe846647bb8fd14c45501ed
   m_configObjects: {}

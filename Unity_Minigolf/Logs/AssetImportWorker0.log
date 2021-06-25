@@ -1602,3 +1602,31 @@ System memory in use after: 70.3 MB.
 Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1949.
 Total: 6.865800 ms (FindLiveObjects: 0.409100 ms CreateObjectMapping: 0.163900 ms MarkObjects: 6.233200 ms  DeleteObjects: 0.056000 ms)
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.010301 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.82 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.863 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.67 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1365 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.2 MB.
+System memory in use after: 70.3 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1951.
+Total: 5.696700 ms (FindLiveObjects: 0.550800 ms CreateObjectMapping: 0.298200 ms MarkObjects: 4.780900 ms  DeleteObjects: 0.063900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 176.335083 seconds.
+  path: Assets/Scenes/(DEPRECATED)
+  artifactKey: Guid(fc50d2cb548fb2343a543cbf6658c725) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/(DEPRECATED) using Guid(fc50d2cb548fb2343a543cbf6658c725) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46a98d7879bc6297a7e906dc2dac12ea') in 0.033498 seconds
+  Import took 0.039001 seconds .
+
