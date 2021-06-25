@@ -26,5 +26,6 @@ public class CustomizationHandler : MonoBehaviour
     private void OnDisable()
     {
         _player.GetComponent<PlayerMovement>().enabled = true;
+        _player.GetComponent<Rigidbody>().useGravity = true;
     }
 }

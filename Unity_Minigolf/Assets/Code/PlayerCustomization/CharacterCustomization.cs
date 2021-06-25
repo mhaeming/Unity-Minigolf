@@ -16,6 +16,7 @@ public class CharacterCustomization : MonoBehaviour
     private Renderer _playerCol;
     private Transform _playerTransform;
     private Vector3 _startScale;
+    public bool confirmed;
 
     private void OnEnable()
     {
@@ -33,6 +34,7 @@ public class CharacterCustomization : MonoBehaviour
 
         charColor[charColor.Length-1] = _playerCol.material.color;
         _startScale = _playerTransform.localScale;
+        confirmed = false;
         
         DontDestroyOnLoad(_shell);
     }
@@ -99,6 +101,7 @@ public class CharacterCustomization : MonoBehaviour
 
     public void Confirm()
     {
+        confirmed = true;
        Debug.Log("Don't you forget about me");
        foreach (var potentialPlayer in players)
        {

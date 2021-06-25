@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 namespace Code.Player
 {
+    [RequireComponent(typeof(PlayerInfo))]
+    [RequireComponent(typeof(PlayerBehavior))]
     public class PlayerMovement : MonoBehaviour
     {
         // Define KeyControls
