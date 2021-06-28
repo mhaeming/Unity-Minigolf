@@ -25,7 +25,6 @@ namespace Code.Tutorial
             _player = GameObject.FindGameObjectWithTag("Player");
             _player.GetComponent<PlayerMovement>().enabled = true;
             _player.GetComponent<Rigidbody>().useGravity = true;
-            //_player.transform.position = new Vector3(0,1,1);
         }
 
         void Update()

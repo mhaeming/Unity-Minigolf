@@ -5,40 +5,50 @@ using UnityEngine;
 
 public class CharacterCustomization : MonoBehaviour
 {
+    // set different Variables representing aspect that can then be customized
     private int _colorIndex = 0;
-    private int _shapeIndex = 0;
-    private int _varietyIndex = 0;
-    [SerializeField] public Color[] charColor;
-    [SerializeField] public GameObject[] players;
-    private GameObject _player;
-    private GameObject _shell;
-    private GameObject _finalChoice;
     private Renderer _playerCol;
+    private int _shapeIndex = 0;
     private Transform _playerTransform;
     private Vector3 _startScale;
+    
+    // Array of potential Player Colours
+    [SerializeField] public Color[] charColor;
+    // Array of predefined Player Variants, stored as Children of Shell
+    [SerializeField] public GameObject[] players;
+    private GameObject _shell;
+    private int _varietyIndex = 0;
+  
+    private GameObject _player;
+    
     public bool confirmed;
 
     private void OnEnable()
     {
-        _player = GameObject.FindWithTag("Player");
-        if (_player == null){
-            Debug.Log("I have no master");
-        }
+        // Find currently active Player and Shell
         _shell = GameObject.FindWithTag("Shell");
         if (_shell == null)
         {
             Debug.Log("I am a naked slug! :(");
         }
+        _player = GameObject.FindWithTag("Player");
+        if (_player == null){
+            Debug.Log("I have no master");
+        }
+        // add initial Color and Shape as options
         _playerCol = _player.GetComponent<Renderer>();
-        _playerTransform = _player.GetComponent<Transform>();
-
         charColor[charColor.Length-1] = _playerCol.material.color;
+        _playerTransform = _player.GetComponent<Transform>();
         _startScale = _playerTransform.localScale;
+        
         confirmed = false;
         
         DontDestroyOnLoad(_shell);
     }
 
+    /// <summary>
+    /// hitting the ColorChanging Button selects the next element of the Array of potential Colors
+    /// </summary>
     public void ChangeColor(){
         _player = GameObject.FindWithTag("Player");
         _playerCol = _player.GetComponent<Renderer>();
@@ -54,10 +64,12 @@ public class CharacterCustomization : MonoBehaviour
         {
             Debug.Log("Tried to index color not existent in Array");
         }
-        
         _playerCol.material.color = charColor[_colorIndex];
     }
 
+    /// <summary>
+    /// Change the PLayer's shape by setting its scale to be according to predefined values
+    /// </summary>
     public void ChangeShape()
     { 
         _player = GameObject.FindWithTag("Player");
@@ -84,6 +96,10 @@ public class CharacterCustomization : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enable Child switches between different Child Objects of the Player Variety Game Object
+    /// This allows choosing a pre-designed PLayer variant out of an Array
+    /// </summary>
     public void EnableChild()
     {
         players[_varietyIndex].SetActive(false);
@@ -101,6 +117,8 @@ public class CharacterCustomization : MonoBehaviour
 
     public void Confirm()
     {
+        // Confirming the player deletes any other potential Player Scaffolding
+        // avoids unnecessary GameObject being carried through Scenes
         if (!confirmed)
         {
             confirmed = true;
@@ -122,6 +140,7 @@ public class CharacterCustomization : MonoBehaviour
 
     private void OnDisable()
     {
+        // if the Confirmation Button was not manually selected, do so on Scene Change nevertheless
         Confirm();
     }
 }
