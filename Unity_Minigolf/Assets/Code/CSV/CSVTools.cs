@@ -1,59 +1,61 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.IO; //we need System.IO for saving the csv Document
+using System.IO;
+using UnityEngine; //we need System.IO for saving the csv Document
 
-public class CSVTools
+namespace Code.CSV
 {
-    public static List<string> GenerateCsv(List<List<string>> data, List<string> csvHeader, char separator = ',')
+    public class CSVTools
     {
-        // initialize the variables as being empty
-        List<string> finalData = new List<string>();
-        string finalHeaders = "";
-        // headers as first row, separated with comma
-        foreach (var header in csvHeader)
+        public static List<string> GenerateCsv(List<List<string>> data, List<string> csvHeader, char separator = ',')
         {
-            // attach each header to our List of headers
-            finalHeaders = finalHeaders + header + separator;
-        }
-        finalData.Add(finalHeaders);
-
-        // create and add each row of data after each other
-        foreach (List<string> rowOfData in data)
-        {
-            string finalRowOfData = "";
-            // create single Row of Data
-            foreach (string dataItem in rowOfData)
+            // initialize the variables as being empty
+            List<string> finalData = new List<string>();
+            string finalHeaders = "";
+            // headers as first row, separated with comma
+            foreach (var header in csvHeader)
             {
-                finalRowOfData = finalRowOfData + dataItem + separator;
+                // attach each header to our List of headers
+                finalHeaders = finalHeaders + header + separator;
             }
-            finalData.Add(finalRowOfData);
-        }
-        return finalData;
-    }
+            finalData.Add(finalHeaders);
 
-    // after creating CSV file, export and save it
-    // return bool to check functionality
-    public static bool SaveCsv(List<string> csvLines, string fileAddress, string extension = ".csv")
-    {
-        try
-        {
-            using (StreamWriter csvWriter = new StreamWriter(fileAddress + extension))
+            // create and add each row of data after each other
+            foreach (List<string> rowOfData in data)
             {
-                foreach (string lineInCsv in csvLines)
+                string finalRowOfData = "";
+                // create single Row of Data
+                foreach (string dataItem in rowOfData)
                 {
-                    // csvWriter prints individual line into document, then place full file at fileAddress
-                    csvWriter.WriteLine(lineInCsv);
+                    finalRowOfData = finalRowOfData + dataItem + separator;
                 }
-                csvWriter.Close();
+                finalData.Add(finalRowOfData);
             }
+            return finalData;
         }
-        catch (Exception e)
+
+        // after creating CSV file, export and save it
+        // return bool to check functionality
+        public static bool SaveCsv(List<string> csvLines, string fileAddress, string extension = ".csv")
         {
-            Debug.LogError(e);
-            throw;
+            try
+            {
+                using (StreamWriter csvWriter = new StreamWriter(fileAddress + extension))
+                {
+                    foreach (string lineInCsv in csvLines)
+                    {
+                        // csvWriter prints individual line into document, then place full file at fileAddress
+                        csvWriter.WriteLine(lineInCsv);
+                    }
+                    csvWriter.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                throw;
+            }
+            return true;
         }
-        return true;
     }
 }

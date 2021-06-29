@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Link the player object
 // Link camera object
@@ -10,48 +7,58 @@ using UnityEngine;
     // Height
     // Offset (Left/right) 0 as default
 
-public class CameraController : MonoBehaviour
+namespace Code.Player
 {
-    public GameObject player;
-    public float distance = 3;
-    public float height = 0.6f;
-    public float offset = 0;
-
-    private Vector3 heading;
-
-    private float _rayLength;
-    private Material _currentMat;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class CameraController : MonoBehaviour
     {
-        // Calculate ray length to limit it to the player
-        _rayLength = Mathf.Sqrt(distance * distance + height * height);
-    }
+        public GameObject player;
+        public float distance = 3;
+        public float height = 0.6f;
+        public float offset = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = player.transform.position + new Vector3(offset, height, -distance);
-    }
+        private Vector3 _heading;
 
-    void FixedUpdate()
-    {
-        heading = player.transform.position - transform.position;
-        Ray camRay = new Ray(transform.position, heading);
-        RaycastHit hit;
+        private float _rayLength;
+        private Material _currentMat;
         
-        // Cast the from camera towards player object
-        if (Physics.Raycast(camRay, out hit, _rayLength))
+        public void OnEnable()
         {
-            if (hit.collider.tag == "Obstacle")
+            if (player == null)
             {
-                // Get the object's material
-                _currentMat = hit.collider.GetComponent<MeshRenderer>().material;
-                Color oldCol = _currentMat.color;
-                // Set new color with transparency
-                Color newCol = new Color(oldCol.r, oldCol.g, oldCol.b, 0.5f);
-                hit.collider.GetComponent<MeshRenderer>().material.SetColor("_Color", newCol);
+                player = GameObject.FindWithTag("Player");
+            }
+        }
+    
+        // Start is called before the first frame update
+        void Start()
+        {
+            // Calculate ray length to limit it to the player
+            _rayLength = Mathf.Sqrt(distance * distance + height * height);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.position = player.transform.position + new Vector3(offset, height, -distance);
+        }
+
+        void FixedUpdate()
+        {
+            _heading = player.transform.position - transform.position;
+            Ray camRay = new Ray(transform.position, _heading);
+
+            // Cast the from camera towards player object
+            if (Physics.Raycast(camRay, out var hit, _rayLength))
+            {
+                if (hit.collider.CompareTag("Obstacle"))
+                {
+                    // Get the object's material
+                    _currentMat = hit.collider.GetComponent<MeshRenderer>().material;
+                    Color oldCol = _currentMat.color;
+                    // Set new color with transparency
+                    Color newCol = new Color(oldCol.r, oldCol.g, oldCol.b, 0.5f);
+                    hit.collider.GetComponent<MeshRenderer>().material.SetColor("_Color", newCol);
+                }
             }
         }
     }
