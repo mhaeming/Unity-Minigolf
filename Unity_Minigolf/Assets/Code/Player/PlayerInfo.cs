@@ -12,11 +12,14 @@ namespace Code.Player
 
         private Queue<Vector3> _obstaclePositions = new Queue<Vector3>();
         private Queue<Vector3> _pitPositions = new Queue<Vector3>();
-
+        private Vector3 _startPosition;
+        
+        
         public int AvoidedObstacles { get; private set; }
         public int AvoidedPits { get; private set; }
         public int HitObstacles { get; private set; }
         public int HitPits { get; private set; }
+        public float DistanceTraveled { get; private set; }
         public float DistanceToNextObstacle { get; private set; }
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
@@ -34,8 +37,24 @@ namespace Code.Player
             // }
         }
 
-        private void Update()
+        private void Start()
         {
+            _startPosition = transform.position;
+        }
+
+        
+        private void FixedUpdate()
+        {
+            // if (_obstaclePositions.Count > 0)
+            // {
+            //     Debug.DrawLine(transform.position, _obstaclePositions.Peek(), Color.red);
+            // }
+            //
+            // if (_pitPositions.Count > 0)
+            // {
+            //     Debug.DrawLine(transform.position, _pitPositions.Peek(), Color.yellow);
+            // }
+            
             if (_obstaclePositions.Count > 0)
             {
                 DistanceToNextObstacle = Vector3.Distance(_obstaclePositions.Peek(), transform.position);
@@ -50,22 +69,8 @@ namespace Code.Player
 
             // Will ich das wirklich jeden Frame updaten?
             DistanceToNextObject = Mathf.Min(DistanceToNextObstacle, DistanceToNextPit);
-            
+            DistanceTraveled = Vector3.Distance(_startPosition, transform.position);
         }
-
-
-        // private void FixedUpdate()
-        // {
-        //     if (_obstaclePositions.Count > 0)
-        //     {
-        //         Debug.DrawLine(transform.position, _obstaclePositions.Peek(), Color.red);
-        //     }
-        //
-        //     if (_pitPositions.Count > 0)
-        //     {
-        //         Debug.DrawLine(transform.position, _pitPositions.Peek(), Color.yellow);
-        //     }
-        // }
 
         private void OnEnable()
         {
