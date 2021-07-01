@@ -13,7 +13,8 @@ namespace Code.Player
         private Queue<Vector3> _obstaclePositions = new Queue<Vector3>();
         private Queue<Vector3> _pitPositions = new Queue<Vector3>();
 
-
+        public int AvoidedObstacles { get; private set; }
+        public int AvoidedPits { get; private set; }
         public int HitObstacles { get; private set; }
         public int HitPits { get; private set; }
         public float DistanceToNextObstacle { get; private set; }
@@ -117,6 +118,7 @@ namespace Code.Player
             if (_obstaclePositions.Peek().z - transform.position.z < 0)
             {
                 _obstaclePositions.Dequeue();
+                AvoidedObstacles++;
             }
         }
 
@@ -125,6 +127,7 @@ namespace Code.Player
             if (_pitPositions.Peek().z - transform.position.z < 0)
             {
                 _pitPositions.Dequeue();
+                AvoidedPits++;
             }
         }
         
