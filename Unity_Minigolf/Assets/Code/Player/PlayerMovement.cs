@@ -13,12 +13,10 @@ namespace Code.Player
         // Define KeyControls
         public KeyCode moveLeft = KeyCode.A;
         public KeyCode moveRight = KeyCode.D;
-        public KeyCode speedUp = KeyCode.W;
-        public KeyCode slowDown = KeyCode.S;
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
-        public float defaultSpeed = 2;
+        public float speed = 10;
 
         private float _horizontalVel = 0;
         public float verticalVel;
@@ -32,7 +30,7 @@ namespace Code.Player
         public void Start()
         {
             _info = GetComponent<PlayerInfo>();
-            verticalVel = defaultSpeed;
+            verticalVel = speed;
             _rigidbody = GetComponent<Rigidbody>();
             Physics.gravity = new Vector3(0,-100.0f,0);
         }
@@ -56,19 +54,7 @@ namespace Code.Player
                 _horizontalVel = 2;
                 StartCoroutine(StopSlide());
             }
-        
-            // Speed up
-            if (Input.GetKeyDown(speedUp))
-            {
-                verticalVel += .5f;
-            }
-        
-            // Slow down
-            if (Input.GetKeyDown(slowDown) & verticalVel >= defaultSpeed)
-            {
-                verticalVel -= .5f;
-            }
-        
+            
             // Jump
             if (Input.GetKeyDown(jump) & _onGround)
             {
