@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c7139ffacd6f640bea989a35c2db25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerobj: {fileID: 1680840079}
+  player: {fileID: 0}
   keepFloorElements: 2
 --- !u!114 &1541288349
 MonoBehaviour:
@@ -412,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   time: 10
+  resetCooldown: 2
 --- !u!1001 &1680840078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -426,6 +427,18 @@ PrefabInstance:
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2320656478887189136, guid: aabbb8a21fdd77545919010596412171, type: 3}
       propertyPath: m_LocalPosition.x
@@ -493,5 +506,28 @@ MonoBehaviour:
   jump: 32
   jumpForce: 5
   defaultSpeed: 2
-  worldManager: {fileID: 1541288346}
   verticalVel: 0
+--- !u!114 &1680840081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680840079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174dc395e1ec497e8928c839caed9f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1680840082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680840079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f6a89c193241d0889025e8bd77acdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

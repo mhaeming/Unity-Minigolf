@@ -13,10 +13,13 @@ namespace Code.World
     /// </summary>
     public class WorldGenerator : MonoBehaviour
     {
-        public delegate void ObjectPlaced(Vector3 pos);
-
         public static WorldGenerator generator;
 
+        public delegate void ObjectPlaced(Vector3 pos);
+        public static event ObjectPlaced PitPlaced;
+        public static event ObjectPlaced ObstaclePlaced;
+
+        
         [Header("Game Objects")]
         // Player
         public GameObject player;
@@ -29,7 +32,6 @@ namespace Code.World
         private float _activeFloorPositionY;
         private float _activeFloorPositionZ;
 
-        
         public float ObstacleFreq { get; set; }
 
         public float PitFreq { get; set; }
@@ -68,10 +70,13 @@ namespace Code.World
 
         public void OnDisable()
         {
-            player.GetComponent<PlayerMovement>().enabled = false;
-            player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
-            player.GetComponent<Rigidbody>().useGravity = false;
-            Debug.Log("You may rest now.");
+            if (player != null)
+            {
+                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+                player.GetComponent<Rigidbody>().useGravity = false;
+                Debug.Log("You may rest now.");
+            }
         }
 
         public void Update()
@@ -82,10 +87,7 @@ namespace Code.World
             ClearBehind(ActivePits);
             ClearBehind(ActiveObstacles);
         }
-
-        public static event ObjectPlaced PitPlaced;
-        public static event ObjectPlaced ObstaclePlaced;
-
+        
         // Update is called once per frame
         public void GenerateWorld()
         {
