@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7972472
 RectTransform:
   m_ObjectHideFlags: 0
@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &523497726
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1313,6 +1313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713815756}
   - component: {fileID: 713815757}
+  - component: {fileID: 713815758}
   m_Layer: 0
   m_Name: customization
   m_TagString: Untagged
@@ -1346,13 +1347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a279041a92dd0d4991902f82f6d3534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charColor:
-  - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 1, g: 0.7253939, b: 0, a: 0}
-  - {r: 0.5754717, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.7346878, b: 1, a: 0}
-  - {r: 1, g: 0, b: 0.8934412, a: 0}
-  - {r: 1, g: 0, b: 0.8934412, a: 0}
   players:
   - {fileID: 7413847436916381188}
   - {fileID: 267134115}
@@ -1361,6 +1355,18 @@ MonoBehaviour:
   - {fileID: 8561172662162552401}
   - {fileID: 7176981945313179523}
   confirmed: 0
+--- !u!114 &713815758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ae3c00e6a4694799f2014830aabd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &842605579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,7 +1661,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '?'
+  m_Text: '>'
 --- !u!222 &1354982317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2213,6 +2219,18 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9154216381211457164, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154216381211457164, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154216381211457164, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154216381211457164, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2331,6 +2349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1030451967}
     m_Modifications:
+    - target: {fileID: -1996490854147821160, guid: de9aa9190ac447640bf668ca6136e33e, type: 3}
+      propertyPath: jumpForce
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3574476034429450155, guid: de9aa9190ac447640bf668ca6136e33e, type: 3}
       propertyPath: m_Name
       value: golfball
