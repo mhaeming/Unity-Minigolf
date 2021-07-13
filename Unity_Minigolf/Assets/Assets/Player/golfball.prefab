@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4578283989260108042}
   - component: {fileID: 2605174079386975507}
   m_Layer: 0
-  m_Name: golfball
+  m_Name: Golfball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -7816450433802216817}
   - component: {fileID: 3014884939523308706}
   m_Layer: 0
-  m_Name: model
+  m_Name: Basketball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
