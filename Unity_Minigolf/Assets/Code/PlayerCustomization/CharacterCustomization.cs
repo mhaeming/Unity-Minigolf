@@ -13,9 +13,10 @@ public class CharacterCustomization : MonoBehaviour
     private Vector3 _startScale;
     
     // Array of potential Player Colours
-    [SerializeField] public Color[] charColor;
+    //[SerializeField] public Color[] charColor;
     // Array of predefined Player Variants, stored as Children of Shell
     [SerializeField] public GameObject[] players;
+    private int _numberPlayers;
     private GameObject _shell;
     private int _varietyIndex = 0;
   
@@ -35,11 +36,13 @@ public class CharacterCustomization : MonoBehaviour
         if (_player == null){
             Debug.Log("I have no master");
         }
+
+        _numberPlayers = players.Length - 1;
         // add initial Color and Shape as options
-        _playerCol = _player.GetComponent<Renderer>();
-        charColor[charColor.Length-1] = _playerCol.material.color;
-        _playerTransform = _player.GetComponent<Transform>();
-        _startScale = _playerTransform.localScale;
+        //_playerCol = _player.GetComponent<Renderer>();
+        //charColor[charColor.Length-1] = _playerCol.material.color;
+        //_playerTransform = _player.GetComponent<Transform>();
+        //_startScale = _playerTransform.localScale;
         
         confirmed = false;
         
@@ -49,7 +52,7 @@ public class CharacterCustomization : MonoBehaviour
     /// <summary>
     /// hitting the ColorChanging Button selects the next element of the Array of potential Colors
     /// </summary>
-    public void ChangeColor(){
+    /*public void ChangeColor(){
         _player = GameObject.FindWithTag("Player");
         _playerCol = _player.GetComponent<Renderer>();
         if (_colorIndex < charColor.Length-1)
@@ -65,7 +68,7 @@ public class CharacterCustomization : MonoBehaviour
             Debug.Log("Tried to index color not existent in Array");
         }
         _playerCol.material.color = charColor[_colorIndex];
-    }
+    }*/
 
     /// <summary>
     /// Change the PLayer's shape by setting its scale to be according to predefined values
@@ -103,14 +106,13 @@ public class CharacterCustomization : MonoBehaviour
     public void EnableChild()
     {
         players[_varietyIndex].SetActive(false);
-        switch (_varietyIndex)
+        if (_varietyIndex == players.Length-1)
         {
-            case 0:
-                _varietyIndex++;
-                break;
-            case 1:
-                _varietyIndex = 0;
-                break;
+            _varietyIndex = 0;
+        }
+        else
+        {
+            _varietyIndex++;
         }
         players[_varietyIndex].SetActive(true);
     }

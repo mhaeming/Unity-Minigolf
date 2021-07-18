@@ -58,6 +58,10 @@ public class FullSceneManager : MonoBehaviour
                 case sceneEnum.Play:
                     _nextScene = sceneEnum.End;
                     break;
+                case sceneEnum.End:
+                    // no further Scene Changes possible if already in Timeout
+                    OnSceneChange -= ChangeScene;
+                    break;
             }
         }
     }
