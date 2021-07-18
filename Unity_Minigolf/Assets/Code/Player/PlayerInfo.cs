@@ -137,19 +137,24 @@ namespace Code.Player
         }
         
 
-        // returns in which lane the player is at that moment (left=1, middle=2, right=3)
+        // returns in which lane the player is at that moment (left=-1, middle=0, right=1)
         public int GetLane()
         {
-            if (transform.position.x > 0.5f )
+            if (transform.position.x == -1)
             {
-                return 3;
+                return -1;
             }
-            if (transform.position.x < -0.5f)
+            if (transform.position.x == 1)
             {
                 return 1;
             }
 
-            return 2;
+            if (transform.position.x == 0)
+            {
+                return 0;
+            }
+
+            return 42;
         }
     }
 }

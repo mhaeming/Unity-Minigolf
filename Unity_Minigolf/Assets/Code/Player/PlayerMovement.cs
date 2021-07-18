@@ -16,86 +16,50 @@ namespace Code.Player
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
-        public float speed = 10;
-
-        private float _horizontalVel = 0;
-        public float verticalVel;
-        private float _upVel = 0;
-        private Rigidbody _rigidbody;
-        private bool _onGround;
-        private float _startJump;
-        private PlayerInfo _info;
+        public float speed = 2;
         
+        private Rigidbody _rigidbody;
+        private PlayerInfo _info;
+        private Vector3 _target;
+
         // Start is called before the first frame update
         public void Start()
         {
             _info = GetComponent<PlayerInfo>();
-            verticalVel = speed;
             _rigidbody = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0,-100.0f,0);
+            Physics.gravity = new Vector3(0,-75.0f,0);
         }
 
         // Update is called once per frame
         void Update()
         {
-            // Move the object at start speed
-            _rigidbody.velocity = new Vector3(_horizontalVel, _upVel, verticalVel);
-
             // Move left
-            if (Input.GetKeyDown(moveLeft) & _info.GetLane() > 1)
+            if (Input.GetKeyDown(moveLeft) & _info.GetLane() != -1)
             {
-                _horizontalVel = -2;
-                StartCoroutine(StopSlide());
+                _target += Vector3.left;
+                _rigidbody.MovePosition(transform.position + Vector3.left);
             }
 
             // Move Right
-            if (Input.GetKeyDown(moveRight) & _info.GetLane() < 3)
-            {
-                _horizontalVel = 2;
-                StartCoroutine(StopSlide());
+            if (Input.GetKeyDown(moveRight) & _info.GetLane() != 1)
+            { 
+                _target += Vector3.right;
+                _rigidbody.MovePosition(transform.position + Vector3.right);
             }
             
             // Jump
-            if (Input.GetKeyDown(jump) & _onGround)
+            if (Input.GetKeyDown(jump))
             {
-                _onGround = false;
-                _upVel = jumpForce;
-                _startJump = transform.position.z;
-                StartCoroutine(Fall());
+                // TODO: Smoother falling
+                _rigidbody.AddForce(new Vector3(0,10) * jumpForce, ForceMode.Impulse);
             }
 
         }
 
-        IEnumerator StopSlide()
+        private void FixedUpdate()
         {
-            yield return new WaitForSeconds(.5f);
-            _horizontalVel = 0;
-        }
-
-        // player falls as quickly as he jumps up (+ gravity)
-        IEnumerator Fall()
-        {
-            yield return new WaitUntil(ReachedLength);
-            _upVel = -jumpForce;
-        }
-
-        // is true once player has moved 1 unit in air
-        private bool ReachedLength()
-        {
-            if (transform.position.z >= _startJump + 1.3)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            if (other.gameObject.CompareTag("Floor"))
-            {
-                _onGround = true;
-                _upVel = 0;
-            }
+            // TODO: Smoother line switching
+            _rigidbody.velocity = new Vector3(0, 0, speed);
         }
     }
 }
