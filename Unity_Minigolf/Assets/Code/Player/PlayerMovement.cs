@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Numerics;
 using Code.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Code.Player
 {
-    [RequireComponent(typeof(PlayerInfo))]
     [RequireComponent(typeof(PlayerBehavior))]
     public class PlayerMovement : MonoBehaviour
     {
@@ -16,35 +17,38 @@ namespace Code.Player
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
+        public float gravity;
         public float speed = 2;
+        public float sideSpeed = 0.1f;
+        public int Lane { get; private set; }
+        public bool OnGround { get; private set; }
         
         private Rigidbody _rigidbody;
-        private PlayerInfo _info;
-        private Vector3 _target;
+        private Vector3 _pos;
+        private float _movementFactor;
 
         // Start is called before the first frame update
         public void Start()
         {
-            _info = GetComponent<PlayerInfo>();
             _rigidbody = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0,-75.0f,0);
+            Physics.gravity = new Vector3(0,-gravity,0);
+            Lane = 0;
+            _movementFactor = 1.5f;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             // Move left
-            if (Input.GetKeyDown(moveLeft) & _info.GetLane() != -1)
+            if (Input.GetKeyDown(moveLeft) & Lane != -1)
             {
-                _target += Vector3.left;
-                _rigidbody.MovePosition(transform.position + Vector3.left);
+                Lane--;
             }
 
             // Move Right
-            if (Input.GetKeyDown(moveRight) & _info.GetLane() != 1)
-            { 
-                _target += Vector3.right;
-                _rigidbody.MovePosition(transform.position + Vector3.right);
+            if (Input.GetKeyDown(moveRight) & Lane != 1)
+            {
+                Lane++;
             }
             
             // Jump
@@ -52,14 +56,26 @@ namespace Code.Player
             {
                 // TODO: Smoother falling
                 _rigidbody.AddForce(new Vector3(0,10) * jumpForce, ForceMode.Impulse);
+                OnGround = false;
             }
 
+            _pos = transform.position;
+            _pos.x = Mathf.Lerp(_pos.x, Lane * _movementFactor , sideSpeed);
         }
 
         private void FixedUpdate()
         {
-            // TODO: Smoother line switching
+            _rigidbody.MovePosition(_pos);
             _rigidbody.velocity = new Vector3(0, 0, speed);
+        }
+
+        /// <summary>
+        /// Set <see cref="OnGround"/> true when on a Floor tile
+        /// </summary>
+        /// <param name="other">Collider of other objects</param>
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Floor")) OnGround = true;
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Code.Player
 {
+    [RequireComponent(typeof(PlayerMovement))]
     public class PlayerInfo : MonoBehaviour
     {
 
@@ -24,22 +25,13 @@ namespace Code.Player
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
 
-        private void Awake()
-        {
-            // Destroy any other existing Player Info
-            // if (info != null && info != this){
-            //
-            //     Destroy(gameObject);
-            // }
-            // else{
-            //     DontDestroyOnLoad(gameObject);
-            //     info = this;
-            // }
-        }
 
+        private PlayerMovement _playerMovement;
+        
         private void Start()
         {
             _startPosition = transform.position;
+            _playerMovement = GetComponent<PlayerMovement>();
         }
 
         
@@ -137,24 +129,13 @@ namespace Code.Player
         }
         
 
-        // returns in which lane the player is at that moment (left=-1, middle=0, right=1)
+        /// <summary>
+        /// Returns the current lane the player is in or moving towards
+        /// </summary>
+        /// <returns></returns>
         public int GetLane()
         {
-            if (transform.position.x == -1)
-            {
-                return -1;
-            }
-            if (transform.position.x == 1)
-            {
-                return 1;
-            }
-
-            if (transform.position.x == 0)
-            {
-                return 0;
-            }
-
-            return 42;
+            return _playerMovement.Lane;
         }
     }
 }
