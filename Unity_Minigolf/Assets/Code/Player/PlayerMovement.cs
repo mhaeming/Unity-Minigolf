@@ -17,8 +17,7 @@ namespace Code.Player
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
-        public float gravity;
-        public float speed = 2;
+        public float speed = 3;
         public float sideSpeed = 0.1f;
         public int Lane { get; private set; }
         public bool OnGround { get; private set; }
@@ -31,9 +30,9 @@ namespace Code.Player
         public void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0,-gravity,0);
+            Physics.gravity = new Vector3(0,-100,0);
             Lane = 0;
-            _movementFactor = 1.5f;
+            _movementFactor = 1;
         }
 
         // Update is called once per frame

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.38924062, g: 0.7777032, b: 1.7340493, a: 1}
+  m_IndirectSpecularColor: {r: 0.3892399, g: 0.77770275, b: 1.7340493, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -368,12 +368,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveLeft: 97
   moveRight: 100
-  speedUp: 119
-  slowDown: 115
   jump: 32
-  jumpForce: 3
-  defaultSpeed: 1
-  verticalVel: 0
+  jumpForce: 10
+  gravity: 100
+  speed: 2
+  sideSpeed: 0.1
 --- !u!82 &491888119
 AudioSource:
   m_ObjectHideFlags: 0
