@@ -14,16 +14,17 @@ public class FullSceneManager : MonoBehaviour
     // Enum representing all playable Scenes
     public enum sceneEnum
     {
-        Customize,
         Start,
+        Customize,
         Tutorial,
         Play,
+        Feedback,
         End,
     }
 
     // variables to keep track of current status
-    private sceneEnum _currentScene = sceneEnum.Customize;
-    private sceneEnum _nextScene = sceneEnum.Start;
+    private sceneEnum _currentScene = sceneEnum.Start;
+    private sceneEnum _nextScene = sceneEnum.Customize;
     
     public bool skipTutorial = false;
     public KeyCode changeSceneKey;
@@ -42,10 +43,10 @@ public class FullSceneManager : MonoBehaviour
             _currentScene = value;
             switch (_currentScene)
             {
-                case sceneEnum.Customize:
-                    _nextScene = sceneEnum.Start;
-                    break;
                 case sceneEnum.Start:
+                    _nextScene = sceneEnum.Customize;
+                    break;
+                case sceneEnum.Customize:
                     if (!skipTutorial) _nextScene = sceneEnum.Tutorial;
                     else
                     {
@@ -56,6 +57,9 @@ public class FullSceneManager : MonoBehaviour
                     _nextScene = sceneEnum.Play;
                     break;
                 case sceneEnum.Play:
+                    _nextScene = sceneEnum.Feedback;
+                    break;
+                case sceneEnum.Feedback:
                     _nextScene = sceneEnum.End;
                     break;
                 case sceneEnum.End:
@@ -72,10 +76,13 @@ public class FullSceneManager : MonoBehaviour
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);
+        // As same Player is taken through all Scenes, reset the Player to ensure starting each Scene at the correct position
+        if (CurrentScene != sceneEnum.Start)
+        {
+            GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
+        }
         CurrentScene = _nextScene;
         Debug.Log(CurrentScene);
-        // As same Player is taken through all Scenes, reset the Player to ensure starting each Scene at the correct position
-        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
 
     }
 
