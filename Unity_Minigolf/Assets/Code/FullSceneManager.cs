@@ -29,6 +29,7 @@ public class FullSceneManager : MonoBehaviour
     public bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
+    public bool keySceneChange = true;
 
     //private GameObject _player;
 
@@ -57,20 +58,26 @@ public class FullSceneManager : MonoBehaviour
                     _nextScene = sceneEnum.Play;
                     break;
                 case sceneEnum.Play:
+                    //Play Mode should only end if Time is run out
+                    //TODO: before uncommenting, enable timeout scene switch again
+                    //keySceneChange = false;
                     _nextScene = sceneEnum.Feedback;
                     break;
                 case sceneEnum.Feedback:
+                    keySceneChange = true;
                     _nextScene = sceneEnum.End;
                     break;
                 case sceneEnum.End:
-                    // no further Scene Changes possible if already in Timeout
-                    OnSceneChange -= ChangeScene;
+                    // if the user chooses to, UI interaction should allow them to play another round
+                    keySceneChange = false;
+                    _nextScene = sceneEnum.Play;
                     break;
             }
         }
     }
 
-    private void ChangeScene()
+    // public Function to be invokable trough button Presses in scene
+    public void ChangeScene()
     {
         
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
@@ -111,7 +118,7 @@ public class FullSceneManager : MonoBehaviour
     public void Update()
     {
         // if the chosen SceneChangeKey is pressed within any Scene, the Scene Change is initiated
-        if (Input.GetKeyDown(changeSceneKey))
+        if (Input.GetKeyDown(changeSceneKey) && keySceneChange)
         {
             OnSceneChange?.Invoke();
         }
