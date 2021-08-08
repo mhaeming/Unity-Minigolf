@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9151262428502314120}
   m_Layer: 0
   m_Name: SceneManager
-  m_TagString: Untagged
+  m_TagString: SceneChange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bae0f94e5484647a669cb2955e4189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nextScene: 1
   skipTutorial: 0
   changeSceneKey: 112
   keySceneChange: 1

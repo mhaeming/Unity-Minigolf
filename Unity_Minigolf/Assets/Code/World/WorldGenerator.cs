@@ -66,6 +66,9 @@ namespace Code.World
         {
             player = GameObject.FindWithTag("Player");
             player.transform.position = new Vector3(0,2,0);
+            // ensure that player is moveable in Main Scene
+            player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponent<Rigidbody>().useGravity = true;
         }
 
         public void OnDisable()

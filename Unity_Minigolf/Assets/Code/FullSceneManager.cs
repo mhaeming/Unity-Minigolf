@@ -90,6 +90,7 @@ public class FullSceneManager : MonoBehaviour
         }
         CurrentScene = _nextScene;
         Debug.Log(CurrentScene);
+        Debug.Log(_nextScene);
 
     }
 
