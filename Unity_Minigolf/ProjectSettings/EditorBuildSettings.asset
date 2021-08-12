@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Feedback.unity
+    path: Assets/Scenes/FeedbackScene.unity
     guid: 971d86edbda7e034ab632e237a9e4c6b
   - enabled: 1
-    path: Assets/Scenes/End.unity
+    path: Assets/Scenes/EndScene.unity
     guid: 6f3336b31ee3d5443989d0651609ac44
   - enabled: 0
     path: Assets/Scenes/(DEPRECATED)/Priming.unity
