@@ -369,12 +369,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveLeft: 97
   moveRight: 100
-  speedUp: 119
-  slowDown: 115
   jump: 32
-  jumpForce: 3
-  defaultSpeed: 1
-  verticalVel: 0
+  jumpForce: 10
+  gravity: 100
+  speed: 2
+  sideSpeed: 0.1
 --- !u!82 &491888119
 AudioSource:
   m_ObjectHideFlags: 0

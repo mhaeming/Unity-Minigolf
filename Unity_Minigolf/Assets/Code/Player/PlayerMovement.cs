@@ -1,115 +1,80 @@
 ﻿using System;
 using System.Collections;
+using System.Numerics;
 using Code.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Code.Player
 {
-    [RequireComponent(typeof(PlayerInfo))]
     [RequireComponent(typeof(PlayerBehavior))]
     public class PlayerMovement : MonoBehaviour
     {
         // Define KeyControls
         public KeyCode moveLeft = KeyCode.A;
         public KeyCode moveRight = KeyCode.D;
-        public KeyCode speedUp = KeyCode.W;
-        public KeyCode slowDown = KeyCode.S;
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
-        public float defaultSpeed = 2;
-
-        private float _horizontalVel = 0;
-        public float verticalVel;
-        private float _upVel = 0;
-        private Rigidbody _rigidbody;
-        private bool _onGround;
-        private float _startJump;
-        private PlayerInfo _info;
+        public float speed = 3;
+        public float sideSpeed = 0.1f;
+        public int Lane { get; private set; }
+        public bool OnGround { get; private set; }
         
+        private Rigidbody _rigidbody;
+        private Vector3 _pos;
+        private float _movementFactor;
+
         // Start is called before the first frame update
         public void Start()
         {
-            _info = GetComponent<PlayerInfo>();
-            verticalVel = defaultSpeed;
             _rigidbody = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0,-100.0f,0);
+            Physics.gravity = new Vector3(0,-100,0);
+            Lane = 0;
+            _movementFactor = 1;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            // Move the object at start speed
-            _rigidbody.velocity = new Vector3(_horizontalVel, _upVel, verticalVel);
-
             // Move left
-            if (Input.GetKeyDown(moveLeft) & _info.GetLane() > 1)
+            if (Input.GetKeyDown(moveLeft) & Lane != -1)
             {
-                _horizontalVel = -2;
-                StartCoroutine(StopSlide());
+                Lane--;
             }
 
             // Move Right
-            if (Input.GetKeyDown(moveRight) & _info.GetLane() < 3)
+            if (Input.GetKeyDown(moveRight) & Lane != 1)
             {
-                _horizontalVel = 2;
-                StartCoroutine(StopSlide());
+                Lane++;
             }
-        
-            // Speed up
-            if (Input.GetKeyDown(speedUp))
-            {
-                verticalVel += .5f;
-            }
-        
-            // Slow down
-            if (Input.GetKeyDown(slowDown) & verticalVel >= defaultSpeed)
-            {
-                verticalVel -= .5f;
-            }
-        
+            
             // Jump
-            if (Input.GetKeyDown(jump) & _onGround)
+            if (Input.GetKeyDown(jump))
             {
-                _onGround = false;
-                _upVel = jumpForce;
-                _startJump = transform.position.z;
-                StartCoroutine(Fall());
+                // TODO: Smoother falling
+                _rigidbody.AddForce(new Vector3(0,10) * jumpForce, ForceMode.Impulse);
+                OnGround = false;
             }
 
+            _pos = transform.position;
+            _pos.x = Mathf.Lerp(_pos.x, Lane * _movementFactor , sideSpeed);
         }
 
-        IEnumerator StopSlide()
+        private void FixedUpdate()
         {
-            yield return new WaitForSeconds(.5f);
-            _horizontalVel = 0;
+            _rigidbody.MovePosition(_pos);
+            _rigidbody.velocity = new Vector3(0, 0, speed);
         }
 
-        // player falls as quickly as he jumps up (+ gravity)
-        IEnumerator Fall()
-        {
-            yield return new WaitUntil(ReachedLength);
-            _upVel = -jumpForce;
-        }
-
-        // is true once player has moved 1 unit in air
-        private bool ReachedLength()
-        {
-            if (transform.position.z >= _startJump + 1.3)
-            {
-                return true;
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Set <see cref="OnGround"/> true when on a Floor tile
+        /// </summary>
+        /// <param name="other">Collider of other objects</param>
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.CompareTag("Floor"))
-            {
-                _onGround = true;
-                _upVel = 0;
-            }
+            if (other.gameObject.CompareTag("Floor")) OnGround = true;
         }
     }
 }
