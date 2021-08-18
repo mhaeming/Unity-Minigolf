@@ -22,19 +22,21 @@ public class FullSceneManager : MonoBehaviour
     }
 
     // variables to keep track of current status
-    private sceneEnum _currentScene = sceneEnum.Customize;
-    private sceneEnum _nextScene = sceneEnum.Start;
+    private static sceneEnum _currentScene = sceneEnum.Customize;
+    private static sceneEnum _nextScene = sceneEnum.Start;
+
+    public static float timeCustomize;
     
-    public bool skipTutorial = false;
+    public static bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
 
     //private GameObject _player;
 
-    public event Action OnSceneChange;
+    public static event Action OnSceneChange;
 
    // dynamically return the current and corresponding next Scene
-    public sceneEnum CurrentScene
+    public static sceneEnum CurrentScene
     {
         get => _currentScene;
         set
@@ -66,8 +68,13 @@ public class FullSceneManager : MonoBehaviour
         }
     }
 
-    private void ChangeScene()
+    private static void ChangeScene()
     {
+        // log the time spend in character editor:
+        if (CurrentScene == sceneEnum.Customize)
+        {
+            timeCustomize = Time.timeSinceLevelLoad;
+        }
         
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);

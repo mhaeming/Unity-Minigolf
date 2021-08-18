@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using UnityEngine; //we need System.IO for saving the csv Document
+using System.IO; //we need System.IO for saving the csv Document
+using UnityEngine; 
 
 namespace Code.CSV
 {
     public class CSVTools
     {
-        public static List<string> GenerateCsv(List<List<string>> data, List<string> csvHeader, char separator = ',')
+
+        public static void CreateEmptyCsv(List<string> csvHeader, char separator = ',')
         {
             // initialize the variables as being empty
             List<string> finalData = new List<string>();
@@ -16,7 +17,44 @@ namespace Code.CSV
             foreach (var header in csvHeader)
             {
                 // attach each header to our List of headers
-                finalHeaders = finalHeaders + header + separator;
+                finalHeaders += header + separator;
+            }
+            finalData.Add(finalHeaders);
+        }
+
+        /*
+        public static List<string> UpdateCsv(List<string> rowOfData, char separator = ',')
+        {
+            TextAsset rawData = Resources.Load<TextAsset>("/Assets/CSVData/data");
+            
+            string[] data = rawData.text.Split(separator);
+            Debug.Log(data);
+            
+            List<string> finalData = 
+            
+            
+            string finalRowOfData = "";
+            // create single Row of Data
+            foreach (string dataItem in rowOfData)
+            {
+                finalRowOfData += dataItem + separator;
+            }
+            finalData.Add(finalRowOfData);
+            
+            return finalData;
+        }
+        */
+
+        public static List<string> CreateCsv(List<List<string>> data, List<string> csvHeader, char separator = ',')
+        {
+            // initialize the variables as being empty
+            List<string> finalData = new List<string>();
+            string finalHeaders = "";
+            // headers as first row, separated with comma
+            foreach (var header in csvHeader)
+            {
+                // attach each header to our List of headers
+                finalHeaders += header + separator;
             }
             finalData.Add(finalHeaders);
 
@@ -27,7 +65,7 @@ namespace Code.CSV
                 // create single Row of Data
                 foreach (string dataItem in rowOfData)
                 {
-                    finalRowOfData = finalRowOfData + dataItem + separator;
+                    finalRowOfData += dataItem + separator;
                 }
                 finalData.Add(finalRowOfData);
             }
