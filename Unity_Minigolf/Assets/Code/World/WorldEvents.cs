@@ -25,7 +25,7 @@ namespace Code.World
         private void Start()
         {
             WorldGenerator.generator.ObstacleFreq = 0.1f;
-            WorldGenerator.generator.PitFreq = 0.01f;
+            WorldGenerator.generator.PitFreq = 0.005f;
         }
 
         private void Update()
@@ -63,7 +63,7 @@ namespace Code.World
         private void StandardPlay()
         {
             WorldGenerator.generator.ObstacleFreq = 0.1f;
-            WorldGenerator.generator.PitFreq = 0.01f;
+            WorldGenerator.generator.PitFreq = 0.005f;
             // WorldGenerator.generator.GenerateWorld();
         }
         
