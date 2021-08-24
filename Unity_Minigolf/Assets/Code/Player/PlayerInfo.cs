@@ -18,9 +18,9 @@ namespace Code.Player
         
         public int AvoidedObstacles { get; private set; }
         public int AvoidedPits { get; private set; }
-        public int HitObstacles { get; private set; }
-        public int HitPits { get; private set; }
-        public float DistanceTraveled { get; private set; }
+        public static int HitObstacles { get; private set; }
+        public static int HitPits { get; private set; }
+        public static float DistanceTraveled { get; private set; }
         public float DistanceToNextObstacle { get; private set; }
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
