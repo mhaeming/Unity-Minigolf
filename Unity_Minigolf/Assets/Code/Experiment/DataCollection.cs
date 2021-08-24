@@ -16,14 +16,13 @@ public class DataCollection : MonoBehaviour
     public int interactions;
     public float metres;
     public int failures;
-    //public static bool dataCollected = false;
+    public static bool dataCollected = false;
 
 
     void Start()
     {
-        Debug.Log("Start Data Collection");
-        Debug.Log("Current Scene" + FullSceneManager.CurrentScene);
-        
+        Debug.Log("Start Data Collection for scene " + FullSceneManager.CurrentScene);
+
         if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Customize)
         {
             // Which group are we in?
@@ -41,9 +40,8 @@ public class DataCollection : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("On Disable Data Collection");
-        Debug.Log("Current Scene " + FullSceneManager.CurrentScene);
-        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Start)
+        Debug.Log("Disable Data Collection in scene " + FullSceneManager.CurrentScene);
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
         {
             //CharacterEditor:
             // get time spend in character editor from FullSceneManager
@@ -62,17 +60,20 @@ public class DataCollection : MonoBehaviour
             
         }
 
-        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback)
         {
             //get information on the main scene from PlayerInfo:
             metres = PlayerInfo.DistanceTraveled;
             failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
             Debug.Log("metres: " + metres + ", failures: " + failures);
             //levels t.b. implemented in WorldEvents class
-            CreateCsvLine();
-            //dataCollected = true;
         }
-        
+
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End && dataCollected == false)
+        {
+            CreateCsvLine();
+            dataCollected = true;
+        }
     }
 
 
@@ -111,7 +112,7 @@ public class DataCollection : MonoBehaviour
         if (_experimentManager != null)
         {
             _experimentManager.csvData.Add(csvLine);
-            Debug.Log("added csvline to csvdata");
+            Debug.Log("added csvline to csvdata " + _experimentManager.csvData.ToString());
         }
         else
         {

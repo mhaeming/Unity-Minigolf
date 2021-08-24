@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// A class to hanfle changing the Scenes in the intended order
+/// A class to handle changing the Scenes in the intended order
 /// </summary>
 public class FullSceneManager : MonoBehaviour
 {
@@ -23,15 +23,15 @@ public class FullSceneManager : MonoBehaviour
     }
 
     // variables to keep track of current status
-    private sceneEnum _currentScene = sceneEnum.Start;
-    private sceneEnum _nextScene = sceneEnum.Customize;
+    private static sceneEnum _currentScene = sceneEnum.Start;
+    private static sceneEnum _nextScene = sceneEnum.Customize;
 
     public static float timeCustomize;
 
     public static bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
-    public bool keySceneChange = true;
+    public static bool keySceneChange = true;
 
     //private GameObject _player;
 
@@ -79,7 +79,7 @@ public class FullSceneManager : MonoBehaviour
         }
     }
 
-    private static void ChangeScene()
+    public void ChangeScene()
     {
         // log the time spend in character editor:
         if (CurrentScene == sceneEnum.Customize)

@@ -16,12 +16,15 @@ public class ExperimentManager : MonoBehaviour
     public List<List<string>> csvData = new List<List<string>>();
     private List<string> _csvHeader = new List<string>();
 
-    private bool _csvCreated = false; 
+    private bool _csvCreated = false;
+    private bool _dataCollected = false;
 
     private void OnEnable()
     {
         if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Customize)
         {
+            defineCsvHeader();
+            
             _prob = Random.Range(0, 2);
 
             if (_prob == 0)
@@ -36,23 +39,29 @@ public class ExperimentManager : MonoBehaviour
             }
             
         }
-        
-        defineCsvHeader();
-        
-    }
 
-  private void OnDisable()
-    {
-
-        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End && _csvCreated == false)
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
         {
-            List<string> csv = CSVTools.CreateCsv(csvData, _csvHeader);
-            CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data");
-            Debug.Log("Created CSV file.");
-            _csvCreated = true;
+            Debug.Log("start coroutine");
+            StartCoroutine(CreateCsvFile());
         }
         
     }
+    
+
+  private IEnumerator CreateCsvFile()
+  {
+      _dataCollected = DataCollection.dataCollected;
+      
+      if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End && _dataCollected && _csvCreated == false)
+      {
+          List<string> csv = CSVTools.CreateCsv(csvData, _csvHeader);
+          CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data");
+          Debug.Log("Created CSV file.");
+          _csvCreated = true;
+      }
+      yield return new WaitForSeconds(.1f);
+  }
 
     private void defineCsvHeader()
     {
