@@ -38,6 +38,15 @@ namespace Code.Player
         // Update is called once per frame
         private void Update()
         {
+            // Debug for ground
+            if (OnGround)
+            {
+                Debug.DrawRay(transform.position, Vector3.up * 10, Color.white, 0, false);
+            } else
+            {
+                Debug.DrawRay(transform.position, Vector3.up * 10, Color.red, 0, false);
+            }
+            
             // Move left
             if (Input.GetKeyDown(moveLeft) & Lane != -1)
             {
@@ -51,7 +60,7 @@ namespace Code.Player
             }
             
             // Jump
-            if (Input.GetKeyDown(jump))
+            if (Input.GetKeyDown(jump) & OnGround)
             {
                 // TODO: Smoother falling
                 _rigidbody.AddForce(new Vector3(0,10) * jumpForce, ForceMode.Impulse);

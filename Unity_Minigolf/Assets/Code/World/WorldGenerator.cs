@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -66,6 +67,9 @@ namespace Code.World
         {
             player = GameObject.FindWithTag("Player");
             player.transform.position = new Vector3(0,2,0);
+            // ensure that player is moveable in Main Scene
+            player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponent<Rigidbody>().useGravity = true;
         }
 
         public void OnDisable()
@@ -93,7 +97,7 @@ namespace Code.World
         {
             if (!WorldActive) return;
             
-            if (Random.value < PitFreq)
+            if (Random.value < PitFreq & NoPitBefore())
             {
                 var pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
                 if (!pit) return;
@@ -191,6 +195,19 @@ namespace Code.World
                 obj.SetActive(false);
             }
             ActivePits.Clear();
+        }
+
+        /// <summary>
+        /// Check whether a pit exist before the current object to generate
+        /// </summary>
+        /// <returns></returns>
+        private bool NoPitBefore()
+        {
+            if (ActivePits.Count > 0)
+            {
+                return !(ActivePits.Last().transform.position.z.Equals(_activeFloorPositionZ - 1));
+            }
+            return true;
         }
     }
 }
