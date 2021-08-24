@@ -206,7 +206,6 @@ MonoBehaviour:
   timer: 0
   time: 10
   resetCooldown: 2
-  levels: 1
 --- !u!4 &133819829
 Transform:
   m_ObjectHideFlags: 0
@@ -371,7 +370,6 @@ MonoBehaviour:
   moveRight: 100
   jump: 32
   jumpForce: 10
-  gravity: 100
   speed: 2
   sideSpeed: 0.1
 --- !u!82 &491888119
@@ -521,10 +519,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 617650646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3de7860c700e2942805da2e7a3763f8, type: 3}
+  m_Script: {fileID: 11500000, guid: c84fcfeddb797a34db3c918e3ebf135c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDecision: 0
+  time: 0
+  items: 0
+  interactions: 0
+  metres: 0
+  failures: 0
+  csvCreated: 0
+  dataCollected: 0
+  csvHeader: []
 --- !u!4 &617650648
 Transform:
   m_ObjectHideFlags: 0

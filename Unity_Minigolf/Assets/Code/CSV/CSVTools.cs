@@ -51,6 +51,9 @@ namespace Code.CSV
             List<string> finalData = new List<string>();
             string finalHeaders = "";
             // headers as first row, separated with comma
+            
+            Debug.Log("csvheader.count: " + csvHeader.Count);
+            
             foreach (var header in csvHeader)
             {
                 // attach each header to our List of headers
@@ -65,10 +68,12 @@ namespace Code.CSV
                 // create single Row of Data
                 foreach (string dataItem in rowOfData)
                 {
+                    Debug.Log("dataItem: " + dataItem);
                     finalRowOfData += dataItem + separator;
                 }
                 finalData.Add(finalRowOfData);
             }
+            Debug.Log("CSV Created!");
             return finalData;
         }
 
@@ -82,6 +87,7 @@ namespace Code.CSV
                 {
                     foreach (string lineInCsv in csvLines)
                     {
+                        Debug.Log("lineinCsv: " + lineInCsv);
                         // csvWriter prints individual line into document, then place full file at fileAddress
                         csvWriter.WriteLine(lineInCsv);
                     }
