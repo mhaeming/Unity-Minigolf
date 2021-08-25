@@ -98,7 +98,7 @@ namespace Code.Experiment
             savedData.csvHeader.Add("interactions");
             savedData.csvHeader.Add("metres");
             savedData.csvHeader.Add("failures");
-            //savedData.csvHeader.Add("levels");
+            savedData.csvHeader.Add("levels");
         }
     
         void CreateCsvLine()
@@ -125,7 +125,7 @@ namespace Code.Experiment
 
             csvLine.Add(savedData.metres.ToString(CultureInfo.InvariantCulture));
             csvLine.Add(savedData.failures.ToString());
-            //csvLine.Add(savedData.levels.ToString());
+            csvLine.Add(savedData.levels.ToString());
         
             // add the csv line to csvData
             savedData.csvData.Add(csvLine);

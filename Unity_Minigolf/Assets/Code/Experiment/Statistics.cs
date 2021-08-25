@@ -12,7 +12,7 @@ namespace Code.Experiment
         public int interactions;
         public float metres;
         public int failures;
-        //public int levels;
+        public int levels;
         public bool csvCreated = false;
         public bool dataCollected = false;
         public List<string> csvHeader = new List<string>();

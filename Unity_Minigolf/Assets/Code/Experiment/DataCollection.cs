@@ -44,7 +44,8 @@ namespace Code.Experiment
                 localData.metres = PlayerInfo.DistanceTraveled;
                 localData.failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
                 Debug.Log("metres: " + localData.metres + ", failures: " + localData.failures);
-                //levels t.b. implemented in WorldEvents class
+                localData.levels = PlayerInfo.maxLevel;
+                Debug.Log("maximum level reached: " + localData.levels);
             }
             SaveStatistics();
         }
@@ -59,12 +60,12 @@ namespace Code.Experiment
                 ExperimentManager.Instance.savedData.items = localData.items;
                 ExperimentManager.Instance.savedData.interactions = localData.interactions;
             }
-            // save metres & failures (& levels) after Play scene
+            // save metres, failures & levels after Play scene
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback)
             {
                 ExperimentManager.Instance.savedData.metres = localData.metres;
                 ExperimentManager.Instance.savedData.failures = localData.failures;
-                //ExperimentManager.Instance.savedData.levels = localData.levels;
+                ExperimentManager.Instance.savedData.levels = localData.levels;
             }
             // set bool dataCollected = true when all data is collected
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)

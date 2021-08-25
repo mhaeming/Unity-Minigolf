@@ -81,8 +81,8 @@ namespace Code.World
             PlayerInfo.LevelThreshold = 3;
             PlayerInfo.AvoidedObstacles = 0;
             PlayerInfo.AvoidedPits = 0;
-            PlayerInfo.level = 0;
-            Debug.Log("level: " + PlayerInfo.level);
+            PlayerInfo.currentLevel = 0;
+            Debug.Log("level: " + PlayerInfo.currentLevel);
 
             StartCoroutine(nameof(ResetCooldown));
             // TODO: The reset does not yet work as expected

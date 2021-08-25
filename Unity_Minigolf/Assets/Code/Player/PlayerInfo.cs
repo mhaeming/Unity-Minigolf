@@ -25,7 +25,8 @@ namespace Code.Player
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
         public static int LevelThreshold { get; set; }
-        public static int level;
+        public static int currentLevel;
+        public static int maxLevel;
 
         private PlayerMovement _playerMovement;
         
@@ -138,8 +139,12 @@ namespace Code.Player
             WorldGenerator.generator.PitFreq += 0.005f;
             PlayerMovement.speed += 0.1f;
             LevelThreshold += 3;
-            level += 1;
-            Debug.Log("level: " + level);
+            currentLevel += 1;
+            if (currentLevel > maxLevel)
+            {
+                maxLevel = currentLevel;
+            }
+            Debug.Log("level: " + currentLevel);
         }
         
 
