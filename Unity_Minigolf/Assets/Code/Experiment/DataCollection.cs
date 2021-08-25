@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Code.Player;
 using Code.World;
 using UnityEngine;
@@ -8,110 +9,71 @@ using UnityEngine.SceneManagement;
 
 public class DataCollection : MonoBehaviour
 {
-    private ExperimentManager _experimentManager;
-    
-    public bool isDecision;
-    public float time;
-    public int items;
-    public int interactions;
-    public float metres;
-    public int failures;
-    public static bool dataCollected;
 
-    public List<List<string>> csvData;
+    public Statistics localData = new Statistics();
 
-    void Awake()
+    void Start()
     {
-        Debug.Log("AWAKE DATA COLLECTION");
-        Debug.Log("Start Data Collection for scene " + FullSceneManager.CurrentScene);
-
-        isDecision = ExperimentManager.Instance.isDecision;
-        time = ExperimentManager.Instance.time;
-        items = ExperimentManager.Instance.items;
-        interactions = ExperimentManager.Instance.interactions;
-        metres = ExperimentManager.Instance.metres;
-        failures = ExperimentManager.Instance.failures;
-        dataCollected = ExperimentManager.Instance.dataCollected;
-        csvData = ExperimentManager.Instance.csvData;
+        localData = ExperimentManager.Instance.savedData;
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disable Data Collection in scene " + FullSceneManager.CurrentScene);
         if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
         {
             //CharacterEditor:
             // get time spend in character editor from FullSceneManager
-            time = FullSceneManager.timeCustomize;
-            ExperimentManager.Instance.time = time; // save to ExperimentManager
-            Debug.Log("time: " + time);
+            localData.time = FullSceneManager.timeCustomize;
+            Debug.Log("time: " + localData.time);
 
-            if (isDecision)
+            if (ExperimentManager.Instance.savedData.isDecision)
             {
                 // get both items and interactions from CharacterCustomization
                 //items: different characters that were clicked on
-                items = CharacterCustomization.items;
-                ExperimentManager.Instance.items = items;
+                localData.items = CharacterCustomization.items;
+
                 //interactions: total number of clicks in editor
-                interactions = CharacterCustomization.interactions;
-                ExperimentManager.Instance.interactions = interactions;
-                Debug.Log("items: " + items + ", interactions: " + interactions);
+                localData.interactions = CharacterCustomization.interactions;
             }
-            
+            else
+            {
+                localData.items = 0;
+            }
+            Debug.Log("items: " + localData.items + ", interactions: " + localData.interactions);
         }
 
         if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback)
         {
             //get information on the main scene from PlayerInfo:
-            metres = PlayerInfo.DistanceTraveled;
-            ExperimentManager.Instance.metres = metres;
-            failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
-            ExperimentManager.Instance.failures = failures;
-            Debug.Log("metres: " + metres + ", failures: " + failures);
+            localData.metres = PlayerInfo.DistanceTraveled;
+            localData.failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
+            Debug.Log("metres: " + localData.metres + ", failures: " + localData.failures);
             //levels t.b. implemented in WorldEvents class
         }
-
-        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End && dataCollected == false)
-        {
-            Debug.Log("data in end scene: items: " + items + "interactions: " + interactions + "time: " + time);
-            Debug.Log("data in end scene: failures: " + failures + "metres: " + metres);
-            CreateCsvLine();
-            ExperimentManager.Instance.dataCollected = true;
-        }
+        SaveStatistics();
     }
 
-
-    void CreateCsvLine()
+    public void SaveStatistics()
     {
-        Debug.Log("creating a csvline");
-        List<string> csvLine = new List<string>();
-
-        // need to handle whether experimental or control group
-        if (isDecision)
+        // handle when which data is saved to make sure that no data is overwritten accidentally:
+        // save time, items and interactions after Customize scene
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
         {
-            csvLine.Add("Yes");
+            ExperimentManager.Instance.savedData.time = localData.time;
+            ExperimentManager.Instance.savedData.items = localData.items;
+            ExperimentManager.Instance.savedData.interactions = localData.interactions;
         }
-        else
+        // save metres & failures (& levels) after Play scene
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback)
         {
-            csvLine.Add("No");
+            ExperimentManager.Instance.savedData.metres = localData.metres;
+            ExperimentManager.Instance.savedData.failures = localData.failures;
+            //ExperimentManager.Instance.savedData.levels = localData.levels;
         }
-        
-        csvLine.Add(time.ToString());
-
-        // only add for experimental group:
-        if (isDecision)
+        // set bool dataCollected = true when all data is collected
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
         {
-            csvLine.Add(items.ToString());
-            csvLine.Add(interactions.ToString());
+            ExperimentManager.Instance.savedData.dataCollected = true;
         }
-        
-        csvLine.Add(metres.ToString());
-        csvLine.Add(failures.ToString());
-        //csvLine.Add(levels.ToString());
-
-        Debug.Log("CSV Line created");
-        
-        //need to put into csvData (t.b. handled by Experiment Manager)
-        ExperimentManager.Instance.csvData.Add(csvLine);
     }
 }

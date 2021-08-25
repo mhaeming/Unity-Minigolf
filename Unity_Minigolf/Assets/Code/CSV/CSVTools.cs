@@ -52,12 +52,11 @@ namespace Code.CSV
             string finalHeaders = "";
             // headers as first row, separated with comma
             
-            Debug.Log("csvheader.count: " + csvHeader.Count);
-            
             foreach (var header in csvHeader)
             {
                 // attach each header to our List of headers
                 finalHeaders += header + separator;
+                Debug.Log("header in CreateCsv: " + header);
             }
             finalData.Add(finalHeaders);
 
@@ -68,12 +67,11 @@ namespace Code.CSV
                 // create single Row of Data
                 foreach (string dataItem in rowOfData)
                 {
-                    Debug.Log("dataItem: " + dataItem);
+                    Debug.Log("dataItem in CreateCsv: " + dataItem);
                     finalRowOfData += dataItem + separator;
                 }
                 finalData.Add(finalRowOfData);
             }
-            Debug.Log("CSV Created!");
             return finalData;
         }
 

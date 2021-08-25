@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Code.CSV;
 using UnityEditor;
 using UnityEngine;
@@ -9,23 +10,14 @@ using Random = UnityEngine.Random;
 public class ExperimentManager : MonoBehaviour
 {
     private int _prob;
-    public bool isDecision;
-    public float time;
-    public int items;
-    public int interactions;
-    public float metres;
-    public int failures;
-    public bool csvCreated;
-    public bool dataCollected;
-
-    // create lists to store the experimental data in a csv file
-    public List<List<string>> csvData = new List<List<string>>();
-    public List<string> csvHeader;
+    
+    public Statistics savedData = new Statistics();
     
     // make sure that the data saved here won't be deleted when transitioning between scenes:
     public static ExperimentManager Instance;
     void Awake ()   
     {
+        Debug.Log("Awake ExperimentManager");
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -35,77 +27,90 @@ public class ExperimentManager : MonoBehaviour
         {
             Destroy (gameObject);
         }
-        
-        // randomly choose one of the two groups (experimental or control)
-        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Customize)
+
+        // handle which of the two groups the trial belongs to
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Start)
         {
+            // randomly choose one of the two groups (experimental or control)
             _prob = Random.Range(0, 2);
 
             if (_prob == 0)
             {
-                isDecision = false;
+                savedData.isDecision = false;
                 Debug.Log("You've landed in the control group.");
             }
             else
             {
-                isDecision = true;
+                savedData.isDecision = true;
                 Debug.Log("You've landed in the experimental group.");
-            }
-            
+            }   
         }
-        
     }
 
     private void OnDisable()
     {
-        Debug.Log("data collected: " + dataCollected + "csvCreated: " + csvCreated);
-        if (dataCollected && !csvCreated)
+        if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
         {
             defineCsvHeader();
-            Debug.Log("hi");
-            Debug.Log("csvHeader: " + csvHeader.Count);
-            Debug.Log("csvData: " + csvData.Count);
-            List<string> csv = CSVTools.CreateCsv(csvData, csvHeader);
-            CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data");
-            Debug.Log("Created CSV file.");
-            csvCreated = true;
+            
+            // only create the csv line when the data has been collected and saved to savedData Statistics
+            if (savedData.dataCollected)
+            {
+                CreateCsvLine();
+            }
+        
+            // only create the csv file when the data has been collected and a csv file has not yet been created
+            if (savedData.dataCollected && !savedData.csvCreated)
+            {
+                List<string> csv = CSVTools.CreateCsv(savedData.csvData, savedData.csvHeader);
+                CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data" + GUID.Generate());
+                Debug.Log("Created CSV file.");
+                savedData.csvCreated = true;
+            }
         }
-    }
-
-    private void Update()
-    {
-        //Debug.Log("start coroutine");
-        //StartCoroutine(CreateCsvFile());
-    }
-
-    private IEnumerator CreateCsvFile()
-    {
-        Debug.Log("inside coroutine");
-        if (dataCollected && !csvCreated)
-        {
-            Debug.Log("hi");
-            Debug.Log("csvHeader: " + csvHeader.Count);
-            Debug.Log("csvData: " + csvData.Count);
-            List<string> csv = CSVTools.CreateCsv(csvData, csvHeader);
-            CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data");
-            Debug.Log("Created CSV file.");
-            csvCreated = true;
-        }
-        Debug.Log("at the end of coroutine");
-        yield return new WaitForSeconds(3);
-    }
-
-    private void defineCsvHeader()
-    {
-        //csvHeader.Add("subjectNR");
-        csvHeader.Add("isDecision");
-        csvHeader.Add("time");
-        csvHeader.Add("items");
-        csvHeader.Add("interactions");
-        csvHeader.Add("metres");
-        csvHeader.Add("failures");
-        //csvHeader.Add("levels");
     }
     
 
+    private void defineCsvHeader()
+    {
+        //savedData.csvHeader.Add("subjectNR");
+        //savedData.csvHeader.Add("trialNR");
+        savedData.csvHeader.Add("isDecision");
+        savedData.csvHeader.Add("time");
+        savedData.csvHeader.Add("items");
+        savedData.csvHeader.Add("interactions");
+        savedData.csvHeader.Add("metres");
+        savedData.csvHeader.Add("failures");
+        //savedData.csvHeader.Add("levels");
+    }
+    
+    void CreateCsvLine()
+    {
+        List<string> csvLine = new List<string>();
+
+        //csvLine.Add(savedData.subjectNr.ToString());
+        //csvLine.Add(savedData.trialNr.ToString());
+        
+        // "Yes" for experimental group, "No" for control group
+        if (savedData.isDecision)
+        {
+            csvLine.Add("Yes");
+        }
+        else
+        {
+            csvLine.Add("No");
+        }
+        
+        csvLine.Add(savedData.time.ToString(CultureInfo.InvariantCulture)); // unrounded data
+
+        csvLine.Add(savedData.items.ToString()); 
+        csvLine.Add(savedData.interactions.ToString());
+
+        csvLine.Add(savedData.metres.ToString(CultureInfo.InvariantCulture));
+        csvLine.Add(savedData.failures.ToString());
+        //csvLine.Add(savedData.levels.ToString());
+        
+        // add the csv line to csvData
+        savedData.csvData.Add(csvLine);
+    }
 }

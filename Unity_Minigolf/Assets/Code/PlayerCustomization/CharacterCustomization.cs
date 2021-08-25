@@ -113,7 +113,7 @@ public class CharacterCustomization : MonoBehaviour
         
         // for data collection:
         interactions += 1;
-        if (items < players.Length-1)
+        if (items < players.Length)
         {
             items += 1;
         }
