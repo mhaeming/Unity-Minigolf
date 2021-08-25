@@ -8,10 +8,10 @@ namespace Code.CSV
     public class CSVTools
     {
 
-        public static void CreateEmptyCsv(List<string> csvHeader, char separator = ',')
+        public static void CreateEmptyCsv(List<string> csvHeader, string fileAddress, char separator = ',')
         {
             // initialize the variables as being empty
-            List<string> finalData = new List<string>();
+            List<string> csvLines = new List<string>();
             string finalHeaders = "";
             // headers as first row, separated with comma
             foreach (var header in csvHeader)
@@ -19,31 +19,30 @@ namespace Code.CSV
                 // attach each header to our List of headers
                 finalHeaders += header + separator;
             }
-            finalData.Add(finalHeaders);
+            csvLines.Add(finalHeaders);
+            // writing the csvLines to the csvFile:
+            SaveCsv(csvLines, fileAddress);
         }
-
-        /*
-        public static List<string> UpdateCsv(List<string> rowOfData, char separator = ',')
+        
+        public static void UpdateCsv(List<List<string>> csvData, string fileAddress, char separator = ',')
         {
-            TextAsset rawData = Resources.Load<TextAsset>("/Assets/CSVData/data");
-            
-            string[] data = rawData.text.Split(separator);
-            Debug.Log(data);
-            
-            List<string> finalData = 
-            
-            
-            string finalRowOfData = "";
-            // create single Row of Data
-            foreach (string dataItem in rowOfData)
+            // creating csvLines in the correct format from csvData collected in the Statistics
+            List<string> csvLines = new List<string>();
+            foreach (var rowOfData in csvData)
             {
-                finalRowOfData += dataItem + separator;
+                // initialize finalRowOfData as being empty
+                string finalRowOfData = "";
+                // create single row of data
+                foreach (string dataItem in rowOfData)
+                {
+                    // attach each dataItem from the rowOfData to the finalRowOfData
+                    finalRowOfData += dataItem + separator;
+                }
+                csvLines.Add(finalRowOfData);
             }
-            finalData.Add(finalRowOfData);
-            
-            return finalData;
+            // writing the csvLines to the csvFile:
+            SaveCsv(csvLines, fileAddress);
         }
-        */
 
         public static List<string> CreateCsv(List<List<string>> data, List<string> csvHeader, char separator = ',')
         {
@@ -56,7 +55,6 @@ namespace Code.CSV
             {
                 // attach each header to our List of headers
                 finalHeaders += header + separator;
-                Debug.Log("header in CreateCsv: " + header);
             }
             finalData.Add(finalHeaders);
 
@@ -67,7 +65,6 @@ namespace Code.CSV
                 // create single Row of Data
                 foreach (string dataItem in rowOfData)
                 {
-                    Debug.Log("dataItem in CreateCsv: " + dataItem);
                     finalRowOfData += dataItem + separator;
                 }
                 finalData.Add(finalRowOfData);
@@ -77,15 +74,14 @@ namespace Code.CSV
 
         // after creating CSV file, export and save it
         // return bool to check functionality
-        public static bool SaveCsv(List<string> csvLines, string fileAddress, string extension = ".csv")
+        public static bool SaveCsv(List<string> csvLines, string fileAddress)
         {
             try
             {
-                using (StreamWriter csvWriter = new StreamWriter(fileAddress + extension))
+                using (StreamWriter csvWriter = new StreamWriter(fileAddress, true))
                 {
                     foreach (string lineInCsv in csvLines)
                     {
-                        Debug.Log("lineinCsv: " + lineInCsv);
                         // csvWriter prints individual line into document, then place full file at fileAddress
                         csvWriter.WriteLine(lineInCsv);
                     }

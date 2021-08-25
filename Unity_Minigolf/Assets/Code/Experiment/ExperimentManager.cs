@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using Code.CSV;
 using UnityEditor;
 using UnityEngine;
@@ -10,6 +11,7 @@ using Random = UnityEngine.Random;
 public class ExperimentManager : MonoBehaviour
 {
     private int _prob;
+    private string _fileAddress;
     
     public Statistics savedData = new Statistics();
     
@@ -17,7 +19,6 @@ public class ExperimentManager : MonoBehaviour
     public static ExperimentManager Instance;
     void Awake ()   
     {
-        Debug.Log("Awake ExperimentManager");
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -47,6 +48,12 @@ public class ExperimentManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
+        _fileAddress.ToString();
+    }
+
     private void OnDisable()
     {
         if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
@@ -62,10 +69,21 @@ public class ExperimentManager : MonoBehaviour
             // only create the csv file when the data has been collected and a csv file has not yet been created
             if (savedData.dataCollected && !savedData.csvCreated)
             {
-                List<string> csv = CSVTools.CreateCsv(savedData.csvData, savedData.csvHeader);
+                /*List<string> csv = CSVTools.CreateCsv(savedData.csvData, savedData.csvHeader);
                 CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data" + GUID.Generate());
                 Debug.Log("Created CSV file.");
-                savedData.csvCreated = true;
+                savedData.csvCreated = true;*/
+                if (File.Exists(_fileAddress))
+                {
+                    Debug.Log("UpdateCsv");
+                    CSVTools.UpdateCsv(savedData.csvData, _fileAddress);
+                }
+                else
+                {
+                    CSVTools.CreateEmptyCsv(savedData.csvHeader, _fileAddress);
+                    Debug.Log("UpdateCsv");
+                    CSVTools.UpdateCsv(savedData.csvData, _fileAddress);
+                }
             }
         }
     }
