@@ -38,6 +38,7 @@ namespace Code.World
             if (time > 0)
             {
                 WorldGenerator.generator.GenerateWorld();
+                PlayerBehavior.AdaptiveDifficulty();
             }
         }
 
@@ -67,7 +68,7 @@ namespace Code.World
             // WorldGenerator.generator.GenerateWorld();
         }
         
-
+        
         /// <summary>
         /// Reset the player and stage after hitting an obstacle
         /// </summary>
@@ -77,6 +78,11 @@ namespace Code.World
             WorldGenerator.generator.ClearAll();
             WorldGenerator.generator.ObstacleFreq = 0;
             WorldGenerator.generator.PitFreq = 0;
+            PlayerInfo.LevelThreshold = 3;
+            PlayerInfo.AvoidedObstacles = 0;
+            PlayerInfo.AvoidedPits = 0;
+            PlayerInfo.level = 0;
+            Debug.Log("level: " + PlayerInfo.level);
 
             StartCoroutine(nameof(ResetCooldown));
             // TODO: The reset does not yet work as expected

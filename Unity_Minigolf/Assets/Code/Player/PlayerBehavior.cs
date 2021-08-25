@@ -11,6 +11,7 @@ namespace Code.Player
         public static event PlayerEvent Reset;
         public static event PlayerEvent HitObstacle;
         public static event PlayerEvent HitPit;
+        public static event PlayerEvent NextLevel;
 
         private void OnCollisionEnter(Collision other)
         {
@@ -33,5 +34,14 @@ namespace Code.Player
                 // GetComponent<AudioSource>().Play();
             }
         }
+
+        public static void AdaptiveDifficulty()
+        {
+            if (PlayerInfo.AvoidedObstacles + PlayerInfo.AvoidedPits > PlayerInfo.LevelThreshold)
+            {
+                if (NextLevel != null) NextLevel();
+            }
+        }
+        
     }
 }

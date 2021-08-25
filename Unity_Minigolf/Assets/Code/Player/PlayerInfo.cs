@@ -16,15 +16,16 @@ namespace Code.Player
         private Vector3 _startPosition;
         
         
-        public int AvoidedObstacles { get; private set; }
-        public int AvoidedPits { get; private set; }
+        public static int AvoidedObstacles { get; set; }
+        public static int AvoidedPits { get; set; }
         public static int HitObstacles { get; private set; }
         public static int HitPits { get; private set; }
         public static float DistanceTraveled { get; private set; }
         public float DistanceToNextObstacle { get; private set; }
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
-
+        public static int LevelThreshold { get; set; }
+        public static int level;
 
         private PlayerMovement _playerMovement;
         
@@ -32,6 +33,7 @@ namespace Code.Player
         {
             _startPosition = transform.position;
             _playerMovement = GetComponent<PlayerMovement>();
+            LevelThreshold = 3;
         }
 
         
@@ -71,6 +73,7 @@ namespace Code.Player
             WorldGenerator.ObstaclePlaced += OnNewCloseObstacle;
             WorldGenerator.PitPlaced += OnNewClosePit;
             PlayerBehavior.Reset += OnReset;
+            PlayerBehavior.NextLevel += OnNextLevel;
         }
 
         private void OnDisable()
@@ -80,6 +83,7 @@ namespace Code.Player
             WorldInfo.NewCloseObstacle -= OnNewCloseObstacle;
             WorldInfo.NewClosePit -= OnNewClosePit;
             PlayerBehavior.Reset -= OnReset;
+            PlayerBehavior.NextLevel += OnNextLevel;
         }
 
         private void OnObstacleHit()
@@ -126,6 +130,16 @@ namespace Code.Player
                 _pitPositions.Dequeue();
                 AvoidedPits++;
             }
+        }
+
+        private void OnNextLevel()
+        {
+            WorldGenerator.generator.ObstacleFreq += 0.1f;
+            WorldGenerator.generator.PitFreq += 0.005f;
+            PlayerMovement.speed += 0.1f;
+            LevelThreshold += 3;
+            level += 1;
+            Debug.Log("level: " + level);
         }
         
 
