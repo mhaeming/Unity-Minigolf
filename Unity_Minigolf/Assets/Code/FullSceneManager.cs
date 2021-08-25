@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// A class to hanfle changing the Scenes in the intended order
+/// A class to handle changing the Scenes in the intended order
 /// </summary>
 public class FullSceneManager : MonoBehaviour
 {
@@ -23,20 +23,22 @@ public class FullSceneManager : MonoBehaviour
     }
 
     // variables to keep track of current status
-    private sceneEnum _currentScene = sceneEnum.Start;
-    private sceneEnum _nextScene = sceneEnum.Customize;
-    
-    public bool skipTutorial = false;
+    private static sceneEnum _currentScene = sceneEnum.Start;
+    private static sceneEnum _nextScene = sceneEnum.Customize;
+
+    public static float timeCustomize;
+
+    public static bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
-    public bool keySceneChange = true;
+    public static bool keySceneChange = true;
 
     //private GameObject _player;
 
-    public event Action OnSceneChange;
+    public static event Action OnSceneChange;
 
    // dynamically return the current and corresponding next Scene
-    public sceneEnum CurrentScene
+    public static sceneEnum CurrentScene
     {
         get => _currentScene;
         set
@@ -77,10 +79,14 @@ public class FullSceneManager : MonoBehaviour
         }
     }
 
-    // public Function to be invokable trough button Presses in scene
     public void ChangeScene()
     {
-        
+        // log the time spend in character editor:
+        if (CurrentScene == sceneEnum.Customize)
+        {
+            timeCustomize = Time.timeSinceLevelLoad;
+        }
+
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);
@@ -109,7 +115,7 @@ public class FullSceneManager : MonoBehaviour
             sceneManager = this;
         }
     }
-    
+
     // Subscribe and Unsubscribe from the Scene Change Event
     public void OnEnable()
     {
@@ -125,7 +131,7 @@ public class FullSceneManager : MonoBehaviour
             OnSceneChange?.Invoke();
         }
     }
-    
+
     public void OnDisable()
     {
         OnSceneChange -= ChangeScene;

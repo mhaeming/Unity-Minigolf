@@ -23,6 +23,10 @@ public class CharacterCustomization : MonoBehaviour
     private GameObject _player;
     
     public bool confirmed;
+    
+    // for data collection:
+    public static int items = 1;
+    public static int interactions;
 
     private void OnEnable()
     {
@@ -106,6 +110,14 @@ public class CharacterCustomization : MonoBehaviour
     public void EnableChild()
     {
         players[_varietyIndex].SetActive(false);
+        
+        // for data collection:
+        interactions += 1;
+        if (items < players.Length)
+        {
+            items += 1;
+        }
+        
         if (_varietyIndex == players.Length-1)
         {
             _varietyIndex = 0;
