@@ -10,18 +10,24 @@ using ExperimentManager = Code.Experiment.ExperimentManager;
 /// </summary>
 public class AllowCustomization : MonoBehaviour
 {
-    public GameObject customizationButtons;
+    public GameObject controlUI;
+    public GameObject experimentUI;
 
     private void OnEnable()
     {
         if (ExperimentManager.Instance.savedData.isDecision)
         {
-            customizationButtons.SetActive(true);
+            experimentUI.SetActive(true);
+        }
+        else
+        {
+            controlUI.SetActive(true);
         }
     }
 
     private void OnDisable()
     {
-        customizationButtons.SetActive(false);
+        controlUI.SetActive(false);
+        experimentUI.SetActive(false);
     }
 }
