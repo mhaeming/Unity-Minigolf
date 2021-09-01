@@ -25,12 +25,10 @@ namespace Code.Player
         private Rigidbody _rigidbody;
         private Vector3 _pos;
         private float _movementFactor;
-
         // Start is called before the first frame update
         public void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0,-100,0);
             Lane = 0;
             _movementFactor = 1;
         }
@@ -62,8 +60,7 @@ namespace Code.Player
             // Jump
             if (Input.GetKeyDown(jump) & OnGround)
             {
-                // TODO: Smoother falling
-                _rigidbody.AddForce(new Vector3(0,10) * jumpForce, ForceMode.Impulse);
+                _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 OnGround = false;
             }
 
@@ -74,7 +71,7 @@ namespace Code.Player
         private void FixedUpdate()
         {
             _rigidbody.MovePosition(_pos);
-            _rigidbody.velocity = new Vector3(0, 0, speed);
+            _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, speed);
         }
 
         /// <summary>
