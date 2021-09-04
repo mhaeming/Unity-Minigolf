@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,12 +6,18 @@ namespace Code.Player
 {
     public class PlayerBehavior : MonoBehaviour
     {
+        private FullSceneManager _sceneManager;
     
         public delegate void PlayerEvent();
 
         public static event PlayerEvent Reset;
         public static event PlayerEvent HitObstacle;
         public static event PlayerEvent HitPit;
+
+        private void OnEnable()
+        {
+            _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
+        }
 
         private void OnCollisionEnter(Collision other)
         {
@@ -23,7 +30,7 @@ namespace Code.Player
             if (other.gameObject.CompareTag("TrainingFinish"))
             {
                 Debug.Log("Training stage is finished.");
-                SceneManager.LoadScene("Priming");
+                _sceneManager.ChangeScene();
             }
 
             if (other.gameObject.CompareTag("Pit"))
