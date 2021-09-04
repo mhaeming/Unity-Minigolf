@@ -9,10 +9,12 @@ namespace Code
         private float _timeLimit = 60;
         private float _remainingTime;
         public Text timerText;
-
+        private FullSceneManager _sceneManager;
+        
         private void Start()
         {
             Debug.Log(String.Format("Set time limit to {0}", _timeLimit));
+            _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         }
 
         void Update()
@@ -28,6 +30,7 @@ namespace Code
             if (_remainingTime <= 1)
             {
                 DisplayTimeInRed(0);
+                _sceneManager.ChangeScene();
             }
         }
     

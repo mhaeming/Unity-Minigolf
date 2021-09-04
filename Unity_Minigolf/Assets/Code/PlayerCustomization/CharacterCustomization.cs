@@ -77,7 +77,7 @@ public class CharacterCustomization : MonoBehaviour
     /// <summary>
     /// Change the PLayer's shape by setting its scale to be according to predefined values
     /// </summary>
-    public void ChangeShape()
+    /*public void ChangeShape()
     { 
         _player = GameObject.FindWithTag("Player");
         _playerTransform = _player.GetComponent<Transform>();
@@ -101,7 +101,7 @@ public class CharacterCustomization : MonoBehaviour
                 _shapeIndex = 0;
                 break;
         }
-    }
+    }*/
 
     /// <summary>
     /// Enable Child switches between different Child Objects of the Player Variety Game Object
