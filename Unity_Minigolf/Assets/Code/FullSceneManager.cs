@@ -63,7 +63,7 @@ public class FullSceneManager : MonoBehaviour
                     keySceneChange = true;
                     //Play Mode should only end if Time is run out
                     //TODO: before uncommenting, enable timeout scene switch again
-                    //keySceneChange = false;
+                    keySceneChange = false;
                     _nextScene = sceneEnum.Feedback;
                     break;
                 case sceneEnum.Feedback:
