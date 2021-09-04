@@ -1213,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2045529859547022002, guid: 8e8448d027279de4c9e8e082fa71cb96, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4193247250050530477, guid: 8e8448d027279de4c9e8e082fa71cb96, type: 3}
       propertyPath: m_RootOrder
@@ -2577,7 +2577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5806394716891288037, guid: 8366310137eb2e84d983e1a1ae1bdf07, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8366310137eb2e84d983e1a1ae1bdf07, type: 3}
@@ -2678,7 +2678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3486141751547532402, guid: b3a58b6683dec3746acadf0d06877cd3, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2718328455950000555, guid: b3a58b6683dec3746acadf0d06877cd3, type: 3}
       propertyPath: m_RootOrder
@@ -2751,7 +2751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -9223092270095596755, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8377152569354218550, guid: 104b25469f472054683a9bb3bb30ce49, type: 3}
       propertyPath: m_Name
@@ -2896,7 +2896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9073992154481047877, guid: 6cbe2bbdf5d1020449d1fca0ed993c70, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9073992154481047880, guid: 6cbe2bbdf5d1020449d1fca0ed993c70, type: 3}
       propertyPath: m_IsActive
@@ -2931,7 +2931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1996490854147821160, guid: de9aa9190ac447640bf668ca6136e33e, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3574476034429450155, guid: de9aa9190ac447640bf668ca6136e33e, type: 3}
       propertyPath: m_Name

@@ -27,7 +27,13 @@ public class AllowCustomization : MonoBehaviour
 
     private void OnDisable()
     {
-        controlUI.SetActive(false);
-        experimentUI.SetActive(false);
+        if (ExperimentManager.Instance.savedData.isDecision)
+        {
+            experimentUI.SetActive(false);
+        }
+        else
+        {
+            controlUI.SetActive(false);
+        }
     }
 }
