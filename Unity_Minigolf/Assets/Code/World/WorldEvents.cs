@@ -86,7 +86,6 @@ namespace Code.World
 
             StartCoroutine(nameof(ResetCooldown));
             // TODO: The reset does not yet work as expected
-            WorldGenerator.generator.player.transform.up += Vector3.up;
         }
 
         private IEnumerator ResetCooldown()
