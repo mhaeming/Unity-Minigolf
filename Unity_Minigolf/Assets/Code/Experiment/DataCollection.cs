@@ -1,3 +1,4 @@
+using System;
 using Code.Player;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ namespace Code.Experiment
 
         void Start()
         {
-            localData = ExperimentManager.Instance.savedData;
+            //localData = ExperimentManager.Instance.savedData;
+            localData = ExperimentManager.savedData;
         }
 
         private void OnDisable()
         {
+            Debug.Log("OnDisable " + FullSceneManager.CurrentScene);
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
             {
                 //CharacterEditor:
@@ -22,7 +25,8 @@ namespace Code.Experiment
                 localData.time = FullSceneManager.timeCustomize;
                 Debug.Log("time: " + localData.time);
 
-                if (ExperimentManager.Instance.savedData.isDecision)
+                //if (ExperimentManager.Instance.savedData.isDecision)
+                if (ExperimentManager.savedData.isDecision)
                 {
                     // get both items and interactions from CharacterCustomization
                     //items: different characters that were clicked on
@@ -44,7 +48,8 @@ namespace Code.Experiment
                 localData.metres = PlayerInfo.DistanceTraveled;
                 localData.failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
                 Debug.Log("metres: " + localData.metres + ", failures: " + localData.failures);
-                //levels t.b. implemented in WorldEvents class
+                localData.levels = PlayerInfo.maxLevel;
+                Debug.Log("maximum level reached: " + localData.levels);
             }
             SaveStatistics();
         }
@@ -55,21 +60,21 @@ namespace Code.Experiment
             // save time, items and interactions after Customize scene
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
             {
-                ExperimentManager.Instance.savedData.time = localData.time;
-                ExperimentManager.Instance.savedData.items = localData.items;
-                ExperimentManager.Instance.savedData.interactions = localData.interactions;
+                ExperimentManager.savedData.time = localData.time;
+                ExperimentManager.savedData.items = localData.items;
+                ExperimentManager.savedData.interactions = localData.interactions;
             }
-            // save metres & failures (& levels) after Play scene
+            // save metres, failures & levels after Play scene
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback)
             {
-                ExperimentManager.Instance.savedData.metres = localData.metres;
-                ExperimentManager.Instance.savedData.failures = localData.failures;
-                //ExperimentManager.Instance.savedData.levels = localData.levels;
+                ExperimentManager.savedData.metres = localData.metres;
+                ExperimentManager.savedData.failures = localData.failures;
+                ExperimentManager.savedData.levels = localData.levels;
             }
             // set bool dataCollected = true when all data is collected
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
             {
-                ExperimentManager.Instance.savedData.dataCollected = true;
+                ExperimentManager.savedData.dataCollected = true;
             }
         }
     }

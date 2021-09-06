@@ -17,7 +17,7 @@ namespace Code.Player
         public KeyCode jump = KeyCode.Space;
     
         public float jumpForce;
-        public float speed = 3;
+        public static float speed = 3;
         public float sideSpeed = 0.1f;
         public int Lane { get; private set; }
         public bool OnGround { get; private set; }
