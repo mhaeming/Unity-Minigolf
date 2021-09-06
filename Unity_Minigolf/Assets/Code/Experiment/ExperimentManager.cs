@@ -12,22 +12,10 @@ namespace Code.Experiment
         private int _prob;
         private string _fileAddress;
     
-        public Statistics savedData = new Statistics();
+        public static Statistics savedData = new Statistics();
     
-        // make sure that the data saved here won't be deleted when transitioning between scenes:
-        public static ExperimentManager Instance;
         void Awake ()   
         {
-            if (Instance == null)
-            {
-                DontDestroyOnLoad(gameObject);
-                Instance = this;
-            }
-            else if (Instance != this)
-            {
-                Destroy (gameObject);
-            }
-
             // handle which of the two groups the trial belongs to
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Start)
             {
@@ -65,8 +53,9 @@ namespace Code.Experiment
                     CreateCsvLine();
                 }
         
+                Debug.Log("dataCollected: " + savedData.dataCollected + " csvCreated: " + savedData.csvUpdated);
                 // only create the csv file when the data has been collected and a csv file has not yet been created
-                if (savedData.dataCollected && !savedData.csvCreated)
+                if (savedData.dataCollected && !savedData.csvUpdated)
                 {
                     /*List<string> csv = CSVTools.CreateCsv(savedData.csvData, savedData.csvHeader);
                 CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data" + GUID.Generate());
@@ -76,12 +65,15 @@ namespace Code.Experiment
                     {
                         Debug.Log("UpdateCsv");
                         CSVTools.UpdateCsv(savedData.csvData, _fileAddress);
+                        savedData.csvUpdated = true;
                     }
                     else
                     {
                         CSVTools.CreateEmptyCsv(savedData.csvHeader, _fileAddress);
+                        Debug.Log("Created empty csv");
                         Debug.Log("UpdateCsv");
                         CSVTools.UpdateCsv(savedData.csvData, _fileAddress);
+                        savedData.csvUpdated = true;
                     }
                 }
             }
