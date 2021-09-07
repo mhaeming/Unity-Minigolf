@@ -12,7 +12,7 @@ public class AllowCustomization : MonoBehaviour
 {
     public GameObject controlUI;
     public GameObject experimentUI;
-
+    
     private void OnEnable()
     {
         if (ExperimentManager.savedData.isDecision)
@@ -25,7 +25,11 @@ public class AllowCustomization : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    /// <summary>
+    /// OnDone disables the currently active UI
+    /// it is called manually to disable the corresponding Game Object before the Scene is changed
+    /// </summary>
+    public void OnDone()
     {
         if (ExperimentManager.savedData.isDecision)
         {
