@@ -1,3 +1,4 @@
-isDecision,time,items,interactions,metres,failures,levels,
-No,1.480141,0,0,169.593,2,3,
-No,1.165216,0,0,166.6755,5,0,
+trialNR,isDecision,time,items,interactions,metres,failures,levels,
+0,No,1.514761,0,0,169.807,4,1,1,
+1,No,0.869636,0,0,165.4575,5,0,1,
+2,No,2.031598,0,0,178.0212,6,3,1,

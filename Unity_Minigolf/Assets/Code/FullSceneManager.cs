@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Experiment;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -85,6 +86,12 @@ public class FullSceneManager : MonoBehaviour
         if (CurrentScene == sceneEnum.Customize)
         {
             timeCustomize = Time.timeSinceLevelLoad;
+        }
+
+        if (CurrentScene == sceneEnum.Play)
+        {
+            ExperimentManager.savedData.gamesPlayed += 1;
+            Debug.Log("gamesPlayed: " + ExperimentManager.savedData.gamesPlayed);
         }
 
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int

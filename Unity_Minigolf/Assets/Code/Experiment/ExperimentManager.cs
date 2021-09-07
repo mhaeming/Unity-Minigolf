@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System;
 using Code.CSV;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -35,10 +36,28 @@ namespace Code.Experiment
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
+            Debug.Log("OnEnable Exp Manager");
+            
             _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
             _fileAddress.ToString();
+            
+            //trial number:
+            if (File.Exists(_fileAddress))
+            {
+                var source = new StreamReader(_fileAddress);
+                var fileContents = source.ReadToEnd();
+                source.Close();
+                var lines = fileContents.Split("\n"[0]);
+                savedData.trialNr = (int) Char.GetNumericValue(lines[lines.Length - 2][0]);
+                savedData.trialNr += 1;
+            }
+            else
+            {
+                savedData.trialNr = 0;
+            }
+            Debug.Log("trialNr: " + savedData.trialNr);
         }
 
         private void OnDisable()
@@ -82,8 +101,7 @@ namespace Code.Experiment
 
         private void defineCsvHeader()
         {
-            //savedData.csvHeader.Add("subjectNR");
-            //savedData.csvHeader.Add("trialNR");
+            savedData.csvHeader.Add("trialNR");
             savedData.csvHeader.Add("isDecision");
             savedData.csvHeader.Add("time");
             savedData.csvHeader.Add("items");
@@ -97,8 +115,7 @@ namespace Code.Experiment
         {
             List<string> csvLine = new List<string>();
 
-            //csvLine.Add(savedData.subjectNr.ToString());
-            //csvLine.Add(savedData.trialNr.ToString());
+            csvLine.Add(savedData.trialNr.ToString());
         
             // "Yes" for experimental group, "No" for control group
             if (savedData.isDecision)
@@ -118,6 +135,7 @@ namespace Code.Experiment
             csvLine.Add(savedData.metres.ToString(CultureInfo.InvariantCulture));
             csvLine.Add(savedData.failures.ToString());
             csvLine.Add(savedData.levels.ToString());
+            csvLine.Add(savedData.gamesPlayed.ToString());
         
             // add the csv line to csvData
             savedData.csvData.Add(csvLine);

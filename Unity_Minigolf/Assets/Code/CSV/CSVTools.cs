@@ -7,7 +7,7 @@ namespace Code.CSV
 {
     public class CSVTools
     {
-
+        
         public static void CreateEmptyCsv(List<string> csvHeader, string fileAddress, char separator = ',')
         {
             // initialize the variables as being empty
