@@ -51,6 +51,7 @@ public class FullSceneManager : MonoBehaviour
                     _nextScene = sceneEnum.Customize;
                     break;
                 case sceneEnum.Customize:
+                    keySceneChange = false;
                     if (!skipTutorial) _nextScene = sceneEnum.Tutorial;
                     else
                     {
@@ -58,12 +59,12 @@ public class FullSceneManager : MonoBehaviour
                     }
                     break;
                 case sceneEnum.Tutorial:
+                    //allow skipping tutorial before its officially finished
+                    keySceneChange = true;
                     _nextScene = sceneEnum.Play;
                     break;
                 case sceneEnum.Play:
-                    keySceneChange = true;
                     //Play Mode should only end if Time is run out
-                    //TODO: before uncommenting, enable timeout scene switch again
                     keySceneChange = false;
                     _nextScene = sceneEnum.Feedback;
                     break;
