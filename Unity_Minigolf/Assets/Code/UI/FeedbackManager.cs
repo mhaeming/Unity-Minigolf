@@ -14,14 +14,14 @@ public class FeedbackManager : MonoBehaviour
     public GameObject canvasEnd;
     private int _questionId = 0;
     private int _countMissing;
-    private Dictionary<int, int> _answerDic = new Dictionary<int, int>();
+    public static Dictionary<int, int> answerDic = new Dictionary<int, int>();
     public void OnEnable()
     {
         _fullSceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         //initialize Dictionary containing user answers with as many key as there are questions
         for (int i = 0; i < questions.Length; i++)
         {
-            _answerDic.Add(i,-1);
+            answerDic.Add(i,-1);
         }
     }
 
@@ -35,12 +35,12 @@ public class FeedbackManager : MonoBehaviour
     // assign the currently pressed answer-int to the current active question
     public void Answer(int answer)
     {
-       _answerDic[_questionId] = answer;
+       answerDic[_questionId] = answer;
     }
     //Move to the next question
     public void Next()
     {
-        Debug.Log("Question "+(_questionId+1)+"= Answer "+_answerDic[_questionId]);
+        Debug.Log("Question "+(_questionId+1)+"= Answer "+answerDic[_questionId]);
         if (_questionId < questions.Length - 1)
         {
             questions[_questionId].SetActive(false);
@@ -74,7 +74,7 @@ public class FeedbackManager : MonoBehaviour
         _countMissing = 0;
         for (int i = 0; i < questions.Length; i++)
         {
-            if (_answerDic[i] == -1)
+            if (answerDic[i] == -1)
             {
                 Debug.Log("Please go back and answer question"+(i+1));
                 _countMissing++;

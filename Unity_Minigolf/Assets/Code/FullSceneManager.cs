@@ -88,12 +88,6 @@ public class FullSceneManager : MonoBehaviour
             timeCustomize = Time.timeSinceLevelLoad;
         }
 
-        if (CurrentScene == sceneEnum.Play)
-        {
-            ExperimentManager.savedData.gamesPlayed += 1;
-            Debug.Log("gamesPlayed: " + ExperimentManager.savedData.gamesPlayed);
-        }
-
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);

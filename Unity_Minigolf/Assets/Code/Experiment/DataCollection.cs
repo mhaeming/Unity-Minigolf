@@ -17,7 +17,6 @@ namespace Code.Experiment
 
         private void OnDisable()
         {
-            Debug.Log("OnDisable " + FullSceneManager.CurrentScene);
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Tutorial)
             {
                 //CharacterEditor:
@@ -51,6 +50,16 @@ namespace Code.Experiment
                 localData.levels = PlayerInfo.maxLevel;
                 Debug.Log("maximum level reached: " + localData.levels);
             }
+
+            if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
+            {
+                // get information on answers to the questionnaire from FeedbackManager
+                localData.answer1 = FeedbackManager.answerDic[0];
+                localData.answer2 = FeedbackManager.answerDic[1];
+                localData.answer3 = FeedbackManager.answerDic[2];
+                Debug.Log("answers saved: " + localData.answer1 + localData.answer2 + localData.answer3);
+            }
+            
             SaveStatistics();
         }
 
@@ -71,9 +80,13 @@ namespace Code.Experiment
                 ExperimentManager.savedData.failures = localData.failures;
                 ExperimentManager.savedData.levels = localData.levels;
             }
-            // set bool dataCollected = true when all data is collected
+            // save answers to questions
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
             {
+                ExperimentManager.savedData.answer1 = localData.answer1;
+                ExperimentManager.savedData.answer2 = localData.answer2;
+                ExperimentManager.savedData.answer3 = localData.answer3;
+                // set bool dataCollected = true when all data is collected
                 ExperimentManager.savedData.dataCollected = true;
             }
         }

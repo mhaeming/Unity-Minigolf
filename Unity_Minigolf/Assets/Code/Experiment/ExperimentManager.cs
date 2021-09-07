@@ -32,32 +32,29 @@ namespace Code.Experiment
                 {
                     savedData.isDecision = true;
                     Debug.Log("You've landed in the experimental group.");
-                }   
-            }
-        }
+                }
+                
+                _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
+                _fileAddress.ToString();
 
-        private void OnEnable()
-        {
-            Debug.Log("OnEnable Exp Manager");
-            
-            _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
-            _fileAddress.ToString();
-            
-            //trial number:
-            if (File.Exists(_fileAddress))
-            {
-                var source = new StreamReader(_fileAddress);
-                var fileContents = source.ReadToEnd();
-                source.Close();
-                var lines = fileContents.Split("\n"[0]);
-                savedData.trialNr = (int) Char.GetNumericValue(lines[lines.Length - 2][0]);
-                savedData.trialNr += 1;
+                //trial number:
+                if (File.Exists(_fileAddress))
+                {
+                    // read last trial number from file
+                    var source = new StreamReader(_fileAddress);
+                    var fileContents = source.ReadToEnd();
+                    source.Close();
+                    var lines = fileContents.Split("\n"[0]);
+                    savedData.trialNr = (int) Char.GetNumericValue(lines[lines.Length - 2][0]);
+                    savedData.trialNr += 1;
+                }
+                else
+                {
+                    // or start at 0
+                    savedData.trialNr = 0;
+                }
+                Debug.Log("trialNr: " + savedData.trialNr);
             }
-            else
-            {
-                savedData.trialNr = 0;
-            }
-            Debug.Log("trialNr: " + savedData.trialNr);
         }
 
         private void OnDisable()
@@ -65,6 +62,8 @@ namespace Code.Experiment
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
             {
                 defineCsvHeader();
+                _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
+                _fileAddress.ToString();
             
                 // only create the csv line when the data has been collected and saved to savedData Statistics
                 if (savedData.dataCollected)
@@ -76,10 +75,6 @@ namespace Code.Experiment
                 // only create the csv file when the data has been collected and a csv file has not yet been created
                 if (savedData.dataCollected && !savedData.csvUpdated)
                 {
-                    /*List<string> csv = CSVTools.CreateCsv(savedData.csvData, savedData.csvHeader);
-                CSVTools.SaveCsv(csv, Application.dataPath + "/Assets/CSVData/data" + GUID.Generate());
-                Debug.Log("Created CSV file.");
-                savedData.csvCreated = true;*/
                     if (File.Exists(_fileAddress))
                     {
                         Debug.Log("UpdateCsv");
@@ -101,7 +96,7 @@ namespace Code.Experiment
 
         private void defineCsvHeader()
         {
-            savedData.csvHeader.Add("trialNR");
+            savedData.csvHeader.Add("trialNr");
             savedData.csvHeader.Add("isDecision");
             savedData.csvHeader.Add("time");
             savedData.csvHeader.Add("items");
@@ -109,6 +104,9 @@ namespace Code.Experiment
             savedData.csvHeader.Add("metres");
             savedData.csvHeader.Add("failures");
             savedData.csvHeader.Add("levels");
+            savedData.csvHeader.Add("answer1");
+            savedData.csvHeader.Add("answer2");
+            savedData.csvHeader.Add("answer3");
         }
     
         void CreateCsvLine()
@@ -135,7 +133,10 @@ namespace Code.Experiment
             csvLine.Add(savedData.metres.ToString(CultureInfo.InvariantCulture));
             csvLine.Add(savedData.failures.ToString());
             csvLine.Add(savedData.levels.ToString());
-            csvLine.Add(savedData.gamesPlayed.ToString());
+            
+            csvLine.Add(savedData.answer1.ToString());
+            csvLine.Add(savedData.answer2.ToString());
+            csvLine.Add(savedData.answer3.ToString());
         
             // add the csv line to csvData
             savedData.csvData.Add(csvLine);
