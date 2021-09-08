@@ -7,10 +7,8 @@ namespace Code.World
 {
     public class WorldEvents : MonoBehaviour
     {
-        public bool timer = true;
-        [Min(0.1f)] public double time;
-
-        public float resetCooldown = 2;
+        public float resetCooldown;
+        private Timer _timer;
         
         private void OnEnable()
         {
@@ -26,8 +24,16 @@ namespace Code.World
 
         private void Start()
         {
-            WorldGenerator.generator.ObstacleFreq = 0.1f;
-            WorldGenerator.generator.PitFreq = 0.005f;
+            
+            // World events use the general timer provided as a script on the camera
+            System.Diagnostics.Debug.Assert(Camera.main != null, "Camera.main != null");
+            _timer = Camera.main.GetComponent<Timer>();
+            
+            // In the beginning no obstacles should be spawned
+            WorldGenerator.generator.ObstacleFreq = 0;
+            WorldGenerator.generator.PitFreq = 0;
+            
+            StartCoroutine(nameof(ResetCooldown));
         }
 
         private void Update()
@@ -36,32 +42,14 @@ namespace Code.World
             {
                 ResetEvent();
             }
-
-            if (time > 0)
+            
+            if (_timer.remainingTime > 0)
             {
                 WorldGenerator.generator.GenerateWorld();
                 PlayerBehavior.AdaptiveDifficulty();
             }
         }
-
-        private void FixedUpdate()
-        {
-            if (timer)
-            {
-                time -= Time.deltaTime;
-            }
-        }
-
-
-        /// <summary>
-        /// Generate a series of base blocks to ease the player into the level
-        /// </summary>
-        private static void StartEvent()
-        {
-            WorldGenerator.generator.ObstacleFreq = 0;
-            WorldGenerator.generator.PitFreq = 0;
-            // WorldGenerator.generator.GenerateWorld();
-        }
+        
 
         private void StandardPlay()
         {

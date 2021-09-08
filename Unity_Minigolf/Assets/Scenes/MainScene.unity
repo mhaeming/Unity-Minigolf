@@ -203,9 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bd6dc7bb56a814e8fb80504925577b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0
-  time: 10
-  resetCooldown: 2
+  resetCooldown: 0.25
 --- !u!4 &133819829
 Transform:
   m_ObjectHideFlags: 0
@@ -882,6 +880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbad145c704d7347bdbd44242ff2bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLimit: 60
+  remainingTime: 0
   timerText: {fileID: 1001626804}
 --- !u!114 &963194231
 MonoBehaviour:

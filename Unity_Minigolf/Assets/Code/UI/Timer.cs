@@ -6,28 +6,28 @@ namespace Code
 {
     public class Timer : MonoBehaviour
     {
-        private float _timeLimit = 60;
-        private float _remainingTime;
+        public float timeLimit = 60;
+        public float remainingTime;
         public Text timerText;
         private FullSceneManager _sceneManager;
         
         private void Start()
         {
-            Debug.Log(String.Format("Set time limit to {0}", _timeLimit));
+            Debug.Log(String.Format("Set time limit to {0}", timeLimit));
             _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         }
 
         void Update()
         {
-            _remainingTime = _timeLimit - Time.timeSinceLevelLoad;
-            DisplayTime(_remainingTime);
+            remainingTime = timeLimit - Time.timeSinceLevelLoad;
+            DisplayTime(remainingTime);
             // start displaying the remaining time in red when there are only 10 secs left
-            if (_remainingTime <= 11)
+            if (remainingTime <= 11)
             {
-                DisplayTimeInRed(_remainingTime);
+                DisplayTimeInRed(remainingTime);
             }
             // don't display any negative values
-            if (_remainingTime <= 1)
+            if (remainingTime <= 1)
             {
                 DisplayTimeInRed(0);
                 _sceneManager.ChangeScene();
