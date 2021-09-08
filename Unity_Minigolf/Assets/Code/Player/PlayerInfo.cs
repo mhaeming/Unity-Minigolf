@@ -24,9 +24,7 @@ namespace Code.Player
         public float DistanceToNextObstacle { get; private set; }
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
-        public static int LevelThreshold { get; set; }
-        public static int currentLevel;
-        public static int maxLevel;
+
 
         private PlayerMovement _playerMovement;
         
@@ -34,7 +32,6 @@ namespace Code.Player
         {
             _startPosition = transform.position;
             _playerMovement = GetComponent<PlayerMovement>();
-            LevelThreshold = 3;
         }
 
         
@@ -74,7 +71,6 @@ namespace Code.Player
             WorldGenerator.ObstaclePlaced += OnNewCloseObstacle;
             WorldGenerator.PitPlaced += OnNewClosePit;
             PlayerBehavior.Reset += OnReset;
-            PlayerBehavior.NextLevel += OnNextLevel;
         }
 
         private void OnDisable()
@@ -84,7 +80,6 @@ namespace Code.Player
             WorldInfo.NewCloseObstacle -= OnNewCloseObstacle;
             WorldInfo.NewClosePit -= OnNewClosePit;
             PlayerBehavior.Reset -= OnReset;
-            PlayerBehavior.NextLevel += OnNextLevel;
         }
 
         private void OnObstacleHit()
@@ -133,21 +128,6 @@ namespace Code.Player
             }
         }
 
-        private void OnNextLevel()
-        {
-            WorldGenerator.generator.ObstacleFreq += 0.1f;
-            WorldGenerator.generator.PitFreq += 0.005f;
-            PlayerMovement.speed += 0.1f;
-            LevelThreshold += 3;
-            currentLevel += 1;
-            if (currentLevel > maxLevel)
-            {
-                maxLevel = currentLevel;
-            }
-            Debug.Log("level: " + currentLevel);
-        }
-        
-
         /// <summary>
         /// Returns the current lane the player is in or moving towards
         /// </summary>
@@ -155,6 +135,11 @@ namespace Code.Player
         public int GetLane()
         {
             return _playerMovement.Lane;
+        }
+
+        public int GetLevel()
+        {
+            return PlayerBehavior.currentLevel;
         }
     }
 }

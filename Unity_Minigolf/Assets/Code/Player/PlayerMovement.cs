@@ -25,6 +25,18 @@ namespace Code.Player
         private Rigidbody _rigidbody;
         private Vector3 _pos;
         private float _movementFactor;
+
+        private void OnEnable()
+        {
+            PlayerBehavior.NextLevel += OnNextLevel;
+        }
+
+        private void OnDisable()
+        {
+            PlayerBehavior.NextLevel -= OnNextLevel;
+        }
+
+
         // Start is called before the first frame update
         public void Start()
         {
@@ -81,6 +93,11 @@ namespace Code.Player
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Floor")) OnGround = true;
+        }
+
+        private void OnNextLevel()
+        {
+            speed += 0.1f;
         }
     }
 }

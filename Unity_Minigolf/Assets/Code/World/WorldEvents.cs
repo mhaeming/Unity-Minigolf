@@ -15,11 +15,13 @@ namespace Code.World
         private void OnEnable()
         {
             PlayerBehavior.Reset += ResetEvent;
+            PlayerBehavior.NextLevel += OnNextLevel;
         }
 
         private void OnDisable()
         {
             PlayerBehavior.Reset -= ResetEvent;
+            PlayerBehavior.NextLevel -= OnNextLevel;
         }
 
         private void Start()
@@ -78,11 +80,11 @@ namespace Code.World
             WorldGenerator.generator.ClearAll();
             WorldGenerator.generator.ObstacleFreq = 0;
             WorldGenerator.generator.PitFreq = 0;
-            PlayerInfo.LevelThreshold = 3;
+            PlayerBehavior.LevelThreshold = 3;
             PlayerInfo.AvoidedObstacles = 0;
             PlayerInfo.AvoidedPits = 0;
-            PlayerInfo.currentLevel = 0;
-            Debug.Log("level: " + PlayerInfo.currentLevel);
+            PlayerBehavior.currentLevel = 0;
+            Debug.Log("level: " + PlayerBehavior.currentLevel);
 
             StartCoroutine(nameof(ResetCooldown));
             // TODO: The reset does not yet work as expected
@@ -93,6 +95,12 @@ namespace Code.World
             yield return new WaitForSecondsRealtime(resetCooldown);
             StandardPlay();
             Debug.Log("Returning to Standard Game Mode");
+        }
+
+        private void OnNextLevel()
+        {
+            WorldGenerator.generator.ObstacleFreq += 0.1f;
+            WorldGenerator.generator.PitFreq += 0.005f;
         }
     }
 }

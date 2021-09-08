@@ -47,7 +47,7 @@ namespace Code.Experiment
                 localData.metres = PlayerInfo.DistanceTraveled;
                 localData.failures = PlayerInfo.HitObstacles + PlayerInfo.HitPits;
                 Debug.Log("metres: " + localData.metres + ", failures: " + localData.failures);
-                localData.levels = PlayerInfo.maxLevel;
+                localData.levels = PlayerBehavior.maxLevel;
                 Debug.Log("maximum level reached: " + localData.levels);
             }
 

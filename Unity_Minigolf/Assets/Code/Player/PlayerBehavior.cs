@@ -15,9 +15,18 @@ namespace Code.Player
         public static event PlayerEvent HitPit;
         public static event PlayerEvent NextLevel;
 
+        public static int LevelThreshold { get; set; }
+        public static int currentLevel;
+        public static int maxLevel;
+        
         private void OnEnable()
         {
             _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
+        }
+
+        private void Start()
+        {
+            LevelThreshold = 3;
         }
 
         private void OnCollisionEnter(Collision other)
@@ -44,8 +53,17 @@ namespace Code.Player
 
         public static void AdaptiveDifficulty()
         {
-            if (PlayerInfo.AvoidedObstacles + PlayerInfo.AvoidedPits > PlayerInfo.LevelThreshold)
+            if (PlayerInfo.AvoidedObstacles + PlayerInfo.AvoidedPits > LevelThreshold)
             {
+                LevelThreshold += 3;
+                currentLevel += 1;
+                if (currentLevel > maxLevel)
+                {
+                    maxLevel = currentLevel;
+                }
+                Debug.Log("level: " + currentLevel);
+                
+                // Call the NextLevel event to inform world events and player info
                 if (NextLevel != null) NextLevel();
             }
         }

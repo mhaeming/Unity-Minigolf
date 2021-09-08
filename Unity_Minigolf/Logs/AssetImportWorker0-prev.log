@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/release' branch; Version is '2020.3.7f1 (dd97f2c94397) revision 14522354'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19042.1165; Version 2009; 64bit' Language: 'de' Physical Memory: 8076 MB
+OS: 'Windows 10 Pro; OS build 19042.1165; Version 2009; 64bit' Language: 'de' Physical Memory: 16327 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -11,44 +11,103 @@ C:\Program Files\Unity\Hub\Editor\2020.3.7f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
-C:/Users/meike/Desktop/Studium Osnabrueck/6. Semester SoSe 21/Advanced Experiment Design in Unity/Unity-Minigolf/Unity_Minigolf
+C:/Users/Max/Documents/GitHub/Unity-Minigolf/Unity_Minigolf
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-64493
-Successfully changed project path to: C:/Users/meike/Desktop/Studium Osnabrueck/6. Semester SoSe 21/Advanced Experiment Design in Unity/Unity-Minigolf/Unity_Minigolf
-C:/Users/meike/Desktop/Studium Osnabrueck/6. Semester SoSe 21/Advanced Experiment Design in Unity/Unity-Minigolf/Unity_Minigolf
+56299
+Successfully changed project path to: C:/Users/Max/Documents/GitHub/Unity-Minigolf/Unity_Minigolf
+C:/Users/Max/Documents/GitHub/Unity-Minigolf/Unity_Minigolf
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 496.66 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 29.05 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.7f1 (dd97f2c94397)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/meike/Desktop/Studium Osnabrueck/6. Semester SoSe 21/Advanced Experiment Design in Unity/Unity-Minigolf/Unity_Minigolf/Assets
+[Subsystems] Discovering subsystems at path C:/Users/Max/Documents/GitHub/Unity-Minigolf/Unity_Minigolf/Assets
 GfxDevice: creating device client; threaded=0
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: Intel(R) HD Graphics 615 (ID=0x591e)
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX TITAN (ID=0x1005)
     Vendor:   
-    VRAM:     4038 MB
-    Driver:   27.20.100.8681
+    VRAM:     6096 MB
+    Driver:   30.0.14.7196
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56668
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56224
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.029098 seconds.
+Registered in 0.003467 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 127.78 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 28.74 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in 14.639 seconds
+- Completed reload, in  1.229 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.034857 seconds.
+Registered in 0.005780 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.67 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.640 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.41 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1392 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 67.1 MB.
+System memory in use after: 67.1 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 1829.
+Total: 4.902600 ms (FindLiveObjects: 1.452900 ms CreateObjectMapping: 0.203800 ms MarkObjects: 3.121800 ms  DeleteObjects: 0.121100 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Code/Player/PlayerBehavior.cs
+  artifactKey: Guid(174dc395e1ec497e8928c839caed9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Code/Player/PlayerBehavior.cs using Guid(174dc395e1ec497e8928c839caed9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '963db17a5a552c2762f7fb22812a8b45') in 0.034294 seconds
+  Import took 0.037090 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000294 seconds.
+  path: Assets/Code/Player
+  artifactKey: Guid(37fbd85e0796af24d891e160f600d729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Code/Player using Guid(37fbd85e0796af24d891e160f600d729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b260a9c6dca623ab1b09264100968b6d') in 0.007575 seconds
+  Import took 0.010775 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006868 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.38 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.117 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.42 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1373 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 65.6 MB.
+System memory in use after: 65.7 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 1831.
+Total: 2.460400 ms (FindLiveObjects: 0.242100 ms CreateObjectMapping: 0.115700 ms MarkObjects: 2.074700 ms  DeleteObjects: 0.026800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 175.460709 seconds.
+  path: Assets/Code/Player/PlayerBehavior.cs
+  artifactKey: Guid(174dc395e1ec497e8928c839caed9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Code/Player/PlayerBehavior.cs using Guid(174dc395e1ec497e8928c839caed9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d5dcd5f0a03b06ae98e63408ff2ed34') in 0.009584 seconds
+  Import took 0.012451 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
