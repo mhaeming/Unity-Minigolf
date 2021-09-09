@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3451041026969890187}
   m_Layer: 0
   m_Name: Gnome-Mesh
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2532683624417579224}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.386, y: 0.2, z: 1.4302526}
+  m_LocalPosition: {x: 1.386, y: 0.5, z: 1.4302526}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 2314290318107130682}

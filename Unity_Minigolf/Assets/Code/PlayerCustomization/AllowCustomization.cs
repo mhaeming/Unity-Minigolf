@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Code;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using ExperimentManager = Code.Experiment.ExperimentManager;
 
 /// <summary>
@@ -12,9 +13,11 @@ public class AllowCustomization : MonoBehaviour
 {
     public GameObject controlUI;
     public GameObject experimentUI;
+    private FullSceneManager _sceneManager;
     
     private void OnEnable()
     {
+        _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         if (ExperimentManager.savedData.isDecision)
         {
             experimentUI.SetActive(true);
@@ -22,6 +25,7 @@ public class AllowCustomization : MonoBehaviour
         else
         {
             controlUI.SetActive(true);
+            _sceneManager.playerChoice = 0;
         }
     }
 
@@ -31,6 +35,7 @@ public class AllowCustomization : MonoBehaviour
     /// </summary>
     public void OnDone()
     {
+        Debug.Log("Player Variety " +_sceneManager.playerChoice + " was chosen.");
         if (ExperimentManager.savedData.isDecision)
         {
             experimentUI.SetActive(false);

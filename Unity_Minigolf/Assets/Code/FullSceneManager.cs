@@ -26,6 +26,7 @@ public class FullSceneManager : MonoBehaviour
     // variables to keep track of current status
     private static sceneEnum _currentScene = sceneEnum.Start;
     private static sceneEnum _nextScene = sceneEnum.Customize;
+    public int playerChoice;
 
     public static float timeCustomize;
 
