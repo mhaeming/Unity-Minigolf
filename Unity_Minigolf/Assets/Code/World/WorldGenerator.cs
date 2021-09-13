@@ -150,7 +150,7 @@ namespace Code.World
         private void PlaceObstacle(GameObject obstacle)
         {
             var lane = (int) (2 * Random.value - 1 + _activeFloorPositionX);
-            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y,
+            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + 0.5f,
                 _activeFloorPositionZ);
             obstacle.SetActive(true);
         }
