@@ -5,3 +5,4 @@ trialNr,isDecision,time,items,interactions,metres,failures,levels,answer1,answer
 3,Yes,3.21985,2,1,118.9102,6,0,3,2,1,
 4,No,2.203112,0,0,116.9818,2,2,-1,-1,-1,
 5,No,0.9710858,0,0,183.4774,2,4,-1,-1,-1,
+6,No,0.8369111,0,0,193.8585,2,7,3,5,4,

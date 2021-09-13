@@ -33,9 +33,8 @@ namespace Code.Experiment
                     savedData.isDecision = true;
                     Debug.Log("You've landed in the experimental group.");
                 }
-                
-                _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
-                _fileAddress.ToString();
+
+                _fileAddress = CSVTools.GetPath();
 
                 //trial number:
                 if (File.Exists(_fileAddress))
@@ -62,9 +61,8 @@ namespace Code.Experiment
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.End)
             {
                 defineCsvHeader();
-                _fileAddress = Application.dataPath + "/Assets/CSVData/data.csv";
-                _fileAddress.ToString();
-            
+                _fileAddress = CSVTools.GetPath();
+
                 // only create the csv line when the data has been collected and saved to savedData Statistics
                 if (savedData.dataCollected)
                 {

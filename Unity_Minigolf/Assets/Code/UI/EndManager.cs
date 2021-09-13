@@ -20,6 +20,8 @@ public class EndManager : MonoBehaviour
     }
     public void EndGame()
     {
-        EditorApplication.isPlaying = false;
+        // Checking if all files have been written would be necessary
+        
+        Application.Quit();
     }
 }

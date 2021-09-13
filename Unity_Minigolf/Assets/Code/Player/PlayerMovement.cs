@@ -49,13 +49,13 @@ namespace Code.Player
         private void Update()
         {
             // Debug for ground
-            // if (OnGround)
-            // {
-            //     Debug.DrawRay(transform.position, Vector3.up * 10, Color.white, 0, false);
-            // } else
-            // {
-            //     Debug.DrawRay(transform.position, Vector3.up * 10, Color.red, 0, false);
-            // }
+            if (OnGround)
+            {
+                Debug.DrawRay(transform.position, Vector3.up * 10, Color.white, 0, false);
+            } else
+            {
+                Debug.DrawRay(transform.position, Vector3.up * 10, Color.red, 0, false);
+            }
             
             // Move left
             if (Input.GetKeyDown(moveLeft) & Lane != -1)
@@ -93,6 +93,9 @@ namespace Code.Player
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Floor")) OnGround = true;
+            
+            // Special case if the player gets stuck in a pit during the training scene
+            // if (other.gameObject.CompareTag("Pit") & SceneManager.GetActiveScene().name == "TrainingScene") OnGround = true;
         }
 
         private void OnNextLevel()
