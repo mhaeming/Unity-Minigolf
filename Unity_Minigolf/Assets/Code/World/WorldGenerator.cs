@@ -142,14 +142,11 @@ namespace Code.World
 
             // height variation still feels a little jaggy
             // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
-
-            // Not sure x variation should be realized yet
-            // _activeFloorPositionX;
         }
 
         private void PlaceObstacle(GameObject obstacle)
         {
-            var lane = (int) (2 * Random.value - 1 + _activeFloorPositionX);
+            int lane = Random.Range(-1, 2);
             obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y,
                 _activeFloorPositionZ);
             obstacle.SetActive(true);
