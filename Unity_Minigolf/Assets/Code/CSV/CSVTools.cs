@@ -10,6 +10,8 @@ namespace Code.CSV
         
         public static void CreateEmptyCsv(List<string> csvHeader, string fileAddress, char separator = ',')
         {
+            
+            
             // initialize the variables as being empty
             List<string> csvLines = new List<string>();
             string finalHeaders = "";
@@ -20,6 +22,11 @@ namespace Code.CSV
                 finalHeaders += header + separator;
             }
             csvLines.Add(finalHeaders);
+
+            // Create an empty file
+            String path = Path.Combine(Application.dataPath, "ExperimentData");
+            Directory.CreateDirectory(path);
+            
             // writing the csvLines to the csvFile:
             SaveCsv(csvLines, fileAddress);
         }
@@ -85,6 +92,7 @@ namespace Code.CSV
                         // csvWriter prints individual line into document, then place full file at fileAddress
                         csvWriter.WriteLine(lineInCsv);
                     }
+                    csvWriter.Flush();
                     csvWriter.Close();
                 }
             }
@@ -94,6 +102,15 @@ namespace Code.CSV
                 throw;
             }
             return true;
+        }
+
+        public static string GetPath()
+        {
+            if (Application.isEditor) return Application.dataPath + "/Assets/CSVData/data.csv";
+            else
+            {
+                return Path.Combine(Application.dataPath, "ExperimentData", "data.csv");
+            }
         }
     }
 }
