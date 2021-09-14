@@ -32,6 +32,8 @@ namespace Code.World
         private float _activeFloorPositionX;
         private float _activeFloorPositionY;
         private float _activeFloorPositionZ;
+        
+        [HideInInspector] public float _obstacleSize;
 
         public float ObstacleFreq { get; set; }
 
@@ -147,7 +149,7 @@ namespace Code.World
         private void PlaceObstacle(GameObject obstacle)
         {
             int lane = Random.Range(-1, 2);
-            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y,
+            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + _obstacleSize,
                 _activeFloorPositionZ);
             obstacle.SetActive(true);
         }
