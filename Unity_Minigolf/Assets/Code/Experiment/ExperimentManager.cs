@@ -12,6 +12,7 @@ namespace Code.Experiment
     {
         private int _prob;
         private string _fileAddress;
+        [Tooltip(" If true/ checked forces the experimental condition and allows easier debugging of the different Players")] public bool forceExperiment = false;
     
         public static Statistics savedData = new Statistics();
     
@@ -20,18 +21,26 @@ namespace Code.Experiment
             // handle which of the two groups the trial belongs to
             if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Start)
             {
-                // randomly choose one of the two groups (experimental or control)
-                _prob = Random.Range(0, 2);
-
-                if (_prob == 0)
+                // force experimental condition
+                if (forceExperiment)
                 {
-                    savedData.isDecision = false;
-                    Debug.Log("You've landed in the control group.");
+                    savedData.isDecision = true;
                 }
                 else
                 {
-                    savedData.isDecision = true;
-                    Debug.Log("You've landed in the experimental group.");
+                    // randomly choose one of the two groups (experimental or control)
+                    _prob = Random.Range(0, 2);
+
+                    if (_prob == 0)
+                    {
+                        savedData.isDecision = false;
+                        Debug.Log("You've landed in the control group.");
+                    }
+                    else
+                    {
+                        savedData.isDecision = true;
+                        Debug.Log("You've landed in the experimental group.");
+                    }
                 }
 
                 _fileAddress = CSVTools.GetPath();
