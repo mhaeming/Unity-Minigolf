@@ -11,11 +11,11 @@ public class ExchangeObstacles : MonoBehaviour
     private ObjectPoolItem _obstacles;
     public GameObject[] obstacles;
 
-    private float[] _obstacleSizes = new float[] {4f * 0.12f, 42f * 0.013f, 50f*0.018f, 4.3f*0.07f, 0.015f*20f, 1.74f*0.5f };
+    private float[] _obstacleSizes = new float[6];
 
     private void OnEnable()
     {
-        //CalculateObstacleSize();
+        CalculateObstacleSize();
         _fullSceneManager = GameObject.FindWithTag("SceneChange").GetComponent<FullSceneManager>();
         _objectPool = gameObject.GetComponent<ObjectPool>();
         _obstacles = _objectPool.itemPool[2];
@@ -24,8 +24,7 @@ public class ExchangeObstacles : MonoBehaviour
 
     }
     /// <summary>
-    /// dynamically calculates Obstacles' Heights by multiplying y-scale with Box Colliders y size
-    /// TODO: figure out why it does not fit for all obstacles equally well?
+    /// dynamically calculates Obstacles' Heights by multiplying y-scale with Box Collider's y-size
     /// </summary>
     private void CalculateObstacleSize()
     {

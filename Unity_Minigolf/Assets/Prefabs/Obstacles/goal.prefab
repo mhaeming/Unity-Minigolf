@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3228433825902922753}
   - component: {fileID: 2848073598948398778}
   - component: {fileID: -7592054420516061766}
+  - component: {fileID: 5486363807950232617}
   m_Layer: 0
   m_Name: goal
   m_TagString: Obstacle
@@ -45,8 +46,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.097147, y: 3.8832402, z: 5.8533297}
-  m_Center: {x: 1.7876092, y: 2.1019168, z: 0.03614068}
+  m_Size: {x: 4.097147, y: 2.2, z: 5.8533297}
+  m_Center: {x: 1.7876092, y: 1.8817152, z: 0.03614068}
 --- !u!23 &-7592054420516061766
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -88,6 +89,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5486363807950232617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848073598948398779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a055dcaf51db2624faa979b731543b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6534291657039079384
 GameObject:
   m_ObjectHideFlags: 0

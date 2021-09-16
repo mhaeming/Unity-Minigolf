@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7769820266142984581}
   - component: {fileID: 5491863855368084815}
   - component: {fileID: 7709587057437396059}
+  - component: {fileID: -8588176616092375323}
   m_Layer: 0
   m_Name: Basketball Hoop
   m_TagString: Obstacle
@@ -93,5 +94,17 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3834604, y: 1.601798, z: 2.0876627}
-  m_Center: {x: 4.9617046e-17, y: 0.015787452, z: -0.029533148}
+  m_Size: {x: 1.3834604, y: 1.5929434, z: 1.9405234}
+  m_Center: {x: 1.0275588e-16, y: 0.047917604, z: -0.020251632}
+--- !u!114 &-8588176616092375323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284766014935284890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a055dcaf51db2624faa979b731543b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3504952544635328914}
   - component: {fileID: 1675585958038728024}
   - component: {fileID: 882737400674536594}
+  - component: {fileID: 4529074586631860637}
   m_Layer: 0
   m_Name: Volley Ball Net
   m_TagString: Obstacle
@@ -93,5 +94,17 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10198038, y: 0.01537215, z: 0.044485267}
-  m_Center: {x: 0.0009848177, y: -0.0050363448, z: 0.022258341}
+  m_Size: {x: 0.10198038, y: 0.01537215, z: 0.04378751}
+  m_Center: {x: 0.0009848177, y: -0.0050363448, z: 0.021909464}
+--- !u!114 &4529074586631860637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882737400674536589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a055dcaf51db2624faa979b731543b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
