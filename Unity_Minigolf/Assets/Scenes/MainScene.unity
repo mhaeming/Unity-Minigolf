@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.3892399, g: 0.77770275, b: 1.7340493, a: 1}
+  m_IndirectSpecularColor: {r: 0.38924062, g: 0.7777032, b: 1.7340493, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 133819827}
   - component: {fileID: 133819826}
   - component: {fileID: 133819825}
+  - component: {fileID: 133819830}
   m_Layer: 0
   m_Name: WorldManager
   m_TagString: Untagged
@@ -191,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   keepFloorElements: 3
+  _obstacleSize: 0
 --- !u!114 &133819828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +220,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133819830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133819824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df124731cda3f9489769379b3cb9861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacles:
+  - {fileID: 2532683624417579224, guid: cdad02d4dbe15904e9a468b77241d67f, type: 3}
+  - {fileID: 682932952563762278, guid: 73779d9a0bd37b94ca560302cc084d19, type: 3}
+  - {fileID: 3577382512177597261, guid: 9ad561e6f05068c409cb3b8570b212fd, type: 3}
+  - {fileID: 2848073598948398779, guid: c6e91ffda273cec48a58a362c1bcc794, type: 3}
+  - {fileID: 882737400674536589, guid: d8eb5b13d5a1bde4ca635c52b2e56c4d, type: 3}
+  - {fileID: 6284766014935284890, guid: b10ae931848ec0e4e9aab797bebb3978, type: 3}
 --- !u!1 &343630890
 GameObject:
   m_ObjectHideFlags: 0

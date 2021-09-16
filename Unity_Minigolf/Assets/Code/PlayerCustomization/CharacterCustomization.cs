@@ -21,6 +21,7 @@ public class CharacterCustomization : MonoBehaviour
     private int _varietyIndex = 0;
   
     private GameObject _player;
+    private FullSceneManager _sceneManager;
     
     public bool confirmed;
     
@@ -32,6 +33,7 @@ public class CharacterCustomization : MonoBehaviour
     {
         // Find currently active Player and Shell
         _shell = GameObject.FindWithTag("Shell");
+        _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         if (_shell == null)
         {
             Debug.Log("I am a naked slug! :(");
@@ -135,6 +137,7 @@ public class CharacterCustomization : MonoBehaviour
         // avoids unnecessary GameObject being carried through Scenes
         if (!confirmed)
         {
+            _sceneManager.playerChoice = _varietyIndex;
             confirmed = true;
             Debug.Log("Don't you forget about me");
             foreach (var potentialPlayer in players)
