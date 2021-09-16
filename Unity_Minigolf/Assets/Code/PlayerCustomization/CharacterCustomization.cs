@@ -21,13 +21,19 @@ public class CharacterCustomization : MonoBehaviour
     private int _varietyIndex = 0;
   
     private GameObject _player;
+    private FullSceneManager _sceneManager;
     
     public bool confirmed;
+    
+    // for data collection:
+    public static int items = 1;
+    public static int interactions;
 
     private void OnEnable()
     {
         // Find currently active Player and Shell
         _shell = GameObject.FindWithTag("Shell");
+        _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
         if (_shell == null)
         {
             Debug.Log("I am a naked slug! :(");
@@ -73,7 +79,7 @@ public class CharacterCustomization : MonoBehaviour
     /// <summary>
     /// Change the PLayer's shape by setting its scale to be according to predefined values
     /// </summary>
-    public void ChangeShape()
+    /*public void ChangeShape()
     { 
         _player = GameObject.FindWithTag("Player");
         _playerTransform = _player.GetComponent<Transform>();
@@ -97,7 +103,7 @@ public class CharacterCustomization : MonoBehaviour
                 _shapeIndex = 0;
                 break;
         }
-    }
+    }*/
 
     /// <summary>
     /// Enable Child switches between different Child Objects of the Player Variety Game Object
@@ -106,6 +112,14 @@ public class CharacterCustomization : MonoBehaviour
     public void EnableChild()
     {
         players[_varietyIndex].SetActive(false);
+        
+        // for data collection:
+        interactions += 1;
+        if (items < players.Length)
+        {
+            items += 1;
+        }
+        
         if (_varietyIndex == players.Length-1)
         {
             _varietyIndex = 0;
@@ -123,6 +137,7 @@ public class CharacterCustomization : MonoBehaviour
         // avoids unnecessary GameObject being carried through Scenes
         if (!confirmed)
         {
+            _sceneManager.playerChoice = _varietyIndex;
             confirmed = true;
             Debug.Log("Don't you forget about me");
             foreach (var potentialPlayer in players)

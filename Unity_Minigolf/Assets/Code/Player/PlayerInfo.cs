@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Code.Player
 {
+    [RequireComponent(typeof(PlayerMovement))]
     public class PlayerInfo : MonoBehaviour
     {
 
@@ -15,31 +16,22 @@ namespace Code.Player
         private Vector3 _startPosition;
         
         
-        public int AvoidedObstacles { get; private set; }
-        public int AvoidedPits { get; private set; }
-        public int HitObstacles { get; private set; }
-        public int HitPits { get; private set; }
-        public float DistanceTraveled { get; private set; }
+        public static int AvoidedObstacles { get; set; }
+        public static int AvoidedPits { get; set; }
+        public static int HitObstacles { get; private set; }
+        public static int HitPits { get; private set; }
+        public static float DistanceTraveled { get; private set; }
         public float DistanceToNextObstacle { get; private set; }
         public float DistanceToNextPit { get; private set; }
         public float DistanceToNextObject { get; private set; }
 
-        private void Awake()
-        {
-            // Destroy any other existing Player Info
-            // if (info != null && info != this){
-            //
-            //     Destroy(gameObject);
-            // }
-            // else{
-            //     DontDestroyOnLoad(gameObject);
-            //     info = this;
-            // }
-        }
 
+        private PlayerMovement _playerMovement;
+        
         private void Start()
         {
             _startPosition = transform.position;
+            _playerMovement = GetComponent<PlayerMovement>();
         }
 
         
@@ -135,21 +127,19 @@ namespace Code.Player
                 AvoidedPits++;
             }
         }
-        
 
-        // returns in which lane the player is at that moment (left=1, middle=2, right=3)
+        /// <summary>
+        /// Returns the current lane the player is in or moving towards
+        /// </summary>
+        /// <returns></returns>
         public int GetLane()
         {
-            if (transform.position.x > 0.5f )
-            {
-                return 3;
-            }
-            if (transform.position.x < -0.5f)
-            {
-                return 1;
-            }
+            return _playerMovement.Lane;
+        }
 
-            return 2;
+        public int GetLevel()
+        {
+            return PlayerBehavior.currentLevel;
         }
     }
 }

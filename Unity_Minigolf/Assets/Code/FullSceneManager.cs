@@ -1,40 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Experiment;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// A class to hanfle changing the Scenes in the intended order
+/// A class to handle changing the Scenes in the intended order
 /// </summary>
 public class FullSceneManager : MonoBehaviour
 {
     // Enum representing all playable Scenes
     public enum sceneEnum
     {
-        Customize,
         Start,
+        Customize,
         Tutorial,
         Play,
+        Feedback,
         End,
     }
 
     // variables to keep track of current status
-    private sceneEnum _currentScene = sceneEnum.Customize;
-    private sceneEnum _nextScene = sceneEnum.Start;
-    
-    public bool skipTutorial = false;
+    private static sceneEnum _currentScene = sceneEnum.Start;
+    private static sceneEnum _nextScene = sceneEnum.Customize;
+    public int playerChoice;
+
+    public static float timeCustomize;
+
+    public static bool skipTutorial = false;
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
+    public static bool keySceneChange = true;
 
     //private GameObject _player;
 
-    public event Action OnSceneChange;
+    public static event Action OnSceneChange;
 
    // dynamically return the current and corresponding next Scene
-    public sceneEnum CurrentScene
+    public static sceneEnum CurrentScene
     {
         get => _currentScene;
         set
@@ -42,10 +48,11 @@ public class FullSceneManager : MonoBehaviour
             _currentScene = value;
             switch (_currentScene)
             {
-                case sceneEnum.Customize:
-                    _nextScene = sceneEnum.Start;
-                    break;
                 case sceneEnum.Start:
+                    _nextScene = sceneEnum.Customize;
+                    break;
+                case sceneEnum.Customize:
+                    keySceneChange = false;
                     if (!skipTutorial) _nextScene = sceneEnum.Tutorial;
                     else
                     {
@@ -53,29 +60,47 @@ public class FullSceneManager : MonoBehaviour
                     }
                     break;
                 case sceneEnum.Tutorial:
+                    //allow skipping tutorial before its officially finished
+                    keySceneChange = true;
                     _nextScene = sceneEnum.Play;
                     break;
                 case sceneEnum.Play:
+                    //Play Mode should only end if Time is run out
+                    keySceneChange = false;
+                    _nextScene = sceneEnum.Feedback;
+                    break;
+                case sceneEnum.Feedback:
+                    keySceneChange = true;
                     _nextScene = sceneEnum.End;
                     break;
                 case sceneEnum.End:
-                    // no further Scene Changes possible if already in Timeout
-                    OnSceneChange -= ChangeScene;
+                    // if the user chooses to, UI interaction should allow them to play another round
+                    keySceneChange = false;
+                    _nextScene = sceneEnum.Play;
                     break;
             }
         }
     }
 
-    private void ChangeScene()
+    public void ChangeScene()
     {
-        
+        // log the time spend in character editor:
+        if (CurrentScene == sceneEnum.Customize)
+        {
+            timeCustomize = Time.timeSinceLevelLoad;
+        }
+
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
         Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);
+        // As same Player is taken through all Scenes, reset the Player to ensure starting each Scene at the correct position
+        if (CurrentScene != sceneEnum.Start)
+        {
+            GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
+        }
         CurrentScene = _nextScene;
         Debug.Log(CurrentScene);
-        // As same Player is taken through all Scenes, reset the Player to ensure starting each Scene at the correct position
-        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
+        Debug.Log(_nextScene);
 
     }
 
@@ -93,7 +118,7 @@ public class FullSceneManager : MonoBehaviour
             sceneManager = this;
         }
     }
-    
+
     // Subscribe and Unsubscribe from the Scene Change Event
     public void OnEnable()
     {
@@ -104,12 +129,12 @@ public class FullSceneManager : MonoBehaviour
     public void Update()
     {
         // if the chosen SceneChangeKey is pressed within any Scene, the Scene Change is initiated
-        if (Input.GetKeyDown(changeSceneKey))
+        if (Input.GetKeyDown(changeSceneKey) && keySceneChange)
         {
             OnSceneChange?.Invoke();
         }
     }
-    
+
     public void OnDisable()
     {
         OnSceneChange -= ChangeScene;

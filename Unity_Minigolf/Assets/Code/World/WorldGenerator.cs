@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -31,6 +32,8 @@ namespace Code.World
         private float _activeFloorPositionX;
         private float _activeFloorPositionY;
         private float _activeFloorPositionZ;
+        
+        [HideInInspector] public float _obstacleSize;
 
         public float ObstacleFreq { get; set; }
 
@@ -66,6 +69,9 @@ namespace Code.World
         {
             player = GameObject.FindWithTag("Player");
             player.transform.position = new Vector3(0,2,0);
+            // ensure that player is moveable in Main Scene
+            player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponent<Rigidbody>().useGravity = true;
         }
 
         public void OnDisable()
@@ -93,7 +99,7 @@ namespace Code.World
         {
             if (!WorldActive) return;
             
-            if (Random.value < PitFreq)
+            if (Random.value < PitFreq & NoPitBefore())
             {
                 var pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
                 if (!pit) return;
@@ -138,15 +144,12 @@ namespace Code.World
 
             // height variation still feels a little jaggy
             // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
-
-            // Not sure x variation should be realized yet
-            // _activeFloorPositionX;
         }
 
         private void PlaceObstacle(GameObject obstacle)
         {
-            var lane = (int) (2 * Random.value - 1 + _activeFloorPositionX);
-            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + obstacle.transform.lossyScale.y,
+            int lane = Random.Range(-1, 2);
+            obstacle.transform.position = new Vector3(lane, _activeFloorPositionY + _obstacleSize,
                 _activeFloorPositionZ);
             obstacle.SetActive(true);
         }
@@ -191,6 +194,19 @@ namespace Code.World
                 obj.SetActive(false);
             }
             ActivePits.Clear();
+        }
+
+        /// <summary>
+        /// Check whether a pit exist before the current object to generate
+        /// </summary>
+        /// <returns></returns>
+        private bool NoPitBefore()
+        {
+            if (ActivePits.Count > 0)
+            {
+                return !(ActivePits.Last().transform.position.z.Equals(_activeFloorPositionZ - 1));
+            }
+            return true;
         }
     }
 }

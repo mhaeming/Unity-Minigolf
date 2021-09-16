@@ -1,2 +1,2 @@
 # Unity-Minigolf
- A endless runner game featuring a golfball and an experiment design framework.
+ An endless runner game featuring a golfball and an experiment design framework.
