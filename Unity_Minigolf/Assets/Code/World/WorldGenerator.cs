@@ -29,9 +29,9 @@ namespace Code.World
         // How many blocks should be kept behind the Player
         public int keepFloorElements = 2;
 
-        private float _activeFloorPositionX;
-        private float _activeFloorPositionY;
-        private float _activeFloorPositionZ;
+        private static float _activeFloorPositionX;
+        private static float _activeFloorPositionY;
+        private static float _activeFloorPositionZ;
         
         [HideInInspector] public float _obstacleSize;
 
@@ -99,10 +99,12 @@ namespace Code.World
         {
             if (!WorldActive) return;
             
-            if (Random.value < PitFreq & NoPitBefore())
+            if (Random.value < PitFreq & !PitNear(2))
             {
                 var pit = ObjectPool.sharedInstance.GetPooledObject("Pit");
                 if (!pit) return;
+                // adjust the future position based on prefab scale
+                _activeFloorPositionZ += pit.transform.lossyScale.z;
                 PlaceBlock(pit);
                 ActivePits.Add(pit);
 
@@ -114,6 +116,7 @@ namespace Code.World
                 // Retrieve floor objects from pool
                 var floor = ObjectPool.sharedInstance.GetRandomPoolObject("Floor");
                 if (!floor) return;
+                _activeFloorPositionZ += floor.transform.lossyScale.z;
                 PlaceBlock(floor);
                 ActiveFloors.Add(floor);
 
@@ -138,10 +141,7 @@ namespace Code.World
             // Place objects in front of the Player
             block.transform.position = new Vector3(_activeFloorPositionX, _activeFloorPositionY, _activeFloorPositionZ);
             block.SetActive(true);
-
-            // adjust the future position based on prefab scale
-            _activeFloorPositionZ += block.transform.lossyScale.z;
-
+            
             // height variation still feels a little jaggy
             // _activeFloorPositionY += 0.05f * Random.insideUnitCircle.x;
         }
@@ -197,16 +197,19 @@ namespace Code.World
         }
 
         /// <summary>
-        /// Check whether a pit exist before the current object to generate
+        /// Checks whether another pit is close.
+        /// This allows indirect control about how close pits can be placed in the world.
         /// </summary>
+        /// <param name="threshold"> Distance in which to check for other pits</param>
         /// <returns></returns>
-        private bool NoPitBefore()
+        private bool PitNear(float threshold)
         {
             if (ActivePits.Count > 0)
             {
-                return !(ActivePits.Last().transform.position.z.Equals(_activeFloorPositionZ - 1));
+                return Mathf.Abs(ActivePits.Last().transform.position.z - _activeFloorPositionZ) < threshold;
             }
-            return true;
+
+            return false;
         }
     }
 }
