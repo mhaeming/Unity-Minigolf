@@ -100,7 +100,7 @@ namespace Code.Player
 
         private void OnNextLevel()
         {
-            speed += 0.1f;
+            speed += 0.4f;
         }
     }
 }
