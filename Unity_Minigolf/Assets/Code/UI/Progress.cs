@@ -9,17 +9,11 @@ public class Progress : MonoBehaviour
 {
     private float _metresSoFar;
     public Text metresText;
-
-    private void Start()
-    {
-        //
-    }
-
+    
     void Update()
     {
         _metresSoFar = PlayerInfo.DistanceTraveled;
         DisplayMetres(_metresSoFar);
-        
     }
     
     void DisplayMetres(float metresToDisplay)

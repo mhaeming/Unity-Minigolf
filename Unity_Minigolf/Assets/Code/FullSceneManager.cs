@@ -34,6 +34,7 @@ public class FullSceneManager : MonoBehaviour
     public KeyCode changeSceneKey;
     public static FullSceneManager sceneManager;
     public static bool keySceneChange = true;
+    public static bool secondRound = false;
 
     //private GameObject _player;
 
@@ -66,8 +67,17 @@ public class FullSceneManager : MonoBehaviour
                     break;
                 case sceneEnum.Play:
                     //Play Mode should only end if Time is run out
-                    keySceneChange = false;
-                    _nextScene = sceneEnum.Feedback;
+                    keySceneChange = false; 
+                    // only go to Feedback scene in first round:
+                    if (!secondRound)
+                    {
+                        _nextScene = sceneEnum.Feedback;
+                        secondRound = true;
+                    }
+                    else
+                    {
+                        _nextScene = sceneEnum.End;
+                    }
                     break;
                 case sceneEnum.Feedback:
                     keySceneChange = true;
@@ -91,7 +101,7 @@ public class FullSceneManager : MonoBehaviour
         }
 
         // Loads next Scene according to Build index, which needs to stay consistent with Enum int
-        Debug.Log("Load next scene" + _nextScene + (int)_nextScene);
+        Debug.Log("Load next scene " + _nextScene + (int)_nextScene);
         SceneManager.LoadScene((int) _nextScene);
         // As same Player is taken through all Scenes, reset the Player to ensure starting each Scene at the correct position
         if (CurrentScene != sceneEnum.Start)
@@ -99,8 +109,8 @@ public class FullSceneManager : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0,2,0);
         }
         CurrentScene = _nextScene;
-        Debug.Log(CurrentScene);
-        Debug.Log(_nextScene);
+        Debug.Log("Current scene: " + CurrentScene);
+        Debug.Log("Next scene: " + _nextScene);
 
     }
 

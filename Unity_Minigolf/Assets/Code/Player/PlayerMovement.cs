@@ -29,11 +29,15 @@ namespace Code.Player
         private void OnEnable()
         {
             PlayerBehavior.NextLevel += OnNextLevel;
+            PlayerBehavior.Freeze += OnFreeze;
+            PlayerBehavior.UnFreeze += OnUnFreeze;
         }
 
         private void OnDisable()
         {
             PlayerBehavior.NextLevel -= OnNextLevel;
+            PlayerBehavior.Freeze -= OnFreeze;
+            PlayerBehavior.UnFreeze -= OnUnFreeze;
         }
 
 
@@ -101,6 +105,16 @@ namespace Code.Player
         private void OnNextLevel()
         {
             speed += 0.4f;
+        }
+
+        private void OnFreeze()
+        {
+            _rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+        }
+
+        private void OnUnFreeze()
+        {
+            _rigidbody.constraints = RigidbodyConstraints.None;
         }
     }
 }
