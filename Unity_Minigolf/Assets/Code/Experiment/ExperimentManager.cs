@@ -53,7 +53,9 @@ namespace Code.Experiment
                     var fileContents = source.ReadToEnd();
                     source.Close();
                     var lines = fileContents.Split("\n"[0]);
-                    savedData.trialNr = (int) Char.GetNumericValue(lines[lines.Length - 2][0]);
+                    var entries = lines[lines.Length - 2].Split(',');
+                    string firstEntry = entries[0];
+                    savedData.trialNr = Convert.ToInt32(firstEntry);
                     savedData.trialNr += 1;
                 }
                 else

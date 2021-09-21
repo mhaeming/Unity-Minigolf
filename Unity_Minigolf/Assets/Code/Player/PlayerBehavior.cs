@@ -14,6 +14,8 @@ namespace Code.Player
         public static event PlayerEvent HitObstacle;
         public static event PlayerEvent HitPit;
         public static event PlayerEvent NextLevel;
+        public static event PlayerEvent Freeze;
+        public static event PlayerEvent UnFreeze;
 
         public static int LevelThreshold { get; set; }
         public static int currentLevel;
@@ -57,6 +59,7 @@ namespace Code.Player
             {
                 LevelThreshold += 3;
                 currentLevel += 1;
+                // keep track of maximum level reached for experimental data csv
                 if (currentLevel > maxLevel)
                 {
                     maxLevel = currentLevel;
@@ -66,6 +69,16 @@ namespace Code.Player
                 // Call the NextLevel event to inform world events and player info
                 if (NextLevel != null) NextLevel();
             }
+        }
+
+        public static void PlayerFreeze()
+        {
+            if (Freeze != null) Freeze();
+        }
+
+        public static void PlayerUnFreeze()
+        {
+            if (UnFreeze != null) UnFreeze();
         }
         
     }
