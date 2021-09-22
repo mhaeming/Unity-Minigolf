@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1223553059}
-  m_IndirectSpecularColor: {r: 0.3892399, g: 0.77770275, b: 1.7340493, a: 1}
+  m_IndirectSpecularColor: {r: 0.38924062, g: 0.7777032, b: 1.7340493, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1282,7 +1282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &469026865
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1336,7 +1336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Avoid the red obstacles!
+  m_Text: Avoid any obstacles that are blocking your way!
 --- !u!222 &469026867
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3275,6 +3275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4932e88e6e17214fa403afc447ee1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceExperiment: 0
 --- !u!114 &1361853490
 MonoBehaviour:
   m_ObjectHideFlags: 0
