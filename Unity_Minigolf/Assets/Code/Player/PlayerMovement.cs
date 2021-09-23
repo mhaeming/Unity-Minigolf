@@ -23,6 +23,7 @@ namespace Code.Player
         public bool OnGround { get; private set; }
         
         private Rigidbody _rigidbody;
+        private Transform _transform;
         private Vector3 _pos;
         private float _movementFactor;
 
@@ -45,6 +46,7 @@ namespace Code.Player
         public void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _transform = GetComponent<Transform>();
             Lane = 0;
             _movementFactor = 1;
         }
@@ -109,12 +111,16 @@ namespace Code.Player
 
         private void OnFreeze()
         {
-            _rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+            _transform.position = new Vector3(0,2,0);
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            Debug.Log("Freeze! Hands behind your head SIR.");
         }
 
         private void OnUnFreeze()
         {
+            _transform.position = new Vector3(0,3,0);
             _rigidbody.constraints = RigidbodyConstraints.None;
+            Debug.Log("Sir, please keep on moving, you are holding up the line.");
         }
     }
 }

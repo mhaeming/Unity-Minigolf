@@ -4365,7 +4365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Avoid the red obstacles!
+  m_Text: Avoid any obstacles on your lane blocking the way!
 --- !u!222 &2060722371
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Code.Experiment;
+using Code.Player;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,11 +82,13 @@ public class FullSceneManager : MonoBehaviour
                     break;
                 case sceneEnum.Feedback:
                     keySceneChange = true;
+                    PlayerBehavior.PlayerFreeze();
                     _nextScene = sceneEnum.End;
                     break;
                 case sceneEnum.End:
                     // if the user chooses to, UI interaction should allow them to play another round
                     keySceneChange = false;
+                    PlayerBehavior.PlayerFreeze();
                     _nextScene = sceneEnum.Play;
                     break;
             }
