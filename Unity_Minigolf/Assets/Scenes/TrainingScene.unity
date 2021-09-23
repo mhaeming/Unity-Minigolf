@@ -1336,7 +1336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Avoid any obstacles on your lane that are blocking the way!
+  m_Text: Avoid any obstacles on your lane blocking the way!
 --- !u!222 &469026867
 CanvasRenderer:
   m_ObjectHideFlags: 0
