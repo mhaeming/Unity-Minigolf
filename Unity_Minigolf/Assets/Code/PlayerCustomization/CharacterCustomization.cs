@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class CharacterCustomization : MonoBehaviour
 {
-    // set different Variables representing aspect that can then be customized
-    private int _colorIndex = 0;
-    private Renderer _playerCol;
-    private int _shapeIndex = 0;
-    private Transform _playerTransform;
-    private Vector3 _startScale;
-    
+    // DEPRECATED: set different Variables representing aspect that can then be customized
+    // private int _colorIndex = 0;
+    // private Renderer _playerCol;
+    // private int _shapeIndex = 0;
+    // private Transform _playerTransform;
+    // private Vector3 _startScale
     // Array of potential Player Colours
-    //[SerializeField] public Color[] charColor;
-    // Array of predefined Player Variants, stored as Children of Shell
+    // [SerializeField] public Color[] charColor;
+    
+    
+    // Array of predefined Player Variants, stored as Children of Shell Game Object
     [SerializeField] public GameObject[] players;
     private int _numberPlayers;
     private GameObject _shell;
@@ -26,14 +27,17 @@ public class CharacterCustomization : MonoBehaviour
     public bool confirmed;
     
     // for data collection:
+    // record how many PLayer variants are observed and how often they are switched between
     public static int items = 1;
     public static int interactions;
 
     private void OnEnable()
     {
-        // Find currently active Player and Shell
+        // Find Shell and initially active Player Variant
         _shell = GameObject.FindWithTag("Shell");
         _sceneManager = GameObject.FindGameObjectWithTag("SceneChange").GetComponent<FullSceneManager>();
+        
+        // Log if crucial Game Objects are missing
         if (_shell == null)
         {
             Debug.Log("I am a naked slug! :(");
@@ -42,19 +46,20 @@ public class CharacterCustomization : MonoBehaviour
         if (_player == null){
             Debug.Log("I have no master");
         }
-
+        
         _numberPlayers = players.Length - 1;
-        // add initial Color and Shape as options
+        confirmed = false;
+        DontDestroyOnLoad(_shell);
+        
+        // DEPRECATED: add initial Color and Shape as options
         //_playerCol = _player.GetComponent<Renderer>();
         //charColor[charColor.Length-1] = _playerCol.material.color;
         //_playerTransform = _player.GetComponent<Transform>();
         //_startScale = _playerTransform.localScale;
         
-        confirmed = false;
-        
-        DontDestroyOnLoad(_shell);
+       
     }
-
+    //DEPRECATEDd
     /// <summary>
     /// hitting the ColorChanging Button selects the next element of the Array of potential Colors
     /// </summary>
@@ -75,7 +80,6 @@ public class CharacterCustomization : MonoBehaviour
         }
         _playerCol.material.color = charColor[_colorIndex];
     }*/
-
     /// <summary>
     /// Change the PLayer's shape by setting its scale to be according to predefined values
     /// </summary>
@@ -106,8 +110,8 @@ public class CharacterCustomization : MonoBehaviour
     }*/
 
     /// <summary>
-    /// Enable Child switches between different Child Objects of the Player Variety Game Object
-    /// This allows choosing a pre-designed PLayer variant out of an Array
+    /// EnableChild switches between different Child Objects of the Player Variety Game Object
+    /// This allows choosing a pre-designed PLayer variant out of an Array defined in the Editor
     /// </summary>
     public void EnableChild()
     {
@@ -133,13 +137,14 @@ public class CharacterCustomization : MonoBehaviour
 
     public void Confirm()
     {
-        // Confirming the player deletes any other potential Player Scaffolding
-        // avoids unnecessary GameObject being carried through Scenes
+        // Confirming the player deletes any other potential Player Variant
+        // avoids unnecessary GameObjects being carried through Scenes
         if (!confirmed)
         {
             _sceneManager.playerChoice = _varietyIndex;
             confirmed = true;
             Debug.Log("Don't you forget about me");
+            // Delete all Player Variants that are not the chosen one
             foreach (var potentialPlayer in players)
             {
                 if (!potentialPlayer.activeSelf)
@@ -157,7 +162,7 @@ public class CharacterCustomization : MonoBehaviour
 
     private void OnDisable()
     {
-        // if the Confirmation Button was not manually selected, do so on Scene Change nevertheless
+        // if the Confirmation Button was not selected or do so on Scene Change
         Confirm();
     }
 }

@@ -18,10 +18,14 @@ public class EndManager : MonoBehaviour
     {
         _fullSceneManager.ChangeScene();
     }
+
     public void EndGame()
     {
         // Checking if all files have been written would be necessary
-        
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 }

@@ -29,6 +29,7 @@ namespace Code.Player
         private void Start()
         {
             LevelThreshold = 3;
+            Reset();
         }
 
         private void OnCollisionEnter(Collision other)

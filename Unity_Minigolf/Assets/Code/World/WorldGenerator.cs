@@ -68,10 +68,16 @@ namespace Code.World
         public void OnEnable()
         {
             player = GameObject.FindWithTag("Player");
-            player.transform.position = new Vector3(0,2,0);
             // ensure that player is moveable in Main Scene
             player.GetComponent<PlayerMovement>().enabled = true;
             player.GetComponent<Rigidbody>().useGravity = true;
+            //PlayerBehavior.Reset += Start;
+        }
+
+        public void Start()
+        {
+            PlayerBehavior.PlayerUnFreeze();
+            //PlayerBehavior.Reset();
         }
 
         public void OnDisable()
@@ -79,9 +85,12 @@ namespace Code.World
             if (player != null)
             {
                 player.GetComponent<PlayerMovement>().enabled = false;
-                player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+                //player.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
                 player.GetComponent<Rigidbody>().useGravity = false;
                 Debug.Log("You may rest now.");
+                _activeFloorPositionZ = 0;
+                _activeFloorPositionX = 0;
+                _activeFloorPositionY = 0;
             }
         }
 

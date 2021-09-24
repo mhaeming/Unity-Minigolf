@@ -49,15 +49,15 @@ namespace Code.World
                 PlayerBehavior.AdaptiveDifficulty();
             }
 
-            if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback |
-                FullSceneManager.CurrentScene ==  FullSceneManager.sceneEnum.End)
-            {
-                PlayerBehavior.PlayerFreeze();
-            }
-            else if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Play)
-            {
-                PlayerBehavior.PlayerUnFreeze();
-            }
+            // if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Feedback |
+            //     FullSceneManager.CurrentScene ==  FullSceneManager.sceneEnum.End)
+            // {
+            //     PlayerBehavior.PlayerFreeze();
+            // }
+            // else if (FullSceneManager.CurrentScene == FullSceneManager.sceneEnum.Play)
+            // {
+            //     PlayerBehavior.PlayerUnFreeze();
+            // }
         }
         
 
