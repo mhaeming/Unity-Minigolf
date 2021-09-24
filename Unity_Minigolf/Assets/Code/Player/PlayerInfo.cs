@@ -109,6 +109,7 @@ namespace Code.Player
             _obstaclePositions.Clear();
             _pitPositions.Clear();
             PlayerMovement.speed = 3;
+            PlayerBehavior.LevelThreshold = 3;
         }
 
         private void CheckObstaclePassed()
