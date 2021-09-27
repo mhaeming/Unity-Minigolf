@@ -266,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf71d76d5644a33a0c3f0e08c6074b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAudio: {fileID: 0}
   pitSound: {fileID: 8300000, guid: 4ca3ff768521cc14d9ee1aa1644f43b4, type: 3}
   obstacleSound: {fileID: 8300000, guid: 0aa57f9f5d1d5ab41bb4e18cfe327ff8, type: 3}
-  levelUpSound: {fileID: 8300000, guid: c8226010badf8c747ab5baf14f8b3f2d, type: 3}
+  levelUpSound: {fileID: 8300000, guid: 695309dfdf82c534aad74d393cade96b, type: 3}

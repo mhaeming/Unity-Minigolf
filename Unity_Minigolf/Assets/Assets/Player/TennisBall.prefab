@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pitSound: {fileID: 8300000, guid: 4ca3ff768521cc14d9ee1aa1644f43b4, type: 3}
   obstacleSound: {fileID: 8300000, guid: 0aa57f9f5d1d5ab41bb4e18cfe327ff8, type: 3}
-  levelUpSound: {fileID: 8300000, guid: c8226010badf8c747ab5baf14f8b3f2d, type: 3}
+  levelUpSound: {fileID: 8300000, guid: 695309dfdf82c534aad74d393cade96b, type: 3}
 --- !u!1 &7930199872539599279
 GameObject:
   m_ObjectHideFlags: 0
