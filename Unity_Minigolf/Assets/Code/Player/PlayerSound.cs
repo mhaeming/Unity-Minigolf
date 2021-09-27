@@ -41,7 +41,7 @@ namespace Code.Player
 
         private void OnNextLevel()
         {
-            _playerAudio.PlayOneShot(levelUpSound, 0.75f);
+            _playerAudio.PlayOneShot(levelUpSound, 0.2f);
         }
     }
 }
